@@ -32,7 +32,8 @@ public class PathHolder
     {
         return "/games/leave";
     }
-    public static String getCreateGameURL(){
+    public static String getCreateGameURL()
+    {
         return "/games/create";
     }
 
