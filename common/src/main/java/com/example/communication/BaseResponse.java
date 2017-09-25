@@ -5,9 +5,9 @@ package com.example.communication;
  */
 public class BaseResponse
 {
-    Object response;
-    String type;
-    boolean hasError;
-    String errorText;
+    public Object response;
+    public String type;
+    public boolean hasError;
+    public String errorText;
 
 }
