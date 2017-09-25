@@ -5,6 +5,11 @@ package com.example.communication;
  */
 public class BaseRequest
 {
-    String type;
-    Object body;
+    public String type;
+    public Object body;
+    public BaseRequest(){}
+    public BaseRequest(String type, Object body){
+        this.type = type;
+        this.body = body;
+    }
 }

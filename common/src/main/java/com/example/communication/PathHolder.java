@@ -18,7 +18,7 @@ public class PathHolder
         return "/login/register";
     }
     public static String getLogoutURL(){
-        return "/login/logOff";
+        return "/login/logoff";
     }
     public static String getGamesURL()
     {
@@ -32,9 +32,8 @@ public class PathHolder
     {
         return "/games/leave";
     }
-    public static String getCreateGameURL()
-    {
-        return "/games/create";
-    }
+    public static String getCreateGameURL(){ return "/games/create"; }
+    public static String getHost(){ return "localhost";}
+    public static String getPort() {return "30001";}
 
 }
