@@ -5,5 +5,32 @@ package com.example.model.classes.users;
  */
 public class Player
 {
-    public String userName;
+    private String name;
+
+    public Player(String name) {
+        this.name = name;
+    }
+
+    protected String getName() {
+        return name;
+    }
+
+    protected void setName(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public boolean equals (Object object) {
+        if (object == null) {
+            return false;
+        }
+        if (object == this) {
+            return true;
+        }
+        if (this.getClass() != object.getClass()) {
+            return false;
+        }
+        Player newPlayer = (Player) object;
+        return (newPlayer.getName().equals(this.getName()));
+    }
 }
