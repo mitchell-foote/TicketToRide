@@ -26,7 +26,7 @@ public class ServerFacade {
         }
     }
 
-    //Do we need this? Nothing in the server actaully happens if they log out
+    //Do we need this? Nothing in the server actually happens if they log out
     public static boolean logoff(String authToken) throws FailedLoginException {
 
         return false;
