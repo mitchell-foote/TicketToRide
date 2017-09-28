@@ -5,4 +5,11 @@ package com.example.Exceptions;
  */
 public class FailedJoinException extends Exception
 {
+    public FailedJoinException(){
+        super();
+    }
+
+    public FailedJoinException(String message){
+        super(message);
+    }
 }

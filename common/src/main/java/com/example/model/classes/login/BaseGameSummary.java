@@ -55,8 +55,16 @@ public class BaseGameSummary
         this.players = players;
     }
 
+    public boolean isFull() {
+        return (players.size() >= 5 );
+    }
+
+    public boolean isEmpty() {
+        return (players.size() == 0);
+    }
+
     public boolean addPlayer(Player player, SharedColor color) {
-        if (players.containsKey(player)){
+        if (players.containsKey(player) || isFull()){
             return false;
         } else {
             players.put(player, color);

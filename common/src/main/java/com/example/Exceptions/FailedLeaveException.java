@@ -5,4 +5,11 @@ package com.example.Exceptions;
  */
 public class FailedLeaveException extends Exception
 {
+    public FailedLeaveException(){
+        super();
+    }
+
+    public FailedLeaveException(String message){
+        super(message);
+    }
 }

@@ -5,4 +5,11 @@ package com.example.Exceptions;
  */
 public class FailedAuthException extends Exception
 {
+    public FailedAuthException(){
+        super();
+    }
+
+    public FailedAuthException(String message){
+        super(message);
+    }
 }
