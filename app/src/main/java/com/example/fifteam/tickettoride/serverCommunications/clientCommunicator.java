@@ -33,17 +33,17 @@ public class clientCommunicator extends BaseClient
             OutputStream reqBody = http.getOutputStream();
             writeString(json,reqBody);
             reqBody.close();
-            if(http.getResponseCode() == HttpURLConnection.HTTP_OK){
+           // if(http.getResponseCode() == HttpURLConnection.HTTP_OK){
                 InputStream respBody = http.getInputStream();
                 String respData = readString(respBody);
                 response = serializer.fromJson(respData, BaseResponse.class);
-            }
-            else{
+            //}
+/*            else{
                 response.hasError = true;
                 response.type = "HttpReturnedBadCode";
                 response.errorText = "The Http Request returned something other than a 200 OK. ";
                 response.response = new Exception("ERROR: " + http.getResponseCode());
-            }
+            } */
         }
        catch (Exception e){
            e.printStackTrace();
@@ -70,17 +70,17 @@ public class clientCommunicator extends BaseClient
             OutputStream reqBody = http.getOutputStream();
             writeString(json,reqBody);
             reqBody.close();
-            if(http.getResponseCode() == HttpURLConnection.HTTP_OK){
+ //           if(http.getResponseCode() == HttpURLConnection.HTTP_OK){
                 InputStream respBody = http.getInputStream();
                 String respData = readString(respBody);
                 response = serializer.fromJson(respData, BaseResponse.class);
-            }
-            else{
+   //         }
+/*            else{
                 response.hasError = true;
                 response.type = "HttpReturnedBadCode";
                 response.errorText = "The Http Request returned something other than a 200 OK. ";
                 response.response = new Exception("ERROR: " + http.getResponseCode());
-            }
+            } */
         }
         catch (Exception e){
             e.printStackTrace();

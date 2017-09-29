@@ -18,4 +18,6 @@ public interface IServerAccessor
     boolean joinGame(String id, SharedColor color, String authToken) throws Exception;
     boolean leaveGame(String id, String authToken) throws Exception;
     List<BaseGameSummary> getGames(String authToken) throws Exception;
+    String createGame(String gameName, SharedColor color, String authToken) throws Exception;
+
 }
