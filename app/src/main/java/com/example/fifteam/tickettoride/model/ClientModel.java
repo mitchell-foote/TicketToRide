@@ -3,7 +3,9 @@ package com.example.fifteam.tickettoride.model;
 import com.example.model.classes.login.BaseGameSummary;
 import com.example.model.classes.users.User;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Observable;
 
 /**
@@ -25,6 +27,7 @@ public class ClientModel extends Observable{
     private User user;
     private BaseGameSummary currentGame;
     private List<BaseGameSummary> gamesList;
+    private Map<String, BaseGameSummary> gamesMap;
 
     public BaseGameSummary getCurrentGame() {
         return currentGame;
@@ -42,8 +45,16 @@ public class ClientModel extends Observable{
 
     public void setGamesList(List<BaseGameSummary> gamesList) {
         this.gamesList = gamesList;
+        gamesMap = new HashMap<>();
+        for (BaseGameSummary i : gamesList){
+            gamesMap.put(i.getId(),i);
+        }
         setChanged();
         notifyObservers();
+    }
+
+    public BaseGameSummary getGameByID(String id){
+        return gamesMap.get(id);
     }
 
     public User getUser() {
@@ -55,4 +66,6 @@ public class ClientModel extends Observable{
         notifyObservers();
         this.user = user;
     }
+
+
 }
