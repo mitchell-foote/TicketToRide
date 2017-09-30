@@ -5,7 +5,7 @@ package com.example.communication.Requests;
  */
 public class LeaveGameRequest
 {
-    String id;
+    public String id;
     public LeaveGameRequest(String id){
         this.id = id;
     }

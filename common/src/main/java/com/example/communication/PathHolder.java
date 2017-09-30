@@ -24,9 +24,9 @@ public class PathHolder
     {
         return "/games/getlist";
     }
-    public static String getJoinGameURL()
+    public static String getGameCommandURL()
     {
-        return "/games/join";
+        return "/games/command";
     }
     public static String getLeaveGameURL()
     {

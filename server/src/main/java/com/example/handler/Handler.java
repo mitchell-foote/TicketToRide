@@ -2,10 +2,13 @@ package com.example.handler;
 
 
 import com.example.communication.BaseResponse;
+import com.example.communication.commands.CommandResponse;
 import com.google.gson.Gson;
 import com.sun.net.httpserver.HttpExchange;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
@@ -29,6 +32,18 @@ public abstract class Handler {
         catch(IOException er){
             e.printStackTrace();
         }
+    }
+    protected void returnCommandResponse(HttpExchange http, CommandResponse commandResponse, String type) throws IOException
+    {
+        OutputStream resBody = http.getResponseBody();
+        http.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
+        BaseResponse response = new BaseResponse();
+        response.type = type;
+        response.hasError = false;
+        response.response = commandResponse;
+        String strResponse = new Gson().toJson(response);
+        writeString(strResponse,resBody);
+        resBody.close();
     }
 
     /** Sets responses with server errors. Exception e contains the exact error
@@ -78,6 +93,17 @@ public abstract class Handler {
         OutputStreamWriter sw = new OutputStreamWriter(os);
         sw.write(str);
         sw.flush();
+    }
+    protected String readString(InputStream is) throws IOException
+    {
+        StringBuilder sb = new StringBuilder();
+        InputStreamReader sr = new InputStreamReader(is);
+        char[] buf = new char[1024];
+        int len;
+        while ((len = sr.read(buf)) > 0) {
+            sb.append(buf, 0, len);
+        }
+        return sb.toString();
     }
 
 }

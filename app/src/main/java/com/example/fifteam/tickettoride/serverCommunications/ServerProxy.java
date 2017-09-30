@@ -8,6 +8,7 @@ import com.example.communication.BaseRequest;
 import com.example.communication.BaseResponse;
 import com.example.communication.IServerAccessor;
 import com.example.communication.PathHolder;
+import com.example.communication.Requests.CreateGameRequest;
 import com.example.communication.Requests.JoinGameRequest;
 import com.example.communication.Requests.LeaveGameRequest;
 import com.example.model.classes.login.BaseGameSummary;
@@ -98,7 +99,7 @@ public class ServerProxy implements IServerAccessor
     {
         JoinGameRequest reqBody = new JoinGameRequest(id,color);
         try{
-            BaseResponse response = connection.post(PathHolder.getHost(),PathHolder.getPort(), PathHolder.getJoinGameURL(),authToken,new BaseRequest("join", reqBody));
+            BaseResponse response = connection.post(PathHolder.getHost(),PathHolder.getPort(), PathHolder.getGameCommandURL(),authToken,new BaseRequest("join", reqBody));
             ErrorCheckResponse(response);
             return true;
         }
@@ -122,7 +123,8 @@ public class ServerProxy implements IServerAccessor
     {
         LeaveGameRequest reqBody = new LeaveGameRequest(id);
         try{
-            BaseResponse response = connection.post(PathHolder.getHost(),PathHolder.getPort(), PathHolder.getLeaveGameURL(),authToken,new BaseRequest("join", reqBody));
+            BaseRequest request = new BaseRequest("leave", reqBody);
+            BaseResponse response = connection.post(PathHolder.getHost(),PathHolder.getPort(), PathHolder.getGameCommandURL(),authToken,request);
             ErrorCheckResponse(response);
             return true;
         }
@@ -159,6 +161,29 @@ public class ServerProxy implements IServerAccessor
             throw e;
         }
 
+    }
+
+    @Override
+    public String createGame(String gameName, SharedColor color, String authToken) throws Exception
+    {
+        CreateGameRequest reqBody = new CreateGameRequest(gameName,color);
+        try{
+            BaseResponse response = connection.post(PathHolder.getHost(),PathHolder.getPort(), PathHolder.getGameCommandURL(),authToken,new BaseRequest("create", reqBody));
+            ErrorCheckResponse(response);
+            return (String) response.response;
+        }
+        catch(FailedAuthException e){
+            throw e;
+        }
+        catch(FailedJoinException e){
+            throw e;
+        }
+        catch(IOException e){
+            throw e;
+        }
+        catch(Exception e){
+            throw e;
+        }
     }
 
     private void ErrorCheckResponse(BaseResponse response) throws Exception

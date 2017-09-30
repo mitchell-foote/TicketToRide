@@ -4,6 +4,7 @@ import com.example.Exceptions.FailedAuthException;
 import com.example.Exceptions.FailedJoinException;
 import com.example.Exceptions.FailedLeaveException;
 import com.example.Exceptions.FailedLoginException;
+import com.example.communication.IServerAccessor;
 import com.example.model.classes.login.BaseGameSummary;
 import com.example.model.classes.users.User;
 import com.example.model.enums.SharedColor;
@@ -14,11 +15,12 @@ import java.util.List;
  * Created by ninjup on 9/26/17.
  */
 
-public class ServerFacade {
+public class ServerFacade implements IServerAccessor
+{
 
-    private static ServerModel model = ServerModel.instance();
+    private  ServerModel model = ServerModel.instance();
 
-    public static String login(String username, String password) throws FailedLoginException {
+    public  String login(String username, String password) throws FailedLoginException {
         try {
             return model.verifyPassword(username, password);
         } catch (FailedLoginException e) {
@@ -27,12 +29,12 @@ public class ServerFacade {
     }
 
     //Do we need this? Nothing in the server actually happens if they log out
-    public static boolean logoff(String authToken) throws FailedLoginException {
+    public  boolean logoff(String authToken) throws FailedLoginException {
 
         return false;
     }
 
-    public static String register(String username, String password) throws FailedLoginException {
+    public  String register(String username, String password) throws FailedLoginException {
         String authToken = model.addUser(username, password);
         if (authToken != null) {
             return authToken;
@@ -41,7 +43,7 @@ public class ServerFacade {
         }
     }
 
-    public static List<BaseGameSummary> getGames(String authToken) throws FailedAuthException {
+    public  List<BaseGameSummary> getGames(String authToken) throws FailedAuthException {
 
         if (model.findPlayerFromToken(authToken) != null) {
             return model.getGamesList();
@@ -50,7 +52,7 @@ public class ServerFacade {
         }
     }
 
-    public static boolean joinGame(String gameId, SharedColor color, String authToken) throws FailedAuthException, FailedJoinException {
+    public  boolean joinGame(String gameId, SharedColor color, String authToken) throws FailedAuthException, FailedJoinException {
         User player = model.findPlayerFromToken(authToken);
         if (player == null) {
             throw new FailedAuthException();
@@ -64,7 +66,7 @@ public class ServerFacade {
         }
     }
 
-    public static boolean leaveGame(String gameId, String authToken) throws FailedAuthException, FailedLeaveException {
+    public  boolean leaveGame(String gameId, String authToken) throws FailedAuthException, FailedLeaveException {
         User player = model.findPlayerFromToken(authToken);
         if (player == null) {
             throw new FailedAuthException();
@@ -78,7 +80,7 @@ public class ServerFacade {
         }
     }
 
-    public static String createGame(String gameName, SharedColor color, String authToken) throws FailedAuthException {
+    public  String createGame(String gameName, SharedColor color, String authToken) throws FailedAuthException {
         User owner = model.findPlayerFromToken(authToken);
         if (owner == null) {
             throw new FailedAuthException();
