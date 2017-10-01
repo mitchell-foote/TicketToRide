@@ -12,6 +12,7 @@ import com.example.communication.Requests.CreateGameRequest;
 import com.example.communication.Requests.JoinGameRequest;
 import com.example.communication.Requests.LeaveGameRequest;
 import com.example.model.classes.login.BaseGameSummary;
+import com.example.model.classes.users.LoginRequest;
 import com.example.model.enums.SharedColor;
 
 import java.io.IOException;
@@ -28,7 +29,7 @@ public class ServerProxy implements IServerAccessor
     public String login(String userName, String password) throws Exception
     {
         try{
-            BaseResponse response = connection.post(PathHolder.getHost(), PathHolder.getPort(), PathHolder.getLoginURL(),null, new BaseRequest());
+            BaseResponse response = connection.post(PathHolder.getHost(), PathHolder.getPort(), PathHolder.getLoginURL(),null, new BaseRequest("loginRequest", new LoginRequest(userName, password)));
             ErrorCheckResponse(response);
             String authToken = null;
             if(response.response instanceof String)
@@ -50,10 +51,10 @@ public class ServerProxy implements IServerAccessor
     }
 
     @Override
-    public String register(String username, String password) throws Exception
+    public String register(String userName, String password) throws Exception
     {
         try{
-            BaseResponse response = connection.post(PathHolder.getHost(), PathHolder.getPort(), PathHolder.getRegisterURL(),null,new BaseRequest());
+            BaseResponse response = connection.post(PathHolder.getHost(), PathHolder.getPort(), PathHolder.getRegisterURL(),null, new BaseRequest("loginRequest", new LoginRequest(userName, password)));
             ErrorCheckResponse(response);
             String authToken = null;
             if(response.response instanceof String){
