@@ -1,8 +1,9 @@
-package com.example.fifteam.tickettoride.model;
+package com.example.fifteam.tickettoride.ClientFacadeAsyncTasks;
 
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.example.fifteam.tickettoride.model.ClientModel;
 import com.example.fifteam.tickettoride.serverCommunications.ServerProxy;
 import com.example.model.classes.login.BaseGameSummary;
 
