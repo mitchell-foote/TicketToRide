@@ -19,9 +19,15 @@ import java.util.List;
  */
 public class ClientFacade {
 
+    private static ClientFacade ourInstance = new ClientFacade();
     private static ClientModel model = ClientModel.getInstance();
 
 
+    public static ClientFacade getInstance(){
+        return ourInstance;
+    }
+
+    private ClientFacade(){}
     /**
      * unsure if we want error checking here, for now I will leave it without but I assume we will want it going forward
      * Sam
