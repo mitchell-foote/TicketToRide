@@ -25,6 +25,7 @@ public class LoginView extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View v = inflater.inflate(R.layout.view_login, container, false);
@@ -56,4 +57,6 @@ public class LoginView extends Fragment {
 
         return v;
     }
+
+
 }
