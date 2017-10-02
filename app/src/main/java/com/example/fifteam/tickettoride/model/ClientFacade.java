@@ -27,7 +27,7 @@ public class ClientFacade {
      * Sam
      *
      */
-    public void login(String username, String password) {
+    public boolean login(String username, String password) {
         // Creates ServerProxy to be used to contact the server
         ServerProxy proxy = new ServerProxy();
 
@@ -39,20 +39,21 @@ public class ClientFacade {
         catch (Exception e){
             //logs exception, haven't determined if we want different error handling to take place
             Log.e(null, "login: ", e);
-            return;
+            return false;
         }
 
         //checks the returned authToken to make sure that it is not null or empty
         if(authToken == null || authToken.equals("")){
             Log.e(null, "login: ", new Exception("invalid authtoken"));
-            return;
+            return false;
         }
 
         //creates new user to be added to the model
         User currentUser = new User(username,authToken,password);
 
         //sets the current user in the model saving the returned authToken
-        ClientModel.getInstance().setUser(currentUser);
+        model.setUser(currentUser);
+        return true;
 
     }
 
@@ -61,12 +62,12 @@ public class ClientFacade {
      * @param username username of the user to be registerd
      * @param password password of the user to be registered
      */
-    public void register(String username, String password) {
+    public boolean register(String username, String password) {
         //creates the server proxy to be used to connect to the server
         ServerProxy serverProxy = new ServerProxy();
 
         //string which will hold the returned authToken
-        String authToken = null;
+        String authToken;
 
         //try-catch block which will attempt to make connection to the server
         try{
@@ -74,18 +75,21 @@ public class ClientFacade {
         }
         catch (Exception e){
             Log.e(null, "register: ", e);
+            return false;
         }
 
         //if statement to check if authToken which was returned is valid
         if (authToken == null || authToken.equals("")){
             Log.e(null, "register: ", new Exception("invalid authToken returned"));
+            return false;
         }
 
         //creates new user to be added to the model
         User currentUser = new User(username,authToken,password);
 
         //sets the newly registered user as the current user in the model
-        ClientModel.getInstance().setUser(currentUser);
+        model.setUser(currentUser);
+        return true;
     }
 
     /**
@@ -93,7 +97,7 @@ public class ClientFacade {
      */
     public boolean logout() {
         //gets the user currently stored in the model
-        User currentUser = ClientModel.getInstance().getUser();
+        User currentUser = model.getUser();
 
         //checks if the current user non null
         if (currentUser == null){
@@ -123,10 +127,37 @@ public class ClientFacade {
 
 
     /**
-     *
+     * create a new game with a given name puts the player in the game with the given color
+     * needs a Valid AuthToken so a user must have been signed in to the game
      */
-    public void createGame() {
-        //TODO: create createGame method on ServerProxy
+    public boolean createGame(String gameName, SharedColor color) {
+        // Retrieves current user to get the authToken stored within
+        User currUser = model.getUser();
+
+        //if currUser is null then the user was never set and there will be no authToken to
+        if(currUser == null){
+            return false;
+        }
+        //creates the ServerProxy which will be used to make a connection with the server
+        ServerProxy proxy = new ServerProxy();
+
+
+        String newGameID;
+        //try catch block which attempts connection to the server
+        try{
+            newGameID = proxy.createGame(gameName,color,currUser.getAuthToken());
+        }
+        catch (Exception e){
+            Log.e(null, "createGame: ",e );
+            return false;
+        }
+
+        //checks to see if valid game id was returned
+        if (newGameID == null || newGameID.equals("")){
+            return false;
+        }
+        //// TODO: 10/1/17 figure out create game sequence 
+        return true;
     }
 
     /**
@@ -137,9 +168,9 @@ public class ClientFacade {
      * @pre gameID must valid and found in game list
      */
     public boolean joinGame(String gameID, SharedColor newPlayerColor) {
-        User currUser = ClientModel.getInstance().getUser();
+        User currUser = model.getUser();
         //checks to see if a game with the associated gameID is found in the model
-        BaseGameSummary gameToJoin = ClientModel.getInstance().getGameByID(gameID);
+        BaseGameSummary gameToJoin = model.getGameByID(gameID);
 
         if(gameToJoin == null){
             return false;
@@ -161,7 +192,7 @@ public class ClientFacade {
         // the game in question and then returns whether or not the attempt to join the game was successful
 
         if(joinSuccessBool){
-            ClientModel.getInstance().setCurrentGame(gameToJoin);
+            model.setCurrentGame(gameToJoin);
         }
         return  joinSuccessBool;
 
@@ -175,8 +206,8 @@ public class ClientFacade {
      */
     public boolean leaveGame() {
         //retrieve the current user and current game stored in the model
-        BaseGameSummary currGame = ClientModel.getInstance().getCurrentGame();
-        User currUser = ClientModel.getInstance().getUser();
+        BaseGameSummary currGame = model.getCurrentGame();
+        User currUser = model.getUser();
 
 
         //if the curr user or currGame are null then the user cannot leave the game and an error has occured
@@ -203,7 +234,7 @@ public class ClientFacade {
         //checks if the leaveGame operation was successful, if it was the currGame in the model is
         // set to null, the method then returns the success or failure of the leaveGame operation
         if(leaveGameBool){
-            ClientModel.getInstance().setCurrentGame(null);
+           model.setCurrentGame(null);
         }
         return leaveGameBool;
 
