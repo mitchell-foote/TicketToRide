@@ -8,7 +8,7 @@ buildscript {
 
 android {
     compileSdkVersion 24
-    buildToolsVersion "24.0.2"
+    buildToolsVersion '25.0.0'
 
     defaultConfig {
         applicationId "com.example.fifteam.tickettoride"
@@ -27,8 +27,9 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:24.2.0'
     compile project(path: ':common')
     compile files('libs/gson-2.8.1.jar')
+    compile 'com.android.support:appcompat-v7:24.2.0'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    testCompile 'junit:junit:4.12'
 }
