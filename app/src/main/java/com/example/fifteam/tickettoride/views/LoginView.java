@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.fifteam.tickettoride.MainActivity;
 import com.example.fifteam.tickettoride.R;
 import com.example.fifteam.tickettoride.presenters.LoginPresenter;
 
@@ -66,6 +67,6 @@ public class LoginView extends Fragment {
     }
 
     public void switchToNextView() {
-        
+        ((MainActivity)getContext()).switchFragment(new GamesListView());
     }
 }
