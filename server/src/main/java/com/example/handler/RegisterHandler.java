@@ -34,7 +34,16 @@ public class RegisterHandler extends Handler implements HttpHandler {
 
                 String requestData = this.readString(requestBody);
                 BaseRequest data = new Gson().fromJson(requestData, BaseRequest.class);
-                LoginRequest loginInfo = (LoginRequest) data.body;
+                data.body = new Gson().fromJson(data.body.toString(), LoginRequest.class);
+                LoginRequest loginInfo;
+                if(data.body instanceof LoginRequest){
+                    loginInfo = (LoginRequest) data.body;
+                }
+                else {
+                    userError(httpExch, new Exception("Bad Request Type"));
+                    return;
+                }
+
 
                 try {
                     String authToken = serverFacade.register(loginInfo.getUserName(), loginInfo.getPassword());
