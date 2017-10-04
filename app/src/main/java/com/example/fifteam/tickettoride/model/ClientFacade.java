@@ -54,7 +54,7 @@ public class ClientFacade{
     public void login(String username, String password, Toaster toaster) {
 
         try {
-            new LoginAsyncTask(toaster).execute(username, password).get();
+            new LoginAsyncTask(toaster).execute(username, password);
         }
         catch (Exception e){
             //Log.e(null, "login: ",e);
@@ -70,7 +70,7 @@ public class ClientFacade{
      */
     public void register(String username, String password, Toaster toaster) {
        try{
-           new RegisterAsyncTask(toaster).execute(username,password).get();
+           new RegisterAsyncTask(toaster).execute(username,password);
        }
        catch (Exception e){
            toaster.displayMessage(e.getMessage());
@@ -100,25 +100,20 @@ public class ClientFacade{
     /**
      * @pre there is a user currently in the model
      */
-    public boolean logout(Toaster toaster) {
+    public void logout(Toaster toaster) {
         //checks to make sure there is a user to be logged out of the app
         if(model.getUser() == null){
-            return false;
+            return;
         }
 
         //creates new async task to perform the logout
         try{
-            new LogoutAsyncTask(toaster).execute().get();
+            new LogoutAsyncTask(toaster).execute();
         }
         catch (Exception e){
-            return false;
+            toaster.displayMessage("asynTaskError");
+            return;
         }
-
-        //checks to see if the user was logged out and removed from the model
-        if(model.getUser() != null){
-            return false;
-        }
-        else return true;
     }
 
     public List<BaseGameSummary> getGamesList() {
