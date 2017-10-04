@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.fifteam.tickettoride.R;
 import com.example.fifteam.tickettoride.presenters.LoginPresenter;
@@ -23,6 +24,7 @@ public class LoginView extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        presenter = new LoginPresenter(this);
     }
 
     @Override
@@ -56,6 +58,11 @@ public class LoginView extends Fragment {
         });
 
         return v;
+    }
+
+    public void displayMessage(String message) {
+
+        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
     }
 
 
