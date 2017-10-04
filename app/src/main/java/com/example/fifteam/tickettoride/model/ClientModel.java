@@ -76,8 +76,10 @@ public class ClientModel extends Observable {
     public void setGamesList(List<BaseGameSummary> gamesList) {
         this.gamesList = gamesList;
         gamesMap = new HashMap<>();
-        for (BaseGameSummary i : gamesList){
-            gamesMap.put(i.getId(),i);
+        if(gamesList != null) {
+            for (BaseGameSummary i : gamesList) {
+                gamesMap.put(i.getId(), i);
+            }
         }
         setChanged();
         notifyObservers();

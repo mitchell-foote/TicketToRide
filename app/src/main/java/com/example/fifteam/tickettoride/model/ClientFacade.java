@@ -100,7 +100,7 @@ public class ClientFacade{
     /**
      * @pre there is a user currently in the model
      */
-    public boolean logout() {
+    public boolean logout(Toaster toaster) {
         //checks to make sure there is a user to be logged out of the app
         if(model.getUser() == null){
             return false;
@@ -108,7 +108,7 @@ public class ClientFacade{
 
         //creates new async task to perform the logout
         try{
-            new LogoutAsyncTask().execute().get();
+            new LogoutAsyncTask(toaster).execute().get();
         }
         catch (Exception e){
             return false;
