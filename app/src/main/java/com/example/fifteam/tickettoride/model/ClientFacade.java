@@ -76,10 +76,9 @@ public class ClientFacade{
            toaster.displayMessage(e.getMessage());
            return;
        }
-
     }
 
-    private void startPollerTimer(){
+    public void startPollerTimer(){
         TimerTask task = new TimerTask() {
             @Override
             public void run() {

@@ -25,6 +25,8 @@ public class RegisterHandler extends Handler implements HttpHandler {
     @Override
     public void handle(HttpExchange httpExch) throws IOException {
 
+        System.out.println("Register handler reached");
+
         try {
             if (httpExch.getRequestMethod().toLowerCase().equals("post")) {
                 InputStream requestBody = httpExch.getRequestBody();

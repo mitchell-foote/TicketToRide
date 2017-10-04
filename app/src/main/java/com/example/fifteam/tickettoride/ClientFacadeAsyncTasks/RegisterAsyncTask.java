@@ -4,6 +4,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.example.fifteam.tickettoride.interfaces.Toaster;
+import com.example.fifteam.tickettoride.model.ClientFacade;
 import com.example.fifteam.tickettoride.model.ClientModel;
 import com.example.fifteam.tickettoride.serverCommunications.ServerProxy;
 import com.example.model.classes.users.User;
@@ -61,6 +62,7 @@ public class RegisterAsyncTask extends AsyncTask<String, String, LoginRegisterRe
         User newUser = registerResult.getNewUser();
         if((registerResult.validResult()) && (newUser != null)){
             model.setUser(newUser);
+            ClientFacade.getInstance().startPollerTimer();
         }
         else{
             toaster.displayMessage(registerResult.getErrorMessage());
