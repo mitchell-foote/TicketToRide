@@ -26,13 +26,13 @@ public class LoginPresenter implements Observer, Toaster {
     public void login(String username, String password) {
 
         view.displayMessage("This is a login!");
-        ClientFacade.getInstance().login(username, password);
+        ClientFacade.getInstance().login(username, password, this);
     }
 
     public void register(String username, String password) {
 
         view.displayMessage("This is a register!");
-        ClientFacade.getInstance().register(username, password);
+        ClientFacade.getInstance().register(username, password, this);
     }
 
     @Override

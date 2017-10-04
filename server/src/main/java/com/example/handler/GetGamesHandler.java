@@ -24,6 +24,8 @@ public class GetGamesHandler extends Handler implements HttpHandler {
     @Override
     public void handle(HttpExchange httpExch) throws IOException {
 
+        System.out.println("Get Games handler reached");
+
         if (httpExch.getRequestMethod().toLowerCase().equals("get")) {
             OutputStream responseBody = httpExch.getResponseBody();
             String authToken = httpExch.getRequestHeaders().getFirst("Authorization");
