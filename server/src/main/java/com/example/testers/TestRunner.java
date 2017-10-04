@@ -30,6 +30,7 @@ public class TestRunner
             gameList = facade.getGames(secondAuthToken);
             boolean gonzo = facade.leaveGame(gameId, secondAuthToken);
             boolean allGonzo = facade.leaveGame(gameId, secondUser);
+            gameList = facade.getGames(secondUser);
             System.in.read();
 
         } catch (FailedLoginException e)
