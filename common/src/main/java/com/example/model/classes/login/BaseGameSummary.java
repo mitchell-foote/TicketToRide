@@ -1,5 +1,6 @@
 package com.example.model.classes.login;
 
+import com.example.Exceptions.FailedJoinException;
 import com.example.model.classes.users.Player;
 import com.example.model.enums.SharedColor;
 
@@ -63,9 +64,13 @@ public class BaseGameSummary
         return (players.size() == 0);
     }
 
-    public boolean addPlayer(Player player, SharedColor color) {
-        if (players.containsKey(player) || isFull()){
-            return false;
+    public boolean addPlayer(Player player, SharedColor color) throws FailedJoinException {
+        if (isFull()){
+            throw new FailedJoinException("Game has maximum players");
+        } else if (players.containsKey(player)){
+            throw new FailedJoinException("User is already in game");
+        } else if (players.containsValue(color)){
+            throw new FailedJoinException("Color already taken");
         } else {
             players.put(player, color);
             return true;

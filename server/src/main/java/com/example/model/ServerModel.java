@@ -77,16 +77,11 @@ public class ServerModel {
         BaseGameSummary game = games.get(gameId);
 
         if (game != null) {
-
-            if (game.isFull()) {
-                throw new FailedJoinException("Game has maximum players");
-            }
-
-            boolean successfullyAdded = game.addPlayer(user, color);
-            if (!successfullyAdded) {
-                throw new FailedJoinException("User is already in game");
-            } else {
+            try {
+                game.addPlayer(user, color);
                 return true;
+            } catch (FailedJoinException e) {
+                throw e;
             }
         }
         throw new FailedJoinException("No game exists for given gameID");
