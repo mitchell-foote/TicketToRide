@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Observable;
+import java.util.Observer;
 
 /**
  * The client-side model for storing information about the state of the game and users
@@ -21,7 +22,22 @@ public class ClientModel extends Observable{
         return ourInstance;
     }
 
+    @Override
+    public String toString() {
+        return "ClientModel{" +
+                "user=" + user +
+                ", currentGame=" + currentGame +
+                ", gamesList=" + gamesList +
+                ", gameToJoin='" + gameToJoin + '\'' +
+                '}';
+    }
+
     private ClientModel() {
+    }
+
+    @Override
+    public synchronized void addObserver(Observer o) {
+        super.addObserver(o);
     }
 
     private User user;
@@ -71,9 +87,9 @@ public class ClientModel extends Observable{
     }
 
     public void setUser(User user) {
+        this.user = user;
         setChanged();
         notifyObservers();
-        this.user = user;
     }
 
 
