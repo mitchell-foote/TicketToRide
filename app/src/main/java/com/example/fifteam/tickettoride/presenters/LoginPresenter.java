@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.example.fifteam.tickettoride.interfaces.Toaster;
 import com.example.fifteam.tickettoride.model.ClientFacade;
+import com.example.fifteam.tickettoride.model.ClientModel;
 import com.example.fifteam.tickettoride.views.LoginView;
 
 import java.util.Observable;
@@ -19,6 +20,7 @@ public class LoginPresenter implements Observer, Toaster {
 
     public LoginPresenter(LoginView view) {
         this.view = view;
+        ClientFacade.getInstance().addObserver(this);
     }
 
     public void login(String username, String password) {
@@ -35,8 +37,10 @@ public class LoginPresenter implements Observer, Toaster {
 
     @Override
     public void update(Observable observable, Object o) {
-
-
+        if (ClientModel.getInstance().getUser() != null) {
+            view.displayMessage("Logged in successfully!");
+            view.switchToNextView();
+        }
     }
 
     @Override
