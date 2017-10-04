@@ -237,4 +237,8 @@ public class ClientFacade{
     public User getUser(){
         return model.getUser();
     }
+
+    public BaseGameSummary getCurrGame(){
+        return model.getCurrentGame();
+    }
 }
