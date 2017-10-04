@@ -3,6 +3,7 @@ package com.example.fifteam.tickettoride.ClientFacadeAsyncTasks;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.example.fifteam.tickettoride.interfaces.Toaster;
 import com.example.fifteam.tickettoride.model.ClientFacade;
 import com.example.fifteam.tickettoride.model.ClientModel;
 import com.example.fifteam.tickettoride.model.CreateGameObject;
@@ -15,6 +16,11 @@ import com.example.model.classes.users.User;
 
 public class CreateGameAsyncTask extends AsyncTask<CreateGameObject,Void,Void> {
 
+    Toaster toaster;
+
+    public CreateGameAsyncTask(Toaster toaster){
+        this.toaster = toaster;
+    }
     @Override
     protected Void doInBackground(CreateGameObject... createGameObjects) {
         //gets the clientModel

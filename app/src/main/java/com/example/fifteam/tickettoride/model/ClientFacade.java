@@ -128,28 +128,31 @@ public class ClientFacade{
      * create a new game with a given name puts the player in the game with the given color
      * needs a Valid AuthToken so a user must have been signed in to the game
      */
-    public boolean createGame(String gameName, SharedColor color) {
+    public void createGame(String gameName, SharedColor color,Toaster toaster) {
         CreateGameObject newGame = new CreateGameObject(gameName,color);
+        this.timer.cancel();
 
         //creates the game in question on the server
         try{
-            new CreateGameAsyncTask().execute(newGame).get();
+            new CreateGameAsyncTask(toaster).execute(newGame).get();
         }
         catch (Exception e){
             Log.e(null, "createGame: ",e );
-            return false;
+            return;
         }
         if(model.getGameToJoin() == null) {
-            return false;
+            toaster.displayMessage("unsuccessful game creation");
+            return;
         }
 
-        this.timer.cancel();
+
         //gets the updated game list
         try{
             new GetGameListAsyncTask().execute().get();
         }
         catch (Exception e){
             Log.e(null, "createGame: ",e );
+            toaster.displayMessage(e.getMessage());
         }
         String gameToJoin = model.getGameToJoin();
         this.startPollerTimer();
@@ -158,13 +161,13 @@ public class ClientFacade{
         //checks if the created game is in the new games list if it is not the function returns false
         BaseGameSummary createdGame = model.getGameByID(gameToJoin);
         if(createdGame == null){
-            return false;
+            return;
         }
         else{
             model.setGameToJoin(null);
             model.setCurrentGame(createdGame);
         }
-        return true;
+
     }
 
     /**
@@ -174,9 +177,10 @@ public class ClientFacade{
      *
      * @pre gameID must valid and found in game list
      */
-    public boolean joinGame(String gameID, SharedColor newPlayerColor) {
+    public void joinGame(String gameID, SharedColor newPlayerColor, Toaster toaster) {
         if(model.getCurrentGame() != null){
-            return false;
+            toaster.displayMessage("User already has a current game");
+            return;
         }
 
         //creates the join game object to be passed ot the joingameasynctask
@@ -188,12 +192,9 @@ public class ClientFacade{
         }
         catch (Exception e){
             Log.e(null, "joinGame: ",e );
-            return false;
+            toaster.displayMessage(e.getMessage());
+            return;
         }
-        if(model.getCurrentGame() == null){
-            return false;
-        }
-        else return true;
 
 
     }
