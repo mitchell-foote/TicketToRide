@@ -28,6 +28,15 @@ public class ClientModel extends Observable{
     private BaseGameSummary currentGame;
     private List<BaseGameSummary> gamesList;
     private Map<String, BaseGameSummary> gamesMap;
+    private String gameToJoin;
+
+    public String getGameToJoin() {
+        return gameToJoin;
+    }
+
+    public void setGameToJoin(String gameToJoin) {
+        this.gameToJoin = gameToJoin;
+    }
 
     public BaseGameSummary getCurrentGame() {
         return currentGame;

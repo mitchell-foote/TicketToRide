@@ -6,21 +6,22 @@ import android.util.Log;
 import com.example.fifteam.tickettoride.model.ClientModel;
 import com.example.fifteam.tickettoride.serverCommunications.ServerProxy;
 import com.example.model.classes.login.BaseGameSummary;
+import com.example.model.classes.users.User;
 
 import java.util.List;
 
-
 /**
- * Created by sam on 10/1/17.
+ * Created by sam on 10/4/17.
  */
 
-public class PollerAsyncTask extends AsyncTask<String, Long, List<BaseGameSummary>>{
+public class GetGameListAsyncTask extends AsyncTask<Void,Void,Void> {
+    protected Void doInBackground(Void... voids){
 
-    protected List<BaseGameSummary> doInBackground(String... autToken){
+        ClientModel model = ClientModel.getInstance();
+        User currUser = model.getUser();
 
 
-
-        String authToken = autToken[0];
+        String authToken = currUser.getAuthToken();
         //creates the server proxy which will be used to contact the server
         ServerProxy serverProxy = new ServerProxy();
 
@@ -32,20 +33,11 @@ public class PollerAsyncTask extends AsyncTask<String, Long, List<BaseGameSummar
             Log.e(null , "doInBackground: ", e);
             return null;
         }
-        return toReturn;
 
-    }
-
-    private void testFunction(){
-        System.out.println("timer executed");
-    }
-
-    protected void onPostExecute(List<BaseGameSummary> gameList){
-        ClientModel clientModel = ClientModel.getInstance();
-
-        testFunction();
-        if(gameList != null) {
-            clientModel.setGamesList(gameList);
+        if (toReturn != null){
+            model.setGamesList(toReturn);
         }
+        return null;
+
     }
 }

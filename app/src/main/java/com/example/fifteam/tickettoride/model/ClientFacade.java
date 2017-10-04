@@ -3,6 +3,8 @@ package com.example.fifteam.tickettoride.model;
 import android.util.Log;
 import android.util.MonthDisplayHelper;
 
+import com.example.fifteam.tickettoride.ClientFacadeAsyncTasks.CreateGameAsyncTask;
+import com.example.fifteam.tickettoride.ClientFacadeAsyncTasks.GetGameListAsyncTask;
 import com.example.fifteam.tickettoride.ClientFacadeAsyncTasks.LoginAsyncTask;
 import com.example.fifteam.tickettoride.ClientFacadeAsyncTasks.LogoutAsyncTask;
 import com.example.fifteam.tickettoride.ClientFacadeAsyncTasks.RegisterAsyncTask;
@@ -11,7 +13,11 @@ import com.example.fifteam.tickettoride.serverCommunications.ServerProxy;
 import com.example.model.classes.users.User;
 import com.example.model.enums.SharedColor;
 
+import java.util.Calendar;
+import java.util.EmptyStackException;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * A façade for client-side interactions with the data stored in the model, so that other classes
@@ -24,6 +30,7 @@ public class ClientFacade {
 
     private static ClientFacade ourInstance = new ClientFacade();
     private ClientModel model = ClientModel.getInstance();
+    private Timer timer;
 
 
     public static ClientFacade getInstance(){
@@ -72,6 +79,25 @@ public class ClientFacade {
        else return true;
     }
 
+    private void startPollerTimer(){
+        TimerTask task = new TimerTask() {
+            @Override
+            public void run() {
+                runPoller();
+            }
+
+        };
+        this.timer.scheduleAtFixedRate(task,0,2000);
+    }
+
+    private void runPoller(){
+        try{
+            new GetGameListAsyncTask().execute();
+        }
+        catch (Exception e){
+            Log.e(null, "runPoller: ", e);
+        }
+    }
     /**
      * @pre there is a user currently in the model
      */
@@ -100,38 +126,50 @@ public class ClientFacade {
         return model.getGamesList();
     }
 
+    private boolean getGamesFromServer(){
+        return false;
+    }
 
     /**
      * create a new game with a given name puts the player in the game with the given color
      * needs a Valid AuthToken so a user must have been signed in to the game
      */
     public boolean createGame(String gameName, SharedColor color) {
-        // Retrieves current user to get the authToken stored within
-        User currUser = model.getUser();
+        CreateGameObject newGame = new CreateGameObject(gameName,color);
 
-        //if currUser is null then the user was never set and there will be no authToken to
-        if(currUser == null){
-            return false;
-        }
-        //creates the ServerProxy which will be used to make a connection with the server
-        ServerProxy proxy = new ServerProxy();
-
-
-        String newGameID;
-        //try catch block which attempts connection to the server
+        //creates the game in question on the server
         try{
-            newGameID = proxy.createGame(gameName,color,currUser.getAuthToken());
+            new CreateGameAsyncTask().execute(newGame);
         }
         catch (Exception e){
             Log.e(null, "createGame: ",e );
             return false;
         }
-
-        //checks to see if valid game id was returned
-        if (newGameID == null || newGameID.equals("")){
+        if(model.getGameToJoin() == null) {
             return false;
         }
-        //// TODO: 10/1/17 figure out create game sequence 
+
+        this.timer.cancel();
+        //gets the updated game list
+        try{
+            new GetGameListAsyncTask().execute();
+        }
+        catch (Exception e){
+            Log.e(null, "createGame: ",e );
+        }
+        String gameToJoin = model.getGameToJoin();
+        this.startPollerTimer();
+
+
+        //checks if the created game is in the new games list if it is not the function returns false
+        BaseGameSummary createdGame = model.getGameByID(gameToJoin);
+        if(createdGame == null){
+            return false;
+        }
+        else{
+            model.setGameToJoin(null);
+            model.setCurrentGame(createdGame);
+        }
         return true;
     }
 
