@@ -4,6 +4,7 @@ import android.util.Log;
 import android.util.MonthDisplayHelper;
 
 import com.example.fifteam.tickettoride.ClientFacadeAsyncTasks.LoginAsyncTask;
+import com.example.fifteam.tickettoride.ClientFacadeAsyncTasks.LogoutAsyncTask;
 import com.example.fifteam.tickettoride.ClientFacadeAsyncTasks.RegisterAsyncTask;
 import com.example.model.classes.login.BaseGameSummary;
 import com.example.fifteam.tickettoride.serverCommunications.ServerProxy;
@@ -75,29 +76,24 @@ public class ClientFacade {
      * @pre there is a user currently in the model
      */
     public boolean logout() {
-        //gets the user currently stored in the model
-        User currentUser = model.getUser();
-
-        //checks if the current user non null
-        if (currentUser == null){
+        //checks to make sure there is a user to be logged out of the app
+        if(model.getUser() == null){
             return false;
         }
 
-        //create ServerProxy object which will log out
-        ServerProxy serverProxy = new ServerProxy();
-
-        boolean logoutBool;
-        //try-catch block which attempts to log the user out of the server
+        //creates new async task to perform the logout
         try{
-            logoutBool = serverProxy.logoff(currentUser.getAuthToken());
+            new LogoutAsyncTask().execute().get();
         }
         catch (Exception e){
-            Log.e(null, "logout: ",e );
             return false;
         }
 
-        //returns result of the logout attempt
-        return logoutBool;
+        //checks to see if the user was logged out and removed from the model
+        if(model.getUser() != null){
+            return false;
+        }
+        else return true;
     }
 
     public List<BaseGameSummary> getGamesList() {
