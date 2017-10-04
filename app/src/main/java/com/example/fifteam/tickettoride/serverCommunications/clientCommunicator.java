@@ -24,7 +24,7 @@ public class clientCommunicator extends BaseClient
             http.setRequestMethod("GET");
             http.setDoOutput(true);
             http.addRequestProperty("Accept", "application/json");
-            if(!authToken.isEmpty()){
+            if(authToken != null && !authToken.isEmpty()){
                 http.addRequestProperty("Authorization", authToken);
             }
             http.connect();
@@ -61,7 +61,7 @@ public class clientCommunicator extends BaseClient
             http.setRequestMethod("POST");
             http.setDoOutput(true);
             http.addRequestProperty("Accept", "application/json");
-            if(!authToken.isEmpty()){
+            if(authToken != null && !authToken.isEmpty()){
                 http.addRequestProperty("Authorization", authToken);
             }
             http.connect();
