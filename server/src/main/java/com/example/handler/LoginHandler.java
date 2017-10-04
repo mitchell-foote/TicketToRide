@@ -2,6 +2,7 @@ package com.example.handler;
 
 import com.example.Exceptions.FailedLoginException;
 import com.example.communication.BaseRequest;
+import com.example.communication.BaseResponse;
 import com.example.communication.IServerAccessor;
 import com.example.model.ServerFacade;
 import com.example.model.classes.users.LoginRequest;
@@ -34,12 +35,26 @@ public class LoginHandler extends Handler implements HttpHandler {
 
                 String requestData = this.readString(requestBody);
                 BaseRequest data = new Gson().fromJson(requestData, BaseRequest.class);
-                LoginRequest loginInfo = (LoginRequest) data.body;
+
+                data.body = new Gson().fromJson(data.body.toString(), LoginRequest.class);
+                LoginRequest loginInfo;
+                if(data.body instanceof LoginRequest){
+                    loginInfo = (LoginRequest) data.body;
+                }
+                else {
+                    userError(httpExch, new Exception("Bad Request Type"));
+                    return;
+                }
 
                 try {
                     String authToken = serverFacade.login(loginInfo.getUserName(), loginInfo.getPassword());
                     httpExch.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
-                    writeString(authToken, responseBody);
+                    BaseResponse response = new BaseResponse();
+                    response.type = "string";
+                    response.response = authToken;
+                    response.hasError = false;
+                    writeString(new Gson().toJson(response), responseBody);
+
                     responseBody.close();
                 } catch (FailedLoginException e) {
                     userError(httpExch, e);

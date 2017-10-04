@@ -1,6 +1,7 @@
 package com.example.handler;
 
 import com.example.Exceptions.FailedAuthException;
+import com.example.communication.BaseResponse;
 import com.example.communication.IServerAccessor;
 import com.example.model.ServerFacade;
 import com.example.model.classes.login.BaseGameSummary;
@@ -33,8 +34,12 @@ public class GetGamesHandler extends Handler implements HttpHandler {
             try {
                 List<BaseGameSummary> games = serverFacade.getGames(authToken);
                 httpExch.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
-                String listJson = new Gson().toJson(games);
-                writeString(listJson, responseBody);
+                BaseResponse response = new BaseResponse();
+                response.type = "list";
+                response.response = games;
+                response.hasError = false;
+
+                writeString(new Gson().toJson(response), responseBody);
                 responseBody.close();
             } catch (FailedAuthException e) {
                 userError(httpExch, e);
