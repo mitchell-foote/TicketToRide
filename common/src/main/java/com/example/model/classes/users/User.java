@@ -8,7 +8,7 @@ public class User extends Player
     private String authToken;
     private String password;
 
-    public User(String name, String authToken, String password) {
+    public User(String name, String password, String authToken) {
         super(name);
         this.authToken = authToken;
         this.password = password;
