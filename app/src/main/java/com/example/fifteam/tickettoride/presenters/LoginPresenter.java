@@ -2,6 +2,7 @@ package com.example.fifteam.tickettoride.presenters;
 
 import android.content.Context;
 
+import com.example.fifteam.tickettoride.interfaces.Toaster;
 import com.example.fifteam.tickettoride.model.ClientFacade;
 import com.example.fifteam.tickettoride.views.LoginView;
 
@@ -12,7 +13,7 @@ import java.util.Observer;
  * Created by USER on 10/2/2017.
  */
 
-public class LoginPresenter implements Observer {
+public class LoginPresenter implements Observer, Toaster {
 
     LoginView view;
 
@@ -36,5 +37,10 @@ public class LoginPresenter implements Observer {
     public void update(Observable observable, Object o) {
 
 
+    }
+
+    @Override
+    public void displayMessage(String message) {
+        view.displayMessage(message);
     }
 }
