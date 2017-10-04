@@ -6,6 +6,7 @@ import android.util.MonthDisplayHelper;
 import com.example.fifteam.tickettoride.ClientFacadeAsyncTasks.CreateGameAsyncTask;
 import com.example.fifteam.tickettoride.ClientFacadeAsyncTasks.GetGameListAsyncTask;
 import com.example.fifteam.tickettoride.ClientFacadeAsyncTasks.JoinGameAsyncTask;
+import com.example.fifteam.tickettoride.ClientFacadeAsyncTasks.LeaveGameAsyncTask;
 import com.example.fifteam.tickettoride.ClientFacadeAsyncTasks.LoginAsyncTask;
 import com.example.fifteam.tickettoride.ClientFacadeAsyncTasks.LogoutAsyncTask;
 import com.example.fifteam.tickettoride.ClientFacadeAsyncTasks.RegisterAsyncTask;
@@ -222,39 +223,20 @@ public class ClientFacade implements Observer{
      * @return returns a boolean to indicate whether or not the operation was successful
      */
     public boolean leaveGame() {
-        //retrieve the current user and current game stored in the model
-        BaseGameSummary currGame = model.getCurrentGame();
-        User currUser = model.getUser();
+       if(model.getUser() == null || model.getCurrentGame() == null){
+           return false;
+       }
 
-
-        //if the curr user or currGame are null then the user cannot leave the game and an error has occured
-        if(currUser == null || currGame == null){
-            return false;
-        }
-
-        //creates the server proxy used to contact the server and the boolean which will store the
-        //success or failure of the leave game operation
-        ServerProxy serverProxy = new ServerProxy();
-
-        boolean leaveGameBool;
-
-
-        //try catch block which attempts to carry out the leaveGame operation on the server
-        try{
-            leaveGameBool = serverProxy.leaveGame(currGame.getId(),currUser.getAuthToken());
-        }
-        catch (Exception e){
-            Log.e(null, "leaveGame: ",e);
-            return false;
-        }
-
-        //checks if the leaveGame operation was successful, if it was the currGame in the model is
-        // set to null, the method then returns the success or failure of the leaveGame operation
-        if(leaveGameBool){
-           model.setCurrentGame(null);
-        }
-        return leaveGameBool;
-
+       try{
+           new LeaveGameAsyncTask().execute().get();
+       }
+       catch (Exception e){
+           return false;
+       }
+       if(model.getCurrentGame() != null){
+           return false;
+       }
+       return true;
     }
 
     public static void main(String[] args){
