@@ -3,6 +3,8 @@ package com.example.fifteam.tickettoride.model;
 import android.util.Log;
 import android.util.MonthDisplayHelper;
 
+import com.example.fifteam.tickettoride.ClientFacadeAsyncTasks.LoginAsyncTask;
+import com.example.fifteam.tickettoride.ClientFacadeAsyncTasks.RegisterAsyncTask;
 import com.example.model.classes.login.BaseGameSummary;
 import com.example.fifteam.tickettoride.serverCommunications.ServerProxy;
 import com.example.model.classes.users.User;
@@ -20,7 +22,7 @@ import java.util.List;
 public class ClientFacade {
 
     private static ClientFacade ourInstance = new ClientFacade();
-    private static ClientModel model = ClientModel.getInstance();
+    private ClientModel model = ClientModel.getInstance();
 
 
     public static ClientFacade getInstance(){
@@ -34,33 +36,20 @@ public class ClientFacade {
      *
      */
     public boolean login(String username, String password) {
-        // Creates ServerProxy to be used to contact the server
-        ServerProxy proxy = new ServerProxy();
 
-        String authToken;
-        //try-catch block which attempts to log user into the server
         try {
-            authToken = proxy.login(username, password);
+            new LoginAsyncTask().execute(username, password).get();
         }
         catch (Exception e){
-            //logs exception, haven't determined if we want different error handling to take place
-            Log.e(null, "login: ", e);
+            //Log.e(null, "login: ",e);
+            System.out.println(e);
             return false;
         }
 
-        //checks the returned authToken to make sure that it is not null or empty
-        if(authToken == null || authToken.equals("")){
-            Log.e(null, "login: ", new Exception("invalid authtoken"));
+        if(model.getUser() == null){
             return false;
         }
-
-        //creates new user to be added to the model
-        User currentUser = new User(username,authToken,password);
-
-        //sets the current user in the model saving the returned authToken
-        model.setUser(currentUser);
-        return true;
-
+        else return true;
     }
 
     /**
@@ -69,33 +58,17 @@ public class ClientFacade {
      * @param password password of the user to be registered
      */
     public boolean register(String username, String password) {
-        //creates the server proxy to be used to connect to the server
-        ServerProxy serverProxy = new ServerProxy();
+       try{
+           new RegisterAsyncTask().execute(username,password);
+       }
+       catch (Exception e){
+           return false;
+       }
 
-        //string which will hold the returned authToken
-        String authToken;
-
-        //try-catch block which will attempt to make connection to the server
-        try{
-            authToken = serverProxy.register(username,password);
-        }
-        catch (Exception e){
-            Log.e(null, "register: ", e);
-            return false;
-        }
-
-        //if statement to check if authToken which was returned is valid
-        if (authToken == null || authToken.equals("")){
-            Log.e(null, "register: ", new Exception("invalid authToken returned"));
-            return false;
-        }
-
-        //creates new user to be added to the model
-        User currentUser = new User(username,authToken,password);
-
-        //sets the newly registered user as the current user in the model
-        model.setUser(currentUser);
-        return true;
+       if(model.getUser() == null) {
+           return false;
+       }
+       else return true;
     }
 
     /**
@@ -244,5 +217,10 @@ public class ClientFacade {
         }
         return leaveGameBool;
 
+    }
+
+    public static void main(String[] args){
+        ClientFacade test = ClientFacade.getInstance();
+        test.login("user","pass");
     }
 }
