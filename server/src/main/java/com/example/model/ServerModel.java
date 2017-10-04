@@ -57,6 +57,7 @@ public class ServerModel {
         Map<Player, SharedColor> players = new HashMap<>();
         players.put(owner, userColor);
         BaseGameSummary newGame = new BaseGameSummary(gameId, owner.getName(), gameName, players);
+        games.put(gameId, newGame);
         return gameId;
     }
 
