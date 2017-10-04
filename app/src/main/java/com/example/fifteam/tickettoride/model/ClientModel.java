@@ -14,7 +14,7 @@ import java.util.Observable;
  *
  * Created by kcwillmore on 9/28/17.
  */
-public class ClientModel extends Observable{
+public class ClientModel extends Observable {
     private static ClientModel ourInstance = new ClientModel();
 
     public static ClientModel getInstance() {
