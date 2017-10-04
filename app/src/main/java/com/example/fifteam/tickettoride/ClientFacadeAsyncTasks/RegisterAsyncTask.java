@@ -3,6 +3,7 @@ package com.example.fifteam.tickettoride.ClientFacadeAsyncTasks;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.example.fifteam.tickettoride.interfaces.Toaster;
 import com.example.fifteam.tickettoride.model.ClientModel;
 import com.example.fifteam.tickettoride.serverCommunications.ServerProxy;
 import com.example.model.classes.users.User;
@@ -11,10 +12,16 @@ import com.example.model.classes.users.User;
  * Created by sam on 10/4/17.
  */
 
-public class RegisterAsyncTask extends AsyncTask<String, String, Boolean> {
+public class RegisterAsyncTask extends AsyncTask<String, String, LoginRegisterResult> {
+
+    Toaster toaster;
+
+    public RegisterAsyncTask(Toaster toaster){
+        this.toaster = toaster;
+    }
 
     @Override
-    protected Boolean doInBackground(String... strings) {
+    protected LoginRegisterResult doInBackground(String... strings) {
         ClientModel model = ClientModel.getInstance();
         //creates the server proxy to be used to connect to the server
         ServerProxy serverProxy = new ServerProxy();
@@ -32,20 +39,31 @@ public class RegisterAsyncTask extends AsyncTask<String, String, Boolean> {
         }
         catch (Exception e){
             Log.e(null, "register: ", e);
-            return false;
+            return new LoginRegisterResult(e.getMessage());
         }
 
         //if statement to check if authToken which was returned is valid
         if (authToken == null || authToken.equals("")){
             Log.e(null, "register: ", new Exception("invalid authToken returned"));
-            return false;
+            return new LoginRegisterResult("Invalid authToken returned");
         }
 
         //creates new user to be added to the model
         User currentUser = new User(username,authToken,password);
 
         //sets the newly registered user as the current user in the model
-        model.setUser(currentUser);
-        return true;
+        return new LoginRegisterResult(currentUser);
+    }
+
+    @Override
+    protected void onPostExecute(LoginRegisterResult registerResult) {
+        ClientModel model = ClientModel.getInstance();
+        User newUser = registerResult.getNewUser();
+        if((registerResult.validResult()) && (newUser != null)){
+            model.setUser(newUser);
+        }
+        else{
+            toaster.displayMessage(registerResult.getErrorMessage());
+        }
     }
 }

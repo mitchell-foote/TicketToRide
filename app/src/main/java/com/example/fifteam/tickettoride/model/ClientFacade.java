@@ -10,6 +10,7 @@ import com.example.fifteam.tickettoride.ClientFacadeAsyncTasks.LeaveGameAsyncTas
 import com.example.fifteam.tickettoride.ClientFacadeAsyncTasks.LoginAsyncTask;
 import com.example.fifteam.tickettoride.ClientFacadeAsyncTasks.LogoutAsyncTask;
 import com.example.fifteam.tickettoride.ClientFacadeAsyncTasks.RegisterAsyncTask;
+import com.example.fifteam.tickettoride.interfaces.Toaster;
 import com.example.model.classes.login.BaseGameSummary;
 import com.example.fifteam.tickettoride.serverCommunications.ServerProxy;
 import com.example.model.classes.users.User;
@@ -50,22 +51,16 @@ public class ClientFacade{
      * Sam
      *
      */
-    public boolean login(String username, String password) {
+    public void login(String username, String password, Toaster toaster) {
 
         try {
-            new LoginAsyncTask().execute(username, password).get();
+            new LoginAsyncTask(toaster).execute(username, password).get();
         }
         catch (Exception e){
             //Log.e(null, "login: ",e);
-            System.out.println(e);
-            return false;
+            toaster.displayMessage(e.getMessage());
+            return;
         }
-
-        if(model.getUser() == null){
-            return false;
-        }
-        this.startPollerTimer();
-        return true;
     }
 
     /**
@@ -73,19 +68,15 @@ public class ClientFacade{
      * @param username username of the user to be registerd
      * @param password password of the user to be registered
      */
-    public boolean register(String username, String password) {
+    public void register(String username, String password, Toaster toaster) {
        try{
-           new RegisterAsyncTask().execute(username,password).get();
+           new RegisterAsyncTask(toaster).execute(username,password).get();
        }
        catch (Exception e){
-           return false;
+           toaster.displayMessage(e.getMessage());
+           return;
        }
 
-       if(model.getUser() == null) {
-           return false;
-       }
-       this.startPollerTimer();
-       return true;
     }
 
     private void startPollerTimer(){
