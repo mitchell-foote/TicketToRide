@@ -40,6 +40,11 @@ public class ClientModel extends Observable {
         super.addObserver(o);
     }
 
+    @Override
+    public synchronized void deleteObserver(Observer o) {
+        super.deleteObserver(o);
+    }
+
     private User user;
     private BaseGameSummary currentGame;
     private List<BaseGameSummary> gamesList;

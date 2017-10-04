@@ -30,26 +30,20 @@ import java.util.TimerTask;
  *
  * Created by kcwillmore on 9/28/17.
  */
-public class ClientFacade implements Observer{
+public class ClientFacade{
 
     private static ClientFacade ourInstance = new ClientFacade();
     private ClientModel model = ClientModel.getInstance();
     private Timer timer;
 
 
-    @Override
-    public void update(Observable observable, Object o) {
-        System.out.println("updating");
-        System.out.println(model.toString());
 
-    }
 
     public static ClientFacade getInstance(){
         return ourInstance;
     }
 
     private ClientFacade(){
-        model.addObserver(this);
     }
     /**
      * unsure if we want error checking here, for now I will leave it without but I assume we will want it going forward
@@ -70,7 +64,8 @@ public class ClientFacade implements Observer{
         if(model.getUser() == null){
             return false;
         }
-        else return true;
+        this.startPollerTimer();
+        return true;
     }
 
     /**
@@ -89,7 +84,8 @@ public class ClientFacade implements Observer{
        if(model.getUser() == null) {
            return false;
        }
-       else return true;
+       this.startPollerTimer();
+       return true;
     }
 
     private void startPollerTimer(){
@@ -239,8 +235,11 @@ public class ClientFacade implements Observer{
        return true;
     }
 
-    public static void main(String[] args){
-        ClientFacade test = ClientFacade.getInstance();
-        test.login("user","pass");
+    public void addObserver(Observer toAdd){
+        model.addObserver(toAdd);
+    }
+
+    public void removeObserver(Observer toRemove){
+        model.deleteObserver(toRemove);
     }
 }
