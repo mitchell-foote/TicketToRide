@@ -233,4 +233,8 @@ public class ClientFacade{
     public void removeObserver(Observer toRemove){
         model.deleteObserver(toRemove);
     }
+
+    public User getUser(){
+        return model.getUser();
+    }
 }
