@@ -5,6 +5,7 @@ import android.util.MonthDisplayHelper;
 
 import com.example.fifteam.tickettoride.ClientFacadeAsyncTasks.CreateGameAsyncTask;
 import com.example.fifteam.tickettoride.ClientFacadeAsyncTasks.GetGameListAsyncTask;
+import com.example.fifteam.tickettoride.ClientFacadeAsyncTasks.JoinGameAsyncTask;
 import com.example.fifteam.tickettoride.ClientFacadeAsyncTasks.LoginAsyncTask;
 import com.example.fifteam.tickettoride.ClientFacadeAsyncTasks.LogoutAsyncTask;
 import com.example.fifteam.tickettoride.ClientFacadeAsyncTasks.RegisterAsyncTask;
@@ -16,6 +17,8 @@ import com.example.model.enums.SharedColor;
 import java.util.Calendar;
 import java.util.EmptyStackException;
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -26,18 +29,27 @@ import java.util.TimerTask;
  *
  * Created by kcwillmore on 9/28/17.
  */
-public class ClientFacade {
+public class ClientFacade implements Observer{
 
     private static ClientFacade ourInstance = new ClientFacade();
     private ClientModel model = ClientModel.getInstance();
     private Timer timer;
 
 
+    @Override
+    public void update(Observable observable, Object o) {
+        System.out.println("updating");
+        System.out.println(model.toString());
+
+    }
+
     public static ClientFacade getInstance(){
         return ourInstance;
     }
 
-    private ClientFacade(){}
+    private ClientFacade(){
+        model.addObserver(this);
+    }
     /**
      * unsure if we want error checking here, for now I will leave it without but I assume we will want it going forward
      * Sam
@@ -67,7 +79,7 @@ public class ClientFacade {
      */
     public boolean register(String username, String password) {
        try{
-           new RegisterAsyncTask().execute(username,password);
+           new RegisterAsyncTask().execute(username,password).get();
        }
        catch (Exception e){
            return false;
@@ -139,7 +151,7 @@ public class ClientFacade {
 
         //creates the game in question on the server
         try{
-            new CreateGameAsyncTask().execute(newGame);
+            new CreateGameAsyncTask().execute(newGame).get();
         }
         catch (Exception e){
             Log.e(null, "createGame: ",e );
@@ -152,7 +164,7 @@ public class ClientFacade {
         this.timer.cancel();
         //gets the updated game list
         try{
-            new GetGameListAsyncTask().execute();
+            new GetGameListAsyncTask().execute().get();
         }
         catch (Exception e){
             Log.e(null, "createGame: ",e );
@@ -181,33 +193,25 @@ public class ClientFacade {
      * @pre gameID must valid and found in game list
      */
     public boolean joinGame(String gameID, SharedColor newPlayerColor) {
-        User currUser = model.getUser();
-        //checks to see if a game with the associated gameID is found in the model
-        BaseGameSummary gameToJoin = model.getGameByID(gameID);
-
-        if(gameToJoin == null){
+        if(model.getCurrentGame() != null){
             return false;
         }
 
-        //creates the ServerProxy to be used to contact the server
-        ServerProxy serverProxy = new ServerProxy();
+        //creates the join game object to be passed ot the joingameasynctask
+         JoinGameObject gameToJoin = new JoinGameObject(gameID,newPlayerColor);
 
-        boolean joinSuccessBool = false;
-        //try-catch block which attempts to join the game
+        //calls asynctask to join game on the server
         try{
-            joinSuccessBool = serverProxy.joinGame(gameID,newPlayerColor,currUser.getAuthToken());
+            new JoinGameAsyncTask().execute(gameToJoin).get();
         }
         catch (Exception e){
-            Log.e(null, "joinGame: ", e);
+            Log.e(null, "joinGame: ",e );
+            return false;
         }
-
-        //if the attempt to join the game was successful the current game in the model is set to
-        // the game in question and then returns whether or not the attempt to join the game was successful
-
-        if(joinSuccessBool){
-            model.setCurrentGame(gameToJoin);
+        if(model.getCurrentGame() == null){
+            return false;
         }
-        return  joinSuccessBool;
+        else return true;
 
 
     }
