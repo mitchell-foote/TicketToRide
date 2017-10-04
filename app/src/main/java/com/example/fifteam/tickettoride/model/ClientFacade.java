@@ -188,7 +188,7 @@ public class ClientFacade{
 
         //calls asynctask to join game on the server
         try{
-            new JoinGameAsyncTask().execute(gameToJoin).get();
+            new JoinGameAsyncTask(toaster).execute(gameToJoin);
         }
         catch (Exception e){
             Log.e(null, "joinGame: ",e );
