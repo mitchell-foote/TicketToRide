@@ -1,8 +1,11 @@
 package com.example.fifteam.tickettoride.model;
 
 import com.example.model.classes.login.BaseGameSummary;
+import com.example.model.classes.users.Player;
 import com.example.model.classes.users.User;
+import com.example.model.enums.SharedColor;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,6 +36,7 @@ public class ClientModel extends Observable {
     }
 
     private ClientModel() {
+        setGamesList(new ArrayList<BaseGameSummary>());
     }
 
     @Override
