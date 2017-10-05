@@ -54,7 +54,6 @@ public class RegisterHandler extends Handler implements HttpHandler {
                     response.response = authToken;
                     response.hasError = false;
                     writeString(new Gson().toJson(response), responseBody);
-
                     responseBody.close();
                 }  catch (FailedLoginException e) {
                     userError(httpExch, e);

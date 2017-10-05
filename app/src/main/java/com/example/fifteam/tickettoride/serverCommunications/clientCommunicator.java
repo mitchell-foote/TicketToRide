@@ -29,14 +29,14 @@ public class clientCommunicator extends BaseClient
             }
             http.connect();
             Gson serializer = new Gson();
-            String json = serializer.toJson(body);
-            OutputStream reqBody = http.getOutputStream();
-            writeString(json,reqBody);
-            reqBody.close();
+            //String json = serializer.toJson(body);
+            //OutputStream reqBody = http.getOutputStream();
+            //writeString(json,reqBody);
+            //reqBody.close();
            // if(http.getResponseCode() == HttpURLConnection.HTTP_OK){
-                InputStream respBody = http.getInputStream();
-                String respData = readString(respBody);
-                response = serializer.fromJson(respData, BaseResponse.class);
+            InputStream respBody = http.getInputStream();
+            String respData = readString(respBody);
+            response = serializer.fromJson(respData, BaseResponse.class);
             //}
 /*            else{
                 response.hasError = true;
