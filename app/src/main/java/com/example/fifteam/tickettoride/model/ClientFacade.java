@@ -204,21 +204,19 @@ public class ClientFacade{
      *
      * @return returns a boolean to indicate whether or not the operation was successful
      */
-    public boolean leaveGame() {
+    public void leaveGame(Toaster toaster) {
        if(model.getUser() == null || model.getCurrentGame() == null){
-           return false;
+           toaster.displayMessage("There is no game to leave!");
+           return;
        }
 
        try{
-           new LeaveGameAsyncTask().execute().get();
+           new LeaveGameAsyncTask(toaster).execute();
        }
        catch (Exception e){
-           return false;
+           toaster.displayMessage(e.getMessage());
+           return;
        }
-       if(model.getCurrentGame() != null){
-           return false;
-       }
-       return true;
     }
 
     public void addObserver(Observer toAdd){
