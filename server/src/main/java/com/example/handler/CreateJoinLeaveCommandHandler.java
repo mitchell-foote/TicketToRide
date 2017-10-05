@@ -3,6 +3,7 @@ package com.example.handler;
 import com.example.commands.CreateGameCommand;
 import com.example.commands.JoinGameCommand;
 import com.example.commands.LeaveGameCommand;
+import com.example.communication.BaseRequest;
 import com.example.communication.IServerAccessor;
 import com.example.communication.commands.CommandData;
 import com.example.communication.commands.CommandResponse;
@@ -34,20 +35,22 @@ public class CreateJoinLeaveCommandHandler extends Handler implements HttpHandle
                 String reqData = this.readString(reqBody);
                 System.out.println(reqData);
                 Gson serializer = new Gson();
-                CommandData data = serializer.fromJson(reqData,CommandData.class);
+                BaseRequest data = serializer.fromJson(reqData,BaseRequest.class);
+                data.body = serializer.fromJson(data.body.toString(),CommandData.class);
                 String auth = httpExchange.getRequestHeaders().getFirst("Authorization");
                 ICommand command;
                 switch(data.type){
                     case "create":{
-                        command = new CreateGameCommand(data,facade,auth);
+
+                        command = new CreateGameCommand((CommandData) data.body,facade,auth);
                         break;
                     }
                     case "join": {
-                        command = new JoinGameCommand(data,facade,auth);
+                        command = new JoinGameCommand((CommandData) data.body,facade,auth);
                         break;
                     }
                     case "leave": {
-                        command = new LeaveGameCommand(data,facade,auth);
+                        command = new LeaveGameCommand((CommandData) data.body,facade,auth);
                         break;
                     }
                     default:{

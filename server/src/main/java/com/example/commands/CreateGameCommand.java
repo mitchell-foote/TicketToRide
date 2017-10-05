@@ -5,6 +5,7 @@ import com.example.communication.Requests.CreateGameRequest;
 import com.example.communication.commands.CommandData;
 import com.example.communication.commands.CommandResponse;
 import com.example.communication.commands.ICommand;
+import com.google.gson.Gson;
 
 
 /**
@@ -25,6 +26,7 @@ public class CreateGameCommand implements ICommand
     @Override
     public void execute() throws Exception
     {
+        baseData.data = new Gson().fromJson(baseData.data.toString(), CreateGameRequest.class);
         if(baseData.data instanceof CreateGameRequest){
             req = (CreateGameRequest)baseData.data;
             String gameId = facade.createGame(req.name,req.color,this.auth);

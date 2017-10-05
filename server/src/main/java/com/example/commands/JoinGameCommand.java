@@ -5,6 +5,7 @@ import com.example.communication.Requests.JoinGameRequest;
 import com.example.communication.commands.CommandData;
 import com.example.communication.commands.CommandResponse;
 import com.example.communication.commands.ICommand;
+import com.google.gson.Gson;
 
 
 /**
@@ -25,6 +26,7 @@ public class JoinGameCommand implements ICommand
     @Override
     public void execute() throws Exception
     {
+        baseData.data = new Gson().fromJson(baseData.toString(), JoinGameRequest.class);
         if(this.baseData.data instanceof JoinGameRequest){
             req = (JoinGameRequest)baseData.data;
             boolean success = facade.joinGame(req.id, req.color, this.auth);

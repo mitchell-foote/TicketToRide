@@ -6,6 +6,7 @@ import com.example.communication.Requests.LeaveGameRequest;
 import com.example.communication.commands.CommandData;
 import com.example.communication.commands.CommandResponse;
 import com.example.communication.commands.ICommand;
+import com.google.gson.Gson;
 
 /**
  * Created by Mitchell Foote on 9/30/2017.
@@ -25,6 +26,7 @@ public class LeaveGameCommand implements ICommand
     @Override
     public void execute() throws Exception
     {
+        baseData.data = new Gson().fromJson(baseData.data.toString(), LeaveGameCommand.class);
         if(baseData.data instanceof LeaveGameRequest){
             this.req = (LeaveGameRequest)baseData.data;
             boolean success = facade.leaveGame(req.id,this.auth);

@@ -36,7 +36,7 @@ public abstract class Handler {
     protected void returnCommandResponse(HttpExchange http, CommandResponse commandResponse, String type) throws IOException
     {
         OutputStream resBody = http.getResponseBody();
-        http.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
+        //http.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
         BaseResponse response = new BaseResponse();
         response.type = type;
         response.hasError = false;

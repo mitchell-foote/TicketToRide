@@ -11,6 +11,7 @@ import com.example.communication.PathHolder;
 import com.example.communication.Requests.CreateGameRequest;
 import com.example.communication.Requests.JoinGameRequest;
 import com.example.communication.Requests.LeaveGameRequest;
+import com.example.communication.commands.CommandData;
 import com.example.model.classes.login.BaseGameSummary;
 import com.example.model.classes.users.LoginRequest;
 import com.example.model.enums.SharedColor;
@@ -99,8 +100,11 @@ public class ServerProxy implements IServerAccessor
     public boolean joinGame(String id, SharedColor color, String authToken) throws Exception
     {
         JoinGameRequest reqBody = new JoinGameRequest(id,color);
+        CommandData data = new CommandData();
+        data.type = "join";
+        data.data = reqBody;
         try{
-            BaseResponse response = connection.post(PathHolder.getHost(),PathHolder.getPort(), PathHolder.getGameCommandURL(),authToken,new BaseRequest("join", reqBody));
+            BaseResponse response = connection.post(PathHolder.getHost(),PathHolder.getPort(), PathHolder.getGameCommandURL(),authToken,new BaseRequest("join", data));
             ErrorCheckResponse(response);
             return true;
         }
@@ -123,8 +127,11 @@ public class ServerProxy implements IServerAccessor
     public boolean leaveGame(String id, String authToken) throws Exception
     {
         LeaveGameRequest reqBody = new LeaveGameRequest(id);
+        CommandData data = new CommandData();
+        data.type = "leave";
+        data.data = reqBody;
         try{
-            BaseRequest request = new BaseRequest("leave", reqBody);
+            BaseRequest request = new BaseRequest("leave", data);
             BaseResponse response = connection.post(PathHolder.getHost(),PathHolder.getPort(), PathHolder.getGameCommandURL(),authToken,request);
             ErrorCheckResponse(response);
             return true;
@@ -168,8 +175,11 @@ public class ServerProxy implements IServerAccessor
     public String createGame(String gameName, SharedColor color, String authToken) throws Exception
     {
         CreateGameRequest reqBody = new CreateGameRequest(gameName,color);
+        CommandData data = new CommandData();
+        data.type = "create";
+        data.data = reqBody;
         try{
-            BaseResponse response = connection.post(PathHolder.getHost(),PathHolder.getPort(), PathHolder.getGameCommandURL(),authToken,new BaseRequest("create", reqBody));
+            BaseResponse response = connection.post(PathHolder.getHost(),PathHolder.getPort(), PathHolder.getGameCommandURL(),authToken,new BaseRequest("create", data));
             ErrorCheckResponse(response);
             return (String) response.response;
         }
