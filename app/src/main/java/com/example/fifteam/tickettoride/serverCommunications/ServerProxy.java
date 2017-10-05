@@ -148,7 +148,7 @@ public class ServerProxy implements IServerAccessor
     public List<BaseGameSummary> getGames(String authToken) throws Exception
     {
         try{
-            BaseResponse response = connection.get(PathHolder.getHost(), PathHolder.getPort(), PathHolder.getGamesURL(), authToken, new BaseRequest());
+            BaseResponse response = connection.get(PathHolder.getHost(), PathHolder.getPort(), PathHolder.getGamesURL(), authToken);
             ErrorCheckResponse(response);
             return (List<BaseGameSummary>) response.response;
         }

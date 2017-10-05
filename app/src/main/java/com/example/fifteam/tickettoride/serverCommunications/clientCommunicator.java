@@ -15,14 +15,13 @@ import java.net.URL;
  */
 public class clientCommunicator extends BaseClient
 {
-    public BaseResponse get(String host, String port, String url, String authToken, BaseRequest body) throws Exception
+    public BaseResponse get(String host, String port, String url, String authToken) throws Exception
     {
         BaseResponse response = new BaseResponse();
         try{
             URL targetUrl = new URL("http://" + host + ":" + port + url);
             HttpURLConnection http = (HttpURLConnection)targetUrl.openConnection();
             http.setRequestMethod("GET");
-            http.setDoOutput(true);
             http.addRequestProperty("Accept", "application/json");
             if(authToken != null && !authToken.isEmpty()){
                 http.addRequestProperty("Authorization", authToken);
