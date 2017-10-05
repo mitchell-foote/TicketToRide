@@ -44,4 +44,13 @@ public class User extends Player
         User newUser = (User) object;
         return (newUser.getName().equals(this.getName()));
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        for (int i = 0; i < this.getName().length(); i++) {
+            hash = hash*31 + this.getName().charAt(i);
+        }
+        return hash;
+    }
 }

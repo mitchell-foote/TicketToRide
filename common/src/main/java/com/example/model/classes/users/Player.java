@@ -33,4 +33,13 @@ public class Player
         Player newPlayer = (Player) object;
         return (newPlayer.getName().equals(this.getName()));
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        for (int i = 0; i < name.length(); i++) {
+            hash = hash*31 + name.charAt(i);
+        }
+        return hash;
+    }
 }
