@@ -100,4 +100,13 @@ public class BaseGameSummary
         BaseGameSummary gameSum = (BaseGameSummary) object;
         return (gameSum.getId().equals(this.getId()));
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        for (int i = 0; i < this.getId().length(); i++) {
+            hash = hash*31 + this.getId().charAt(i);
+        }
+        return hash;
+    }
 }

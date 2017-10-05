@@ -155,7 +155,7 @@ public class ServerProxy implements IServerAccessor
     public List<BaseGameSummary> getGames(String authToken) throws Exception
     {
         try{
-            BaseResponse response = connection.get(PathHolder.getHost(), PathHolder.getPort(), PathHolder.getGamesURL(), authToken, new BaseRequest());
+            BaseResponse response = connection.get(PathHolder.getHost(), PathHolder.getPort(), PathHolder.getGamesURL(), authToken);
             ErrorCheckResponse(response);
             return (List<BaseGameSummary>) response.response;
         }
@@ -200,7 +200,7 @@ public class ServerProxy implements IServerAccessor
     private void ErrorCheckResponse(BaseResponse response) throws Exception
     {
         if(response.hasError){
-            if(response.response instanceof FailedLoginException){
+      /*      if(response.response instanceof FailedLoginException){
                 throw (FailedLoginException)response.response;
             }
             else if (response.response instanceof FailedAuthException){
@@ -220,7 +220,8 @@ public class ServerProxy implements IServerAccessor
             }
             else {
                 throw new Exception("Unknown Error occurred");
-            }
+            } */
+            throw new Exception(response.errorText);
         }
 
     }
