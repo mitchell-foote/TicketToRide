@@ -21,7 +21,7 @@ public abstract class Handler {
     protected void userError(HttpExchange httpExch, Exception e){
         try{
             OutputStream resBody = httpExch.getResponseBody();
-            //httpExch.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, 0);
+            httpExch.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, 0);
 
             BaseResponse errorResponse = makeErrorResponse(e);
             String strResponse = new Gson().toJson(errorResponse);
@@ -38,7 +38,7 @@ public abstract class Handler {
     protected void returnCommandResponse(HttpExchange http, CommandResponse commandResponse, String type) throws IOException
     {
         OutputStream resBody = http.getResponseBody();
-        //http.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
+        http.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
         BaseResponse response = new BaseResponse();
         response.type = type;
         response.hasError = false;

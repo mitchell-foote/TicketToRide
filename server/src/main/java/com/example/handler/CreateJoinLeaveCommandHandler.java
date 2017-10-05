@@ -32,7 +32,6 @@ public class CreateJoinLeaveCommandHandler extends Handler implements HttpHandle
         boolean success  = false;
         try{
             if(httpExchange.getRequestMethod().toLowerCase().equals("post")){
-                httpExchange.sendResponseHeaders(HttpURLConnection.HTTP_OK,0);
                 InputStream reqBody  = httpExchange.getRequestBody();
                 System.out.println(reqBody);
                 String reqData = this.readString(reqBody);

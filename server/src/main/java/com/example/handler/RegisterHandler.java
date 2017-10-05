@@ -32,7 +32,7 @@ public class RegisterHandler extends Handler implements HttpHandler {
             if (httpExch.getRequestMethod().toLowerCase().equals("post")) {
                 InputStream requestBody = httpExch.getRequestBody();
                 OutputStream responseBody = httpExch.getResponseBody();
-                httpExch.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
+
                 String requestData = this.readString(requestBody);
                 BaseRequest data = new Gson().fromJson(requestData, BaseRequest.class);
 
@@ -53,7 +53,9 @@ public class RegisterHandler extends Handler implements HttpHandler {
                     response.type = "string";
                     response.response = authToken;
                     response.hasError = false;
+                    httpExch.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
                     writeString(new Gson().toJson(response), responseBody);
+
                     responseBody.close();
                 }  catch (FailedLoginException e) {
                     userError(httpExch, e);

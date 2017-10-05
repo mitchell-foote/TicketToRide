@@ -48,14 +48,14 @@ public class ServerFacade implements IServerAccessor
         if (model.findPlayerFromToken(authToken) != null) {
             return model.getGamesList();
         } else {
-            throw new FailedAuthException();
+            throw new FailedAuthException("Authentication failed");
         }
     }
 
     public boolean joinGame(String gameId, SharedColor color, String authToken) throws FailedAuthException, FailedJoinException {
         User player = model.findPlayerFromToken(authToken);
         if (player == null) {
-            throw new FailedAuthException();
+            throw new FailedAuthException("Authentication failed");
         }
 
         try {
@@ -69,7 +69,7 @@ public class ServerFacade implements IServerAccessor
     public boolean leaveGame(String gameId, String authToken) throws FailedAuthException, FailedLeaveException {
         User player = model.findPlayerFromToken(authToken);
         if (player == null) {
-            throw new FailedAuthException();
+            throw new FailedAuthException("Authentication failed");
         }
 
         try {
@@ -83,7 +83,7 @@ public class ServerFacade implements IServerAccessor
     public String createGame(String gameName, SharedColor color, String authToken) throws FailedAuthException {
         User owner = model.findPlayerFromToken(authToken);
         if (owner == null) {
-            throw new FailedAuthException();
+            throw new FailedAuthException("Authentication failed");
         }
 
         return model.addGame(owner, gameName, color);

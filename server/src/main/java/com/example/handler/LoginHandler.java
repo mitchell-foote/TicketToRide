@@ -31,7 +31,6 @@ public class LoginHandler extends Handler implements HttpHandler {
         try {
             if (httpExch.getRequestMethod().toLowerCase().equals("post")) {
                 InputStream requestBody = httpExch.getRequestBody();
-                httpExch.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
                 OutputStream responseBody = httpExch.getResponseBody();
 
                 String requestData = this.readString(requestBody);
@@ -54,7 +53,9 @@ public class LoginHandler extends Handler implements HttpHandler {
                     response.type = "string";
                     response.response = authToken;
                     response.hasError = false;
+                    httpExch.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
                     writeString(new Gson().toJson(response), responseBody);
+
 
                     responseBody.close();
                 } catch (FailedLoginException e) {
