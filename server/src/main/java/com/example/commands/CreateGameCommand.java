@@ -26,7 +26,7 @@ public class CreateGameCommand implements ICommand
     @Override
     public void execute() throws Exception
     {
-        baseData.data = new Gson().fromJson(baseData.data.toString(), CreateGameRequest.class);
+        //baseData.data = new Gson().fromJson(baseData.data.toString(), CreateGameRequest.class);
         if(baseData.data instanceof CreateGameRequest){
             req = (CreateGameRequest)baseData.data;
             String gameId = facade.createGame(req.name,req.color,this.auth);

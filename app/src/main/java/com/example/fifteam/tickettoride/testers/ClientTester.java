@@ -20,7 +20,7 @@ public class ClientTester
             System.out.println("WAIT!!");
             String authAgain = proxy.login("batman", "123456");
             List<BaseGameSummary> gameList = proxy.getGames(authAgain);
-            String gameId = proxy.createGame("Batman's Game", SharedColor.BLUE, authAgain);
+            String gameId = proxy.createGame("Batmans Game", SharedColor.BLUE, authAgain);
             String secondPlayer = proxy.register("robin", "123456");
             boolean joined = proxy.joinGame(gameId, SharedColor.GREEN, secondPlayer);
             boolean leaved = proxy.leaveGame(gameId, authAgain);

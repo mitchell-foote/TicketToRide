@@ -30,15 +30,14 @@ public class GetGamesHandler extends Handler implements HttpHandler {
         if (httpExch.getRequestMethod().toLowerCase().equals("get")) {
             OutputStream responseBody = httpExch.getResponseBody();
             String authToken = httpExch.getRequestHeaders().getFirst("Authorization");
-
+            httpExch.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
             try {
                 List<BaseGameSummary> games = serverFacade.getGames(authToken);
-                httpExch.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
+
                 BaseResponse response = new BaseResponse();
                 response.type = "list";
                 response.response = games;
                 response.hasError = false;
-
                 writeString(new Gson().toJson(response), responseBody);
                 responseBody.close();
             } catch (FailedAuthException e) {

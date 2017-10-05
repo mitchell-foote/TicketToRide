@@ -26,7 +26,7 @@ public class LeaveGameCommand implements ICommand
     @Override
     public void execute() throws Exception
     {
-        baseData.data = new Gson().fromJson(baseData.data.toString(), LeaveGameCommand.class);
+        //baseData.data = new Gson().fromJson(baseData.data.toString(), LeaveGameCommand.class);
         if(baseData.data instanceof LeaveGameRequest){
             this.req = (LeaveGameRequest)baseData.data;
             boolean success = facade.leaveGame(req.id,this.auth);
@@ -34,6 +34,7 @@ public class LeaveGameCommand implements ICommand
                 response.type = "Boolean";
                 response.isError = false;
                 response.response = Boolean.valueOf(true);
+                return;
             }
             throw new FailedLeaveException("Could Not leave game");
         }

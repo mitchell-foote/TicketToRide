@@ -12,9 +12,11 @@ import com.example.communication.Requests.CreateGameRequest;
 import com.example.communication.Requests.JoinGameRequest;
 import com.example.communication.Requests.LeaveGameRequest;
 import com.example.communication.commands.CommandData;
+import com.example.communication.commands.CommandResponse;
 import com.example.model.classes.login.BaseGameSummary;
 import com.example.model.classes.users.LoginRequest;
 import com.example.model.enums.SharedColor;
+import com.google.gson.Gson;
 
 import java.io.IOException;
 import java.util.List;
@@ -174,14 +176,17 @@ public class ServerProxy implements IServerAccessor
     @Override
     public String createGame(String gameName, SharedColor color, String authToken) throws Exception
     {
+        Gson gson = new Gson();
         CreateGameRequest reqBody = new CreateGameRequest(gameName,color);
         CommandData data = new CommandData();
         data.type = "create";
         data.data = reqBody;
         try{
             BaseResponse response = connection.post(PathHolder.getHost(),PathHolder.getPort(), PathHolder.getGameCommandURL(),authToken,new BaseRequest("create", data));
+            response.response = gson.fromJson(gson.toJson(response.response), CommandResponse.class);
+
             ErrorCheckResponse(response);
-            return (String) response.response;
+            return (String) ((CommandResponse) response.response).response;
         }
         catch(FailedAuthException e){
             throw e;

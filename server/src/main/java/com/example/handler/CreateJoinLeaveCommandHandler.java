@@ -5,6 +5,9 @@ import com.example.commands.JoinGameCommand;
 import com.example.commands.LeaveGameCommand;
 import com.example.communication.BaseRequest;
 import com.example.communication.IServerAccessor;
+import com.example.communication.Requests.CreateGameRequest;
+import com.example.communication.Requests.JoinGameRequest;
+import com.example.communication.Requests.LeaveGameRequest;
 import com.example.communication.commands.CommandData;
 import com.example.communication.commands.CommandResponse;
 import com.example.communication.commands.ICommand;
@@ -36,20 +39,24 @@ public class CreateJoinLeaveCommandHandler extends Handler implements HttpHandle
                 System.out.println(reqData);
                 Gson serializer = new Gson();
                 BaseRequest data = serializer.fromJson(reqData,BaseRequest.class);
-                data.body = serializer.fromJson(data.body.toString(),CommandData.class);
+
+                data.body = serializer.fromJson(serializer.toJson(data.body),CommandData.class);
                 String auth = httpExchange.getRequestHeaders().getFirst("Authorization");
                 ICommand command;
                 switch(data.type){
                     case "create":{
 
+                        ((CommandData) data.body).data = serializer.fromJson(serializer.toJson(((CommandData) data.body).data), CreateGameRequest.class);
                         command = new CreateGameCommand((CommandData) data.body,facade,auth);
                         break;
                     }
                     case "join": {
+                        ((CommandData) data.body).data = serializer.fromJson(serializer.toJson(((CommandData) data.body).data), JoinGameRequest.class);
                         command = new JoinGameCommand((CommandData) data.body,facade,auth);
                         break;
                     }
                     case "leave": {
+                        ((CommandData) data.body).data = serializer.fromJson(serializer.toJson(((CommandData) data.body).data), LeaveGameRequest.class);
                         command = new LeaveGameCommand((CommandData) data.body,facade,auth);
                         break;
                     }
