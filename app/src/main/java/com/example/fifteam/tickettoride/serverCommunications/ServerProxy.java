@@ -190,7 +190,7 @@ public class ServerProxy implements IServerAccessor
     private void ErrorCheckResponse(BaseResponse response) throws Exception
     {
         if(response.hasError){
-            if(response.response instanceof FailedLoginException){
+      /*      if(response.response instanceof FailedLoginException){
                 throw (FailedLoginException)response.response;
             }
             else if (response.response instanceof FailedAuthException){
@@ -210,7 +210,8 @@ public class ServerProxy implements IServerAccessor
             }
             else {
                 throw new Exception("Unknown Error occurred");
-            }
+            } */
+            throw new Exception(response.errorText);
         }
 
     }
