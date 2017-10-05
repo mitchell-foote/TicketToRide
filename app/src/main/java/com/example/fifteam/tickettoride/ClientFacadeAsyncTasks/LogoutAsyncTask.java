@@ -7,7 +7,11 @@ import com.example.fifteam.tickettoride.interfaces.Toaster;
 import com.example.fifteam.tickettoride.model.ClientFacade;
 import com.example.fifteam.tickettoride.model.ClientModel;
 import com.example.fifteam.tickettoride.serverCommunications.ServerProxy;
+import com.example.model.classes.login.BaseGameSummary;
 import com.example.model.classes.users.User;
+
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Created by sam on 10/4/17.
@@ -59,7 +63,7 @@ public class LogoutAsyncTask extends AsyncTask<Void, Void, LogoutAsyncTask.Logou
         if(logoutResult.isValid()){
             model.setUser(null);
             model.setCurrentGame(null);
-            model.setGamesList(null);
+            model.setGamesList(new LinkedList<BaseGameSummary>());
         }
     }
 
