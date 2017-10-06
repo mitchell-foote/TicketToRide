@@ -85,6 +85,12 @@ public class ClientModel extends Observable {
                 gamesMap.put(i.getId(), i);
             }
         }
+        if(currentGame != null){
+            BaseGameSummary newGameSummary = gamesMap.get(currentGame.getId());
+            if(newGameSummary != null) {
+                currentGame = newGameSummary;
+            }
+        }
         setChanged();
         notifyObservers();
     }
@@ -102,6 +108,5 @@ public class ClientModel extends Observable {
         setChanged();
         notifyObservers();
     }
-
 
 }
