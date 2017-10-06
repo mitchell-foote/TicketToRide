@@ -202,6 +202,14 @@ public class ServerProxy implements IServerAccessor
         }
     }
 
+    @Override
+    public boolean startGame(String gameId, String authToken) throws Exception
+    {
+        
+        return false;
+    }
+
+
     private void ErrorCheckResponse(BaseResponse response) throws Exception
     {
         if(response.hasError){

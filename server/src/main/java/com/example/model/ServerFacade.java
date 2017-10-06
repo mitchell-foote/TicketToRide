@@ -88,4 +88,12 @@ public class ServerFacade implements IServerAccessor
 
         return model.addGame(owner, gameName, color);
     }
+
+    public boolean startGame(String gameId, String authToken) throws FailedAuthException {
+        if (model.findPlayerFromToken(authToken) != null) {
+            return model.startGame(gameId);
+        } else {
+            throw new FailedAuthException("Authentication failed");
+        }
+    }
 }
