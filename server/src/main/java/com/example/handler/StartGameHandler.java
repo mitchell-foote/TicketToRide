@@ -4,6 +4,7 @@ import com.example.Exceptions.FailedLoginException;
 import com.example.communication.BaseRequest;
 import com.example.communication.BaseResponse;
 import com.example.communication.IServerAccessor;
+import com.example.communication.Requests.StartGameRequest;
 import com.example.model.ServerFacade;
 import com.example.model.classes.users.LoginRequest;
 import com.google.gson.Gson;
@@ -37,8 +38,8 @@ public class StartGameHandler extends Handler implements HttpHandler {
 
                 String requestData = this.readString(requestBody);
                 BaseRequest data = new Gson().fromJson(requestData, BaseRequest.class);
-                String gameId = (String) data.body;
-
+                data.body = new Gson().fromJson(new Gson().toJson(data.body), StartGameRequest.class);
+                String gameId = ((StartGameRequest)data.body).gameId;
 
                 try {
 

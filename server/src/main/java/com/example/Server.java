@@ -5,6 +5,7 @@ import com.example.handler.CreateJoinLeaveCommandHandler;
 import com.example.handler.GetGamesHandler;
 import com.example.handler.LoginHandler;
 import com.example.handler.RegisterHandler;
+import com.example.handler.StartGameHandler;
 import com.sun.net.httpserver.HttpServer;
 
 import java.io.IOException;
@@ -28,6 +29,7 @@ public class Server {
         mServer.createContext(PathHolder.getRegisterURL(), new RegisterHandler());
         mServer.createContext(PathHolder.getGamesURL(), new GetGamesHandler());
         mServer.createContext(PathHolder.getGameCommandURL(),new CreateJoinLeaveCommandHandler());
+        mServer.createContext(PathHolder.getStartGameURL(), new StartGameHandler());
         System.out.println("Starting Server");
         mServer.start();
     }
