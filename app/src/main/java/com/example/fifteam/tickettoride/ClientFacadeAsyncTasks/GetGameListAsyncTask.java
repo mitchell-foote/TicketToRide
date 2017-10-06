@@ -3,6 +3,7 @@ package com.example.fifteam.tickettoride.ClientFacadeAsyncTasks;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.example.fifteam.tickettoride.model.ClientFacade;
 import com.example.fifteam.tickettoride.model.ClientModel;
 import com.example.fifteam.tickettoride.serverCommunications.ServerProxy;
 import com.example.model.classes.login.BaseGameSummary;
@@ -14,8 +15,8 @@ import java.util.List;
  * Created by sam on 10/4/17.
  */
 
-public class GetGameListAsyncTask extends AsyncTask<Void,Void,Void> {
-    protected Void doInBackground(Void... voids){
+public class GetGameListAsyncTask extends AsyncTask<Void,Void,Boolean> {
+    protected Boolean doInBackground(Void... voids){
 
         ClientModel model = ClientModel.getInstance();
         User currUser = model.getUser();
@@ -37,7 +38,11 @@ public class GetGameListAsyncTask extends AsyncTask<Void,Void,Void> {
         if (toReturn != null){
             model.setGamesList(toReturn);
         }
-        return null;
+        return true;
+    }
 
+    @Override
+    protected void onPostExecute(Boolean success) {
+        new GetGameListAsyncTask().execute();
     }
 }
