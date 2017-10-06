@@ -13,9 +13,11 @@ import com.example.fifteam.tickettoride.ClientFacadeAsyncTasks.RegisterAsyncTask
 import com.example.fifteam.tickettoride.interfaces.Toaster;
 import com.example.model.classes.login.BaseGameSummary;
 import com.example.fifteam.tickettoride.serverCommunications.ServerProxy;
+import com.example.model.classes.users.Player;
 import com.example.model.classes.users.User;
 import com.example.model.enums.SharedColor;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.EmptyStackException;
 import java.util.List;
@@ -233,5 +235,17 @@ public class ClientFacade{
 
     public BaseGameSummary getCurrGame(){
         return model.getCurrentGame();
+    }
+
+    public int getNumberOfPlayersInCurrentGame() {
+        return getCurrGame().getPlayers().size();
+    }
+
+    public List<String> getPlayerNames() {
+        List<String> players = new ArrayList<>();
+        for (Player player : getCurrGame().getPlayers().keySet()) {
+            players.add(player.getName());
+        }
+        return players;
     }
 }
