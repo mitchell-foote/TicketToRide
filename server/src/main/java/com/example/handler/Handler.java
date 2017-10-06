@@ -28,6 +28,7 @@ public abstract class Handler {
 
             writeString(strResponse, resBody);
             resBody.close();
+            httpExch.close();
         }
         catch(IOException er){
             e.printStackTrace();

@@ -25,6 +25,8 @@ public class ClientTester
             String gameId = proxy.createGame("Batmans Game", SharedColor.BLUE, authAgain);
             String secondPlayer = proxy.register("robin", "123456");
             boolean joined = proxy.joinGame(gameId, SharedColor.GREEN, secondPlayer);
+            boolean started = proxy.startGame(gameId,secondPlayer);
+            gameList = proxy.getGames(authAgain);
             boolean leaved = proxy.leaveGame(gameId, authAgain);
             leaved = proxy.leaveGame(gameId, secondPlayer);
 

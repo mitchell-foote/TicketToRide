@@ -28,8 +28,10 @@ public class TestRunner
             String secondUser = facade.register("robin", "123456");
             boolean joined = facade.joinGame(gameId, SharedColor.GREEN, secondUser);
             gameList = facade.getGames(secondAuthToken);
-            boolean gonzo = facade.leaveGame(gameId, secondAuthToken);
-            boolean allGonzo = facade.leaveGame(gameId, secondUser);
+            boolean started = facade.startGame(gameId, secondAuthToken);
+            //boolean gonzo = facade.leaveGame(gameId, secondAuthToken);
+            //boolean allGonzo = facade.leaveGame(gameId, secondUser);
+
             gameList = facade.getGames(secondUser);
             System.in.read();
 
@@ -45,10 +47,11 @@ public class TestRunner
         {
             e.printStackTrace();
             System.out.println(e.getMessage());
-        } catch (FailedLeaveException e)
-        {
-            e.printStackTrace();
-        } catch (IOException e)
+        } //catch (FailedLeaveException e)
+        //{
+           // e.printStackTrace();
+        //}
+        catch (IOException e)
         {
             e.printStackTrace();
             System.out.println(e.getMessage());
