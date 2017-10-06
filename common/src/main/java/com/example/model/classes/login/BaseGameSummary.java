@@ -16,12 +16,14 @@ public class BaseGameSummary
     private String ownerUsername;
     private String gameName;
     private Map<Player, SharedColor> players;
+    private Boolean started;
 
     public BaseGameSummary(String id, String ownerUsername, String gameName, Map<Player, SharedColor> players) {
         this.id = id;
         this.ownerUsername = ownerUsername;
         this.gameName = gameName;
         this.players = players;
+        started = false;
     }
 
     public String getId() {
@@ -62,6 +64,14 @@ public class BaseGameSummary
 
     public boolean isEmpty() {
         return (players.size() == 0);
+    }
+
+    public Boolean isStarted() {
+        return started;
+    }
+
+    public void startGame() {
+        started = true;
     }
 
     public boolean addPlayer(Player player, SharedColor color) throws FailedJoinException {

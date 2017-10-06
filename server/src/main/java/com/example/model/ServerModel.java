@@ -143,4 +143,13 @@ public class ServerModel {
     public List<BaseGameSummary> getGamesList() {
         return new ArrayList<BaseGameSummary>(games.values());
     }
+
+    public boolean startGame(String gameId) {
+        BaseGameSummary game = findGameById(gameId);
+        if (game != null) {
+            game.startGame();
+            return true;
+        }
+        return false;
+    }
 }
