@@ -3,11 +3,14 @@ package com.example.fifteam.tickettoride.views;
 import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,6 +29,7 @@ public class GamesListView extends Fragment {
     Button logoutButton;
     ListView gamesList;
     GamesListPresenter presenter;
+    EditText gameNameEditText;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -38,11 +42,33 @@ public class GamesListView extends Fragment {
 
         View v = inflater.inflate(R.layout.view_games_list, container, false);
 
+        gameNameEditText = (EditText) v.findViewById(R.id.gameNameEditText);
+
         createGameButton = (Button) v.findViewById(R.id.createGameButton);
         createGameButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), "Create Game Fragment coming soon(tm)", Toast.LENGTH_SHORT).show();
+                String gameName = gameNameEditText.getText().toString();
+                presenter.createGame(gameName);
+            }
+        });
+        createGameButton.setEnabled(false);
+
+        gameNameEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String gameName = s.toString();
+                createGameButton.setEnabled(gameName.length() > 0);
             }
         });
 

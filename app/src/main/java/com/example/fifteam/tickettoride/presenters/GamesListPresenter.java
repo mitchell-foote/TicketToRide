@@ -4,6 +4,7 @@ import com.example.fifteam.tickettoride.interfaces.Toaster;
 import com.example.fifteam.tickettoride.model.ClientFacade;
 import com.example.fifteam.tickettoride.views.GamesListView;
 import com.example.model.classes.login.BaseGameSummary;
+import com.example.model.enums.SharedColor;
 
 import java.util.List;
 import java.util.Observable;
@@ -30,6 +31,11 @@ public class GamesListPresenter implements Observer, Toaster{
     public void logout() {
         ClientFacade.getInstance().logout(this);
         view.logoutViewChange();
+    }
+
+    public void createGame(String name) {
+        //TODO: the player creating a game will always be green. how do we want to do this?
+        ClientFacade.getInstance().createGame(name, SharedColor.GREEN, this);
     }
 
     @Override

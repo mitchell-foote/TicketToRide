@@ -10,7 +10,7 @@
     android:weightSum="2"
     tools:context="com.example.fifteam.tickettoride.views.GamesListView">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -25,19 +25,30 @@
             android:layout_height="wrap_content"
             android:text="Create Game"/>
 
+        <EditText
+            android:id="@+id/gameNameEditText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:layout_toEndOf="@id/createGameButton"
+            android:text="Game Name"/>
+
         <Button
             android:id="@+id/joinGameButton"
             android:layout_width="120dp"
             android:layout_height="wrap_content"
+            android:layout_below="@id/createGameButton"
             android:text="Join Game"/>
 
         <Button
             android:id="@+id/logoutButton"
             android:layout_width="120dp"
             android:layout_height="wrap_content"
+            android:layout_below="@id/joinGameButton"
             android:text="Logout"/>
 
-    </LinearLayout>
+    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="0dp"
