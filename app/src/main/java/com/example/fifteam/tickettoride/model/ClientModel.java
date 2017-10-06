@@ -36,7 +36,10 @@ public class ClientModel extends Observable {
     }
 
     private ClientModel() {
+
         setGamesList(new ArrayList<BaseGameSummary>());
+
+        this.setPollerContinue(false);
     }
 
     @Override
@@ -54,6 +57,15 @@ public class ClientModel extends Observable {
     private List<BaseGameSummary> gamesList;
     private Map<String, BaseGameSummary> gamesMap;
     private String gameToJoin;
+    private boolean pollerContinue;
+
+    public boolean isPollerContinue() {
+        return pollerContinue;
+    }
+
+    public void setPollerContinue(boolean pollerContinue) {
+        this.pollerContinue = pollerContinue;
+    }
 
     public String getGameToJoin() {
         return gameToJoin;

@@ -80,18 +80,7 @@ public class ClientFacade{
        }
     }
 
-    public void startPollerTimer(){
-        TimerTask task = new TimerTask() {
-            @Override
-            public void run() {
-                runPoller();
-            }
-
-        };
-        this.timer.scheduleAtFixedRate(task,0,2000);
-    }
-
-    private void runPoller(){
+    public void runPoller(){
         try{
             new GetGameListAsyncTask().execute();
         }
@@ -132,7 +121,7 @@ public class ClientFacade{
      */
     public void createGame(String gameName, SharedColor color,Toaster toaster) {
         CreateGameObject newGame = new CreateGameObject(gameName,color);
-        this.timer.cancel();
+        model.setPollerContinue(false);
 
         //creates the game in question on the server
         try{
@@ -157,7 +146,14 @@ public class ClientFacade{
             toaster.displayMessage(e.getMessage());
         }
         String gameToJoin = model.getGameToJoin();
-        this.startPollerTimer();
+        model.setPollerContinue(true);
+
+        try{
+            new GetGameListAsyncTask().execute();
+        }
+        catch (Exception e){
+            toaster.displayMessage(e.getMessage());
+        }
 
 
         //checks if the created game is in the new games list if it is not the function returns false

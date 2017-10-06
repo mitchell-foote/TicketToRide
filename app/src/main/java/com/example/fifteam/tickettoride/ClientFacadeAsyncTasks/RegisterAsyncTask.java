@@ -62,6 +62,7 @@ public class RegisterAsyncTask extends AsyncTask<String, String, LoginRegisterRe
         User newUser = registerResult.getNewUser();
         if((registerResult.validResult()) && (newUser != null)){
             model.setUser(newUser);
+            model.setPollerContinue(true);
             ClientFacade.getInstance().runPoller();
         }
         else{
