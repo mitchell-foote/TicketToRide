@@ -1,5 +1,7 @@
 package com.example.fifteam.tickettoride.serverCommunications;
 
+import android.graphics.Path;
+
 import com.example.Exceptions.FailedAuthException;
 import com.example.Exceptions.FailedJoinException;
 import com.example.Exceptions.FailedLeaveException;
@@ -11,6 +13,7 @@ import com.example.communication.PathHolder;
 import com.example.communication.Requests.CreateGameRequest;
 import com.example.communication.Requests.JoinGameRequest;
 import com.example.communication.Requests.LeaveGameRequest;
+import com.example.communication.Requests.StartGameRequest;
 import com.example.communication.commands.CommandData;
 import com.example.communication.commands.CommandResponse;
 import com.example.model.classes.login.BaseGameSummary;
@@ -75,6 +78,20 @@ public class ServerProxy implements IServerAccessor
             throw e;
         }
 
+
+    }
+
+    @Override
+    public boolean startGame(String gameId, String authToken) throws Exception
+    {
+        try{
+            BaseResponse response = connection.post(PathHolder.getHost(), PathHolder.getPort(), PathHolder.getStartGameURL(), authToken, new BaseRequest("startgameRequest", new StartGameRequest(gameId)));
+            ErrorCheckResponse(response);
+            return true;
+        }
+        catch(Exception e){
+            throw e;
+        }
 
     }
 
@@ -202,12 +219,7 @@ public class ServerProxy implements IServerAccessor
         }
     }
 
-    @Override
-    public boolean startGame(String gameId, String authToken) throws Exception
-    {
-        
-        return false;
-    }
+
 
 
     private void ErrorCheckResponse(BaseResponse response) throws Exception

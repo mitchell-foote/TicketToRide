@@ -6,5 +6,9 @@ package com.example.communication.Requests;
 
 public class StartGameRequest
 {
+    public StartGameRequest(String id){
+        this.gameId = id;
+    }
+
     public String gameId;
 }
