@@ -65,7 +65,8 @@ public class LoginAsyncTask extends AsyncTask<String,String,LoginRegisterResult>
         User newUser = loginResult.getNewUser();
         if((loginResult.validResult()) && (newUser != null)){
             model.setUser(loginResult.getNewUser());
-            ClientFacade.getInstance().startPollerTimer();
+            model.setPollerContinue(true);
+            ClientFacade.getInstance().runPoller();
         }
         else{
             toaster.displayMessage(loginResult.getErrorMessage());
