@@ -8,6 +8,7 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -24,12 +25,14 @@ import java.util.List;
 
 public class GamesListView extends Fragment {
 
-    Button createGameButton;
-    Button joinGameButton;
-    Button logoutButton;
-    ListView gamesList;
-    GamesListPresenter presenter;
-    EditText gameNameEditText;
+    private Button createGameButton;
+    private Button joinGameButton;
+    private Button logoutButton;
+    private ListView gamesList;
+    private GamesListPresenter presenter;
+    private EditText gameNameEditText;
+    private BaseGameSummary selectedGame;
+    private int selectedGamePosition;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -76,7 +79,7 @@ public class GamesListView extends Fragment {
         joinGameButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), "Joining games functionality coming soon(tm)", Toast.LENGTH_SHORT).show();
+                presenter.joinGame(selectedGame.getId());
             }
         });
 
@@ -92,6 +95,20 @@ public class GamesListView extends Fragment {
         GameListAdapter adapter = new GameListAdapter(getContext(), presenter.getGamesList());
         gamesList.setAdapter(adapter);
 
+        gamesList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if (selectedGame != null) {
+                    parent.getSelectedView().setBackgroundColor(0x00000000);
+                }
+                selectedGame = (BaseGameSummary) parent.getItemAtPosition(position);
+                selectedGamePosition = position;
+                parent.setSelection(position);
+                view.setBackgroundColor(0xFF00FF00);
+                joinGameButton.setEnabled(!selectedGame.isFull());
+            }
+        });
+
         return v;
     }
 
@@ -101,6 +118,10 @@ public class GamesListView extends Fragment {
 
     public void logoutViewChange() {
         ((MainActivity)getContext()).switchFragment(new LoginView());
+    }
+
+    public void enterGameViewChange() {
+        ((MainActivity) getContext()).switchFragment(new GameLobbyView());
     }
 
     public void displayMessage(String message) {

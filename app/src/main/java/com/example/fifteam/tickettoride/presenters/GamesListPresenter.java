@@ -34,8 +34,13 @@ public class GamesListPresenter implements Observer, Toaster{
     }
 
     public void createGame(String name) {
-        //TODO: the player creating a game will always be green. how do we want to do this?
         ClientFacade.getInstance().createGame(name, SharedColor.GREEN, this);
+        view.enterGameViewChange();
+    }
+
+    public void joinGame(String gameID) {
+        ClientFacade.getInstance().joinGame(gameID, SharedColor.GREEN, this);
+        view.enterGameViewChange();
     }
 
     @Override
