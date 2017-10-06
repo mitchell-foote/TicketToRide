@@ -33,7 +33,7 @@ public class PathHolder
         return "/games/leave";
     }
     public static String getCreateGameURL(){ return "/games/create"; }
-    public static String getStartGameURL(){return "/games/start"}
+    public static String getStartGameURL(){return "/games/start";}
     public static String getHost(){ return "localhost";}
     public static String getPort() {return "30001";}
 
