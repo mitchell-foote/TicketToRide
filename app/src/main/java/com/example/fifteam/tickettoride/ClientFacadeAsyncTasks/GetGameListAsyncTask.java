@@ -1,23 +1,29 @@
 package com.example.fifteam.tickettoride.ClientFacadeAsyncTasks;
 
 import android.os.AsyncTask;
+import android.os.SystemClock;
 import android.util.Log;
 
 import com.example.fifteam.tickettoride.model.ClientFacade;
 import com.example.fifteam.tickettoride.model.ClientModel;
 import com.example.fifteam.tickettoride.serverCommunications.ServerProxy;
 import com.example.model.classes.login.BaseGameSummary;
+import com.example.model.classes.users.Player;
 import com.example.model.classes.users.User;
+import com.example.model.enums.SharedColor;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
  * Created by sam on 10/4/17.
  */
 
-public class GetGameListAsyncTask extends AsyncTask<Void,Void,Boolean> {
-    protected Boolean doInBackground(Void... voids){
+public class GetGameListAsyncTask extends AsyncTask<Void,Void,List<BaseGameSummary>> {
+    protected List<BaseGameSummary> doInBackground(Void... voids){
 
+        SystemClock.sleep(2000);
         ClientModel model = ClientModel.getInstance();
         User currUser = model.getUser();
 
@@ -35,14 +41,20 @@ public class GetGameListAsyncTask extends AsyncTask<Void,Void,Boolean> {
             return null;
         }
 
-        if (toReturn != null){
-            model.setGamesList(toReturn);
-        }
-        return true;
+
+        return toReturn;
     }
 
     @Override
-    protected void onPostExecute(Boolean success) {
-        new GetGameListAsyncTask().execute();
+    protected void onPostExecute(List<BaseGameSummary> newGameList) {
+        ClientModel model = ClientModel.getInstance();
+
+        if(newGameList != null){
+            model = ClientModel.getInstance();
+            model.setGamesList(newGameList);
+        }
+        if(model.isPollerContinue()) {
+            new GetGameListAsyncTask().execute();
+        }
     }
 }

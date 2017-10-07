@@ -90,7 +90,14 @@ public class ClientModel extends Observable {
     }
 
     public void setGamesList(List<BaseGameSummary> gamesList) {
-        this.gamesList = gamesList;
+        //this.gamesList = gamesList;
+        if(this.gamesList == null){
+            this.gamesList = gamesList;
+        }
+        else{
+            this.gamesList.clear();
+            this.gamesList.addAll(gamesList);
+        }
         gamesMap = new HashMap<>();
         if(gamesList != null) {
             for (BaseGameSummary i : gamesList) {

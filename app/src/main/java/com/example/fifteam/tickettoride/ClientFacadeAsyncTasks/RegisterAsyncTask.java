@@ -50,7 +50,7 @@ public class RegisterAsyncTask extends AsyncTask<String, String, LoginRegisterRe
         }
 
         //creates new user to be added to the model
-        User currentUser = new User(username,authToken,password);
+        User currentUser = new User(username,password,authToken);
 
         //sets the newly registered user as the current user in the model
         return new LoginRegisterResult(currentUser);
