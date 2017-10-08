@@ -10,6 +10,7 @@ import com.example.fifteam.tickettoride.ClientFacadeAsyncTasks.LeaveGameAsyncTas
 import com.example.fifteam.tickettoride.ClientFacadeAsyncTasks.LoginAsyncTask;
 import com.example.fifteam.tickettoride.ClientFacadeAsyncTasks.LogoutAsyncTask;
 import com.example.fifteam.tickettoride.ClientFacadeAsyncTasks.RegisterAsyncTask;
+import com.example.fifteam.tickettoride.ClientFacadeAsyncTasks.StartGameAsyncTask;
 import com.example.fifteam.tickettoride.interfaces.Toaster;
 import com.example.model.classes.login.BaseGameSummary;
 import com.example.fifteam.tickettoride.serverCommunications.ServerProxy;
@@ -111,9 +112,6 @@ public class ClientFacade{
         return model.getGamesList();
     }
 
-    private boolean getGamesFromServer(){
-        return false;
-    }
 
     /**
      * create a new game with a given name puts the player in the game with the given color
@@ -243,5 +241,20 @@ public class ClientFacade{
             players.add(player.getName());
         }
         return players;
+    }
+
+    public void startGame(Toaster toaster){
+        if(model.getCurrentGame() == null || model.getUser() == null){
+            toaster.displayMessage("no current Game or User");
+            return;
+        }
+
+        try{
+            new StartGameAsyncTask(toaster).execute();
+        }
+        catch (Exception e){
+            toaster.displayMessage(e.getMessage());
+        }
+        return;
     }
 }
