@@ -35,11 +35,13 @@ public class GamesListPresenter implements Observer, Toaster{
 
     public void createGame(String name) {
         ClientFacade.getInstance().createGame(name, SharedColor.GREEN, this);
+        ClientFacade.getInstance().removeObserver(this);
         view.enterGameViewChange();
     }
 
     public void joinGame(String gameID) {
         ClientFacade.getInstance().joinGame(gameID, SharedColor.GREEN, this);
+        ClientFacade.getInstance().removeObserver(this);
         view.enterGameViewChange();
     }
 

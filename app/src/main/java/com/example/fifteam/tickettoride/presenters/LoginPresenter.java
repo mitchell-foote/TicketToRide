@@ -39,6 +39,7 @@ public class LoginPresenter implements Observer, Toaster {
     public void update(Observable observable, Object o) {
         if (ClientFacade.getInstance().getUser() != null) {
             view.displayMessage("Logged in successfully!");
+            ClientFacade.getInstance().removeObserver(this);
             view.switchToNextView();
         }
     }

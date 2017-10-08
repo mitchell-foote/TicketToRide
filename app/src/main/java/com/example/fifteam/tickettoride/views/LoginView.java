@@ -62,8 +62,9 @@ public class LoginView extends Fragment {
     }
 
     public void displayMessage(String message) {
-
-        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+        if (message != null) {
+            Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void switchToNextView() {

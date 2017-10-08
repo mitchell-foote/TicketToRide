@@ -45,8 +45,6 @@ public class GamesListView extends Fragment {
 
         View v = inflater.inflate(R.layout.view_games_list, container, false);
 
-        gameNameEditText = (EditText) v.findViewById(R.id.gameNameEditText);
-
         createGameButton = (Button) v.findViewById(R.id.createGameButton);
         createGameButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,6 +55,7 @@ public class GamesListView extends Fragment {
         });
         createGameButton.setEnabled(false);
 
+        gameNameEditText = (EditText) v.findViewById(R.id.gameNameEditText);
         gameNameEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -125,8 +124,9 @@ public class GamesListView extends Fragment {
     }
 
     public void displayMessage(String message) {
-
-        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+        if (message != null) {
+            Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+        }
     }
 
     private class GameListAdapter extends BaseAdapter {
