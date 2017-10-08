@@ -15,10 +15,10 @@ public class BaseGameSummary
     private String id;
     private String ownerUsername;
     private String gameName;
-    private Map<Player, SharedColor> players;
+    private Map<String, SharedColor> players;
     private Boolean started;
 
-    public BaseGameSummary(String id, String ownerUsername, String gameName, Map<Player, SharedColor> players) {
+    public BaseGameSummary(String id, String ownerUsername, String gameName, Map<String, SharedColor> players) {
         this.id = id;
         this.ownerUsername = ownerUsername;
         this.gameName = gameName;
@@ -50,11 +50,11 @@ public class BaseGameSummary
         this.gameName = gameName;
     }
 
-    public Map<Player, SharedColor> getPlayers() {
+    public Map<String, SharedColor> getPlayers() {
         return players;
     }
 
-    public void setPlayers(Map<Player, SharedColor> players) {
+    public void setPlayers(Map<String, SharedColor> players) {
         this.players = players;
     }
 
@@ -77,19 +77,19 @@ public class BaseGameSummary
     public boolean addPlayer(Player player, SharedColor color) throws FailedJoinException {
         if (isFull()){
             throw new FailedJoinException("Game has maximum players");
-        } else if (players.containsKey(player)){
+        } else if (players.containsKey(player.getName())){
             throw new FailedJoinException("User is already in game");
         } else if (players.containsValue(color)){
             throw new FailedJoinException("Color already taken");
         } else {
-            players.put(player, color);
+            players.put(player.getName(), color);
             return true;
         }
     }
 
     public boolean removePlayer(Player player) {
-        if (players.containsKey(player)){
-            players.remove(player);
+        if (players.containsKey(player.getName())){
+            players.remove(player.getName());
             return true;
         } else {
             return false;

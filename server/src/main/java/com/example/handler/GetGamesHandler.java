@@ -33,10 +33,11 @@ public class GetGamesHandler extends Handler implements HttpHandler {
 
             try {
                 List<BaseGameSummary> games = serverFacade.getGames(authToken);
+                BaseGameSummary[] gamesArray = games.toArray(new BaseGameSummary[0]);
 
                 BaseResponse response = new BaseResponse();
                 response.type = "list";
-                response.response = games;
+                response.response = gamesArray;
                 response.hasError = false;
                 httpExch.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
                 writeString(new Gson().toJson(response), responseBody);
