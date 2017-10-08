@@ -35,14 +35,6 @@ public class ServerModel {
         users = new HashSet<>();
         authTable = new HashMap<>();
         usernameTable = new HashMap<>();
-
-        //Used for testing
-/*        String authToken = addUser("dude", "dude");
-        User user = findPlayerFromToken(authToken);
-        addGame(user, "Ultimate Game", SharedColor.BLACK);
-        String secondAuth = addUser("guy", "guy");
-        User userTwo = findPlayerFromToken(secondAuth);
-        addGame(userTwo, "Dumb Game", SharedColor.RED); */
     }
 
     public static ServerModel instance() {
@@ -62,8 +54,8 @@ public class ServerModel {
 
     public String addGame(Player owner, String gameName, SharedColor userColor) {
         String gameId = UUID.randomUUID().toString();
-        HashMap<String, SharedColor> players = new HashMap<>();
-        players.put(owner.getName(), userColor);
+        Map<Player, SharedColor> players = new HashMap<>();
+        players.put(owner, userColor);
         BaseGameSummary newGame = new BaseGameSummary(gameId, owner.getName(), gameName, players);
         games.put(gameId, newGame);
         return gameId;
@@ -149,7 +141,7 @@ public class ServerModel {
     }
 
     public List<BaseGameSummary> getGamesList() {
-        return new ArrayList<>(games.values());
+        return new ArrayList<BaseGameSummary>(games.values());
     }
 
     public boolean startGame(String gameId) {

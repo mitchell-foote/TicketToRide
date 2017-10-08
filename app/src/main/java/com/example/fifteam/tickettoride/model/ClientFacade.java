@@ -239,8 +239,8 @@ public class ClientFacade{
 
     public List<String> getPlayerNames() {
         List<String> players = new ArrayList<>();
-        for (String playerName : getCurrGame().getPlayers().keySet()) {
-            players.add(playerName);
+        for (Player player : getCurrGame().getPlayers().keySet()) {
+            players.add(player.getName());
         }
         return players;
     }
