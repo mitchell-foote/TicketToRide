@@ -77,7 +77,7 @@ public class GameLobbyView extends Fragment {
         return v;
     }
 
-    private void setPlayerNames() {
+    public void setPlayerNames() {
         int i = 0;
         for (String name : presenter.getPlayerNames()) {
             players.get(i++).setText(name);

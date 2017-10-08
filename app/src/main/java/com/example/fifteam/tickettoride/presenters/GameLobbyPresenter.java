@@ -38,7 +38,7 @@ public class GameLobbyPresenter implements Observer, Toaster{
 
     @Override
     public void update(Observable o, Object arg) {
-
+        view.setPlayerNames();
     }
 
     public boolean canStart() {
