@@ -54,8 +54,8 @@ public class ServerModel {
 
     public String addGame(Player owner, String gameName, SharedColor userColor) {
         String gameId = UUID.randomUUID().toString();
-        Map<Player, SharedColor> players = new HashMap<>();
-        players.put(owner, userColor);
+        Map<String, SharedColor> players = new HashMap<>();
+        players.put(owner.getName(), userColor);
         BaseGameSummary newGame = new BaseGameSummary(gameId, owner.getName(), gameName, players);
         games.put(gameId, newGame);
         return gameId;

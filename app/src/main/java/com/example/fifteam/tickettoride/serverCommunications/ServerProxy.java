@@ -1,6 +1,7 @@
 package com.example.fifteam.tickettoride.serverCommunications;
 
 import android.graphics.Path;
+import android.util.Log;
 
 import com.example.Exceptions.FailedAuthException;
 import com.example.Exceptions.FailedJoinException;
@@ -18,10 +19,14 @@ import com.example.communication.commands.CommandData;
 import com.example.communication.commands.CommandResponse;
 import com.example.model.classes.login.BaseGameSummary;
 import com.example.model.classes.users.LoginRequest;
+import com.example.model.classes.users.Player;
 import com.example.model.enums.SharedColor;
 import com.google.gson.Gson;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -176,7 +181,11 @@ public class ServerProxy implements IServerAccessor
         try{
             BaseResponse response = connection.get(PathHolder.getHost(), PathHolder.getPort(), PathHolder.getGamesURL(), authToken);
             ErrorCheckResponse(response);
-            return (List<BaseGameSummary>) response.response;
+            String listJson = new Gson().toJson(response.response);
+
+            List<BaseGameSummary> gameList = new ArrayList<>(Arrays.asList(new Gson().fromJson(listJson, BaseGameSummary[].class)));
+
+            return gameList;
         }
         catch(FailedAuthException e){
             throw e;
