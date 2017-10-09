@@ -79,7 +79,7 @@ public class GamesListView extends Fragment {
             @Override
             public void onClick(View v) {
                 if (selectedGame != null) {
-                    presenter.joinGame(selectedGame.getId());
+                    presenter.joinGame(selectedGame.getId(), selectedGame.getPlayerCount());
                 } else {
                     displayMessage("You must select a game first!");
                 }

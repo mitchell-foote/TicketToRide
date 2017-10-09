@@ -58,6 +58,10 @@ public class BaseGameSummary
         this.players = players;
     }
 
+    public int getPlayerCount() {
+        return players.size();
+    }
+
     public boolean isFull() {
         return (players.size() >= 5 );
     }

@@ -38,9 +38,9 @@ public class GamesListPresenter implements Observer, Toaster{
         ClientFacade.getInstance().createGame(name, SharedColor.GREEN, this);
     }
 
-    public void joinGame(String gameID) {
+    public void joinGame(String gameID, int playerCount) {
         displayMessage("Joining game...");
-        ClientFacade.getInstance().joinGame(gameID, SharedColor.BLUE, this);
+        ClientFacade.getInstance().joinGame(gameID, getAssignedPlayerColor(playerCount), this);
     }
 
     @Override
@@ -55,5 +55,15 @@ public class GamesListPresenter implements Observer, Toaster{
     @Override
     public void displayMessage(String message) {
         view.displayMessage(message);
+    }
+
+    private SharedColor getAssignedPlayerColor(int playerCount) {
+        switch (playerCount) {
+            case 1: return SharedColor.BLUE;
+            case 2: return SharedColor.RED;
+            case 3: return SharedColor.YELLOW;
+            case 4: return SharedColor.BLACK;
+        }
+        return null;
     }
 }
