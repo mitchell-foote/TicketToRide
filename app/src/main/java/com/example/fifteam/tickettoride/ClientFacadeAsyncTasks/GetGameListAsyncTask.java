@@ -49,6 +49,10 @@ public class GetGameListAsyncTask extends AsyncTask<Void,Void,List<BaseGameSumma
     protected void onPostExecute(List<BaseGameSummary> newGameList) {
         ClientModel model = ClientModel.getInstance();
 
+        if(model.isLoggedOut()){
+            model.setLoggedOut(false);
+            return;
+        }
         if(newGameList != null){
             model = ClientModel.getInstance();
             model.setGamesList(newGameList);

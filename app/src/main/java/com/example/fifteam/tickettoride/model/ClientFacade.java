@@ -97,7 +97,7 @@ public class ClientFacade{
         if(model.getUser() == null){
             return;
         }
-
+        model.setLoggedOut(true);
         //creates new async task to perform the logout
         try{
             new LogoutAsyncTask(toaster).execute();

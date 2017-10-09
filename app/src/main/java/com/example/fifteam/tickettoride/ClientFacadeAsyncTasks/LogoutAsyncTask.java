@@ -60,11 +60,11 @@ public class LogoutAsyncTask extends AsyncTask<Void, Void, LogoutAsyncTask.Logou
     @Override
     protected void onPostExecute(LogoutResult logoutResult) {
         ClientModel model = ClientModel.getInstance();
-        if(logoutResult.isValid()){
+
             model.setUser(null);
             model.setCurrentGame(null);
             model.setGamesList(new LinkedList<BaseGameSummary>());
-        }
+
     }
 
     public class LogoutResult{

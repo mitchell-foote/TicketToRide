@@ -25,6 +25,14 @@ public class ClientModel extends Observable {
         return ourInstance;
     }
 
+    private User user;
+    private BaseGameSummary currentGame;
+    private List<BaseGameSummary> gamesList;
+    private Map<String, BaseGameSummary> gamesMap;
+    private String gameToJoin;
+    private boolean pollerContinue;
+    private boolean loggedOut;
+
     @Override
     public String toString() {
         return "ClientModel{" +
@@ -40,6 +48,15 @@ public class ClientModel extends Observable {
         setGamesList(new ArrayList<BaseGameSummary>());
 
         this.setPollerContinue(false);
+        this.loggedOut  = false;
+    }
+
+    public boolean isLoggedOut() {
+        return loggedOut;
+    }
+
+    public void setLoggedOut(boolean loggedOut) {
+        this.loggedOut = loggedOut;
     }
 
     @Override
@@ -52,12 +69,7 @@ public class ClientModel extends Observable {
         super.deleteObserver(o);
     }
 
-    private User user;
-    private BaseGameSummary currentGame;
-    private List<BaseGameSummary> gamesList;
-    private Map<String, BaseGameSummary> gamesMap;
-    private String gameToJoin;
-    private boolean pollerContinue;
+
 
     public boolean isPollerContinue() {
         return pollerContinue;
