@@ -57,6 +57,7 @@ public class GameLobbyView extends Fragment {
 
         setPlayerNames();
 
+        /*
         leaveGameButton = (Button) v.findViewById(R.id.leaveGameButton);
         leaveGameButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,6 +65,7 @@ public class GameLobbyView extends Fragment {
                 presenter.leaveGame();
             }
         });
+        */
 
         startGameButton = (Button) v.findViewById(R.id.startGameButton);
         startGameButton.setOnClickListener(new View.OnClickListener() {
@@ -72,7 +74,7 @@ public class GameLobbyView extends Fragment {
                 Toast.makeText(getContext(), "The Game!", Toast.LENGTH_SHORT).show();
             }
         });
-        startGameButton.setEnabled(presenter.canStart());
+        startGameButton.setEnabled(false); //starts disabled, the presenter will enable if it the game can start
 
         return v;
     }
@@ -94,5 +96,9 @@ public class GameLobbyView extends Fragment {
 
     public void leaveGameViewChange() {
         ((MainActivity)getContext()).switchFragment(new GamesListView());
+    }
+
+    public void enableStart(boolean canStart) {
+        startGameButton.setEnabled(canStart);
     }
 }

@@ -34,6 +34,13 @@ public class GameLobbyPresenter implements Observer, Toaster{
     @Override
     public void update(Observable o, Object arg) {
         view.setPlayerNames();
+        if (ClientFacade.getInstance().getNumberOfPlayersInCurrentGame() >= 2) {
+            view.enableStart(true);
+        }
+        else {
+            view.enableStart(false);
+        }
+
         if (ClientFacade.getInstance().getCurrGame() == null) {
             view.leaveGameViewChange();
         }

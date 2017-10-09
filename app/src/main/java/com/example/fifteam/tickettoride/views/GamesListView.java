@@ -78,7 +78,11 @@ public class GamesListView extends Fragment {
         joinGameButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                presenter.joinGame(selectedGame.getId());
+                if (selectedGame != null) {
+                    presenter.joinGame(selectedGame.getId());
+                } else {
+                    displayMessage("You must select a game first!");
+                }
             }
         });
 
@@ -97,9 +101,6 @@ public class GamesListView extends Fragment {
         gamesList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (selectedGame != null) {
-                    parent.getSelectedView().setBackgroundColor(0x00000000);
-                }
                 selectedGame = (BaseGameSummary) parent.getItemAtPosition(position);
                 selectedGamePosition = position;
                 parent.setSelection(position);
