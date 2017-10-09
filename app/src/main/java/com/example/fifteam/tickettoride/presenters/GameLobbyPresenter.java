@@ -1,5 +1,7 @@
 package com.example.fifteam.tickettoride.presenters;
 
+import android.content.Intent;
+
 import com.example.fifteam.tickettoride.interfaces.Toaster;
 import com.example.fifteam.tickettoride.model.ClientFacade;
 import com.example.fifteam.tickettoride.views.GameLobbyView;
@@ -44,6 +46,10 @@ public class GameLobbyPresenter implements Observer, Toaster{
         if (ClientFacade.getInstance().getCurrGame() == null) {
             view.leaveGameViewChange();
         }
+
+        //if (ClientFacade.getInstance().getCurrGame().isStarted()) {
+        //    view.switchToGameView();
+        //}
     }
 
     public boolean canStart() {
@@ -52,5 +58,11 @@ public class GameLobbyPresenter implements Observer, Toaster{
 
     public List<String> getPlayerNames() {
         return ClientFacade.getInstance().getPlayerNames();
+    }
+
+    public void startGame() {
+        ClientFacade.getInstance().removeObserver(this);
+        ClientFacade.getInstance().startGame(this);
+        view.switchToGameView();
     }
 }

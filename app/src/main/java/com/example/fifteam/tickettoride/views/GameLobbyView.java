@@ -1,5 +1,6 @@
 package com.example.fifteam.tickettoride.views;
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.widget.Toast;
 
 import com.example.fifteam.tickettoride.MainActivity;
 import com.example.fifteam.tickettoride.R;
+import com.example.fifteam.tickettoride.activities.GameView;
 import com.example.fifteam.tickettoride.presenters.GameLobbyPresenter;
 
 import java.util.ArrayList;
@@ -72,6 +74,7 @@ public class GameLobbyView extends Fragment {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getContext(), "The Game!", Toast.LENGTH_SHORT).show();
+                presenter.startGame();
             }
         });
         startGameButton.setEnabled(false); //starts disabled, the presenter will enable if it the game can start
@@ -101,4 +104,9 @@ public class GameLobbyView extends Fragment {
     public void enableStart(boolean canStart) {
         startGameButton.setEnabled(canStart);
     }
+
+    public void switchToGameView() {
+        ((MainActivity) getContext()).switchFragment(new TempGameView());
+    }
+
 }

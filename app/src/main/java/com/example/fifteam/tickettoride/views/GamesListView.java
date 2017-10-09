@@ -160,29 +160,34 @@ public class GamesListView extends Fragment {
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
 
-            View rowView = inflater.inflate(R.layout.games_list_item, parent, false);
-
-            // Get game name element
-            TextView nameTextView = (TextView) rowView.findViewById(R.id.gameListItem_name);
-
-            // Get game creator element
-            TextView creatorTextView = (TextView) rowView.findViewById(R.id.gameListItem_creator);
-
-            // Get number of players element
-            TextView playersTextView = (TextView) rowView.findViewById(R.id.gameListItem_players);
-
             // 1
             BaseGameSummary game = (BaseGameSummary) getItem(position);
 
-            nameTextView.setText(game.getGameName());
-            creatorTextView.setText("Created by: " + game.getOwner());
-            playersTextView.setText(game.getPlayers().size() + "/5");
+            View rowView = null;
+            if (!game.isStarted()) {
+                rowView = inflater.inflate(R.layout.games_list_item, parent, false);
 
-            if(selectedGame != null){
-                if(selectedGame.getId().equals(game.getId())){
-                    rowView.setBackgroundColor(0xFF00FF00);
+                // Get game name element
+                TextView nameTextView = (TextView) rowView.findViewById(R.id.gameListItem_name);
 
+                // Get game creator element
+                TextView creatorTextView = (TextView) rowView.findViewById(R.id.gameListItem_creator);
+
+                // Get number of players element
+                TextView playersTextView = (TextView) rowView.findViewById(R.id.gameListItem_players);
+
+                nameTextView.setText(game.getGameName());
+                creatorTextView.setText("Created by: " + game.getOwner());
+                playersTextView.setText(game.getPlayers().size() + "/5");
+
+                if(selectedGame != null){
+                    if(selectedGame.getId().equals(game.getId())){
+                        rowView.setBackgroundColor(0xFF00FF00);
+
+                    }
                 }
+            } else {
+                rowView = inflater.inflate(R.layout.blank_list_item, parent, false);
             }
 
             return rowView;
