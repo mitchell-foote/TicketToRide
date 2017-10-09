@@ -122,6 +122,13 @@ public class ClientModel extends Observable {
                 currentGame = newGameSummary;
             }
         }
+        if(this.gameToJoin != null){
+            BaseGameSummary tempGameToJoin = this.gamesMap.get(this.gameToJoin);
+            if(tempGameToJoin != null){
+                this.currentGame = tempGameToJoin;
+                this.gameToJoin = null;
+            }
+        }
         setChanged();
         notifyObservers();
     }

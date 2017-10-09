@@ -134,34 +134,14 @@ public class ClientFacade{
             return;
         }
 
-
-        //gets the updated game list
-        try{
-            new GetGameListAsyncTask().execute().get();
-        }
-        catch (Exception e){
-            Log.e(null, "createGame: ",e );
-            toaster.displayMessage(e.getMessage());
-        }
-        String gameToJoin = model.getGameToJoin();
         model.setPollerContinue(true);
-
+        //gets the updated game list
         try{
             new GetGameListAsyncTask().execute();
         }
         catch (Exception e){
+            Log.e(null, "createGame: ",e );
             toaster.displayMessage(e.getMessage());
-        }
-
-
-        //checks if the created game is in the new games list if it is not the function returns false
-        BaseGameSummary createdGame = model.getGameByID(gameToJoin);
-        if(createdGame == null){
-            return;
-        }
-        else{
-            model.setGameToJoin(null);
-            model.setCurrentGame(createdGame);
         }
 
     }
