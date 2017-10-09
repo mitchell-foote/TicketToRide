@@ -178,6 +178,13 @@ public class GamesListView extends Fragment {
             creatorTextView.setText("Created by: " + game.getOwner());
             playersTextView.setText(game.getPlayers().size() + "/5");
 
+            if(selectedGame != null){
+                if(selectedGame.getId().equals(game.getId())){
+                    rowView.setBackgroundColor(0xFF00FF00);
+
+                }
+            }
+
             return rowView;
         }
     }

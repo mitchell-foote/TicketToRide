@@ -23,7 +23,7 @@ import java.util.List;
 public class GetGameListAsyncTask extends AsyncTask<Void,Void,List<BaseGameSummary>> {
     protected List<BaseGameSummary> doInBackground(Void... voids){
 
-        //SystemClock.sleep(2000);
+        SystemClock.sleep(750);
         ClientModel model = ClientModel.getInstance();
         User currUser = model.getUser();
 
