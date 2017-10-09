@@ -119,30 +119,14 @@ public class ClientFacade{
      */
     public void createGame(String gameName, SharedColor color,Toaster toaster) {
         CreateGameObject newGame = new CreateGameObject(gameName,color);
-        model.setPollerContinue(false);
-
-        //creates the game in question on the server
-        try{
-            new CreateGameAsyncTask(toaster).execute(newGame).get();
+      try{
+            new CreateGameAsyncTask(toaster).execute(newGame);
         }
         catch (Exception e){
             Log.e(null, "createGame: ",e );
             return;
         }
-        if(model.getGameToJoin() == null) {
-            toaster.displayMessage("unsuccessful game creation");
-            return;
-        }
 
-        model.setPollerContinue(true);
-        //gets the updated game list
-        try{
-            new GetGameListAsyncTask().execute();
-        }
-        catch (Exception e){
-            Log.e(null, "createGame: ",e );
-            toaster.displayMessage(e.getMessage());
-        }
 
     }
 
