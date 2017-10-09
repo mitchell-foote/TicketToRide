@@ -27,6 +27,9 @@ public class GetGameListAsyncTask extends AsyncTask<Void,Void,List<BaseGameSumma
         ClientModel model = ClientModel.getInstance();
         User currUser = model.getUser();
 
+        if(currUser == null){
+            return null;
+        }
 
         String authToken = currUser.getAuthToken();
         //creates the server proxy which will be used to contact the server
