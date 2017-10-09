@@ -56,6 +56,7 @@ public class JoinGameAsyncTask extends AsyncTask<JoinGameObject,Void,JoinGameAsy
         // the game in question and then returns whether or not the attempt to join the game was successful
 
         if(joinSuccessBool){
+            model.setGameToJoin(gameID);
             return new JoinGameResult(gameToJoin);
         }
         return new JoinGameResult("Game could not be joined");
@@ -64,10 +65,7 @@ public class JoinGameAsyncTask extends AsyncTask<JoinGameObject,Void,JoinGameAsy
     @Override
     protected void onPostExecute(JoinGameResult joinGameResult) {
         ClientModel model = ClientModel.getInstance();
-        if(joinGameResult.isValid()){
-            model.setCurrentGame(joinGameResult.getGameToJoin());
-        }
-        else {
+        if(!joinGameResult.isValid()){
             toaster.displayMessage(joinGameResult.getErrorMessage());
         }
     }
