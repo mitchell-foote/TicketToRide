@@ -24,12 +24,16 @@ public class LoginPresenter implements Observer, Toaster {
     }
 
     public void login(String username, String password) {
-
+        if (username.equals("") || password.equals("")) {
+            return;
+        }
         ClientFacade.getInstance().login(username, password, this);
     }
 
     public void register(String username, String password) {
-
+        if (username.equals("") || password.equals("")) {
+            return;
+        }
         ClientFacade.getInstance().register(username, password, this);
     }
 
