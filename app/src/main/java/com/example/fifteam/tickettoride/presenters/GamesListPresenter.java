@@ -45,11 +45,11 @@ public class GamesListPresenter implements Observer, Toaster{
 
     @Override
     public void update(Observable o, Object arg) {
-        view.updateList();
         if (ClientFacade.getInstance().getCurrGame() != null) {
             ClientFacade.getInstance().removeObserver(this);
             view.enterGameViewChange();
         }
+        view.updateList();
     }
 
     @Override

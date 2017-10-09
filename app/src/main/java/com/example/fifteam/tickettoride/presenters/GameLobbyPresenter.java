@@ -22,13 +22,8 @@ public class GameLobbyPresenter implements Observer, Toaster{
         ClientFacade.getInstance().addObserver(this);
     }
 
-    public void getPlayerList() {
-
-    }
-
     public void leaveGame() {
         ClientFacade.getInstance().leaveGame(this);
-        view.leaveGameViewChange();
     }
 
     @Override
@@ -39,6 +34,9 @@ public class GameLobbyPresenter implements Observer, Toaster{
     @Override
     public void update(Observable o, Object arg) {
         view.setPlayerNames();
+        if (ClientFacade.getInstance().getCurrGame() == null) {
+            view.leaveGameViewChange();
+        }
     }
 
     public boolean canStart() {
