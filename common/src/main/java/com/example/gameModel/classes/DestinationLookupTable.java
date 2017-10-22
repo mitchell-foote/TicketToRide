@@ -8,6 +8,7 @@ import com.google.gson.reflect.TypeToken;
 import java.io.InputStream;
 import java.lang.reflect.Type;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by Mitchell Foote on 10/18/2017.
@@ -27,11 +28,20 @@ public class DestinationLookupTable {
         return MappingTable.get(cardId);
     }
 
+    public static Set<String> getIdStringSet() {
+        return MappingTable.keySet();
+    }
+
     //for testing
     public static void main(String[] argv) {
-        DestinationCard card = DestinationLookupTable.getCardById("25d");
-        System.out.println(card.getFirstCity());
-        System.out.println(card.getSecondCity());
-        System.out.println(card.getValue());
+        DestinationDeck deck = new DestinationDeck();
+
+        for (int i = 0; i < 30; i++) {
+            DestinationCard card = deck.drawRandomCard();
+            System.out.println(card.getFirstCity());
+            System.out.println(card.getSecondCity());
+            System.out.println(card.getValue());
+            System.out.println();
+        }
     }
 }

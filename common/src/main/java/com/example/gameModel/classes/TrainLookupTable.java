@@ -7,6 +7,7 @@ import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by Mitchell Foote on 10/18/2017.
@@ -26,11 +27,19 @@ public class TrainLookupTable
         return MappingTable.get(cardId);
     }
 
+    public static Set<String> getIdStringSet() {
+        return MappingTable.keySet();
+    }
+
     //for testing
     public static void main(String[] argv) {
-        TrainCard card = TrainLookupTable.getCardById("09loc");
-        System.out.println(card.getColor());
-        System.out.println(card.getReferenceId());
+        TrainDeck deck = new TrainDeck();
+
+        for (int i = 0; i < 105; i++) {
+            TrainCard card = deck.drawRandomCard();
+            System.out.println(card.getColor());
+            System.out.println();
+        }
     }
 
 }

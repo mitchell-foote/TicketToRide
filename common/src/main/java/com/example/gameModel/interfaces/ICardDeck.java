@@ -7,7 +7,6 @@ package com.example.gameModel.interfaces;
 public interface ICardDeck
 {
     void initDeck();
-    ICard getCardById(String cardId);
     ICard drawRandomCard();
     void removeCardById(String cardId);
     Class<?> getICardClassType();

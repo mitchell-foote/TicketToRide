@@ -3,6 +3,8 @@ package com.example.gameModel.classes;
 import com.example.gameModel.interfaces.ICard;
 import com.example.gameModel.interfaces.ICardDeck;
 
+import java.util.HashSet;
+import java.util.Random;
 import java.util.Set;
 
 /**
@@ -14,33 +16,49 @@ public class DestinationDeck implements ICardDeck
     private Set<String> DrawPile;
     private Set<String> DiscardPile;
 
-    @Override
-    public void initDeck()
-    {
-
+    public DestinationDeck() {
+        initDeck();
     }
 
     @Override
-    public ICard getCardById(String cardId)
-    {
+    public void initDeck() {
+        DrawPile = DestinationLookupTable.getIdStringSet();
+        DiscardPile = new HashSet<>();
+    }
+
+    @Override
+    public DestinationCard drawRandomCard() {
+        int index = new Random().nextInt(DrawPile.size());
+        int i = 0;
+        for (String s : DrawPile) {
+            if (i == index) {
+                DestinationCard card = DestinationLookupTable.getCardById(s);
+                removeCardById(s);
+                return card;
+            }
+            i++;
+        }
         return null;
     }
 
+    //There is no real "discard pile," as cards are supposed to be added to the bottom of the DrawPile.
+    //So, when the DrawPile is empty, we just re-add all the "discarded" cards. Players will have no idea.
     @Override
-    public ICard drawRandomCard()
-    {
-        return null;
+    public void removeCardById(String cardId) {
+        DrawPile.remove(cardId);
+        if (DrawPile.isEmpty()) {
+            DrawPile = DiscardPile;
+            DiscardPile = new HashSet<>();
+        }
     }
 
-    @Override
-    public void removeCardById(String cardId)
-    {
-
+    public void returnCard(String cardId) {
+        DiscardPile.add(cardId);
     }
 
+
     @Override
-    public Class<?> getICardClassType()
-    {
+    public Class<?> getICardClassType() {
         return DestinationCard.class;
     }
 }
