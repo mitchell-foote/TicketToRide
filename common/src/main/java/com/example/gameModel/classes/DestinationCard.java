@@ -1,5 +1,6 @@
 package com.example.gameModel.classes;
 
+import com.example.gameModel.enums.City;
 import com.example.gameModel.interfaces.ICard;
 
 /**
@@ -8,13 +9,13 @@ import com.example.gameModel.interfaces.ICard;
 
 public class DestinationCard implements ICard
 {
-    private String FirstCity;
-    private String SecondCity;
+    private City FirstCity;
+    private City SecondCity;
     private Integer Value;
     private String ReferenceId;
 
     public DestinationCard(){}
-    public DestinationCard(String firstCity, String secondCity, Integer value, String referenceId){
+    public DestinationCard(City firstCity, City secondCity, Integer value, String referenceId){
         this.FirstCity = firstCity;
         this.SecondCity = secondCity;
         this.Value = value;
@@ -26,12 +27,12 @@ public class DestinationCard implements ICard
         return this.ReferenceId;
     }
 
-    public String getFirstCity()
+    public City getFirstCity()
     {
         return FirstCity;
     }
 
-    public String getSecondCity()
+    public City getSecondCity()
     {
         return SecondCity;
     }
