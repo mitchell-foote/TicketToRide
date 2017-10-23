@@ -155,4 +155,8 @@ public class ServerModel {
         }
         return false;
     }
+
+    public GameModel findFullGameById(String gameId) {
+        return fullGames.get(gameId);
+    }
 }

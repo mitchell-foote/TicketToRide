@@ -56,4 +56,24 @@ public class GameModel {
         }
     }
 
+    public void addTrainCardToPlayerHand(Player player, String cardId) {
+        PlayerInfo hand = playerInfo.get(player);
+        hand.addTrainCard(cardId);
+    }
+
+    public void addDestinationCardToPlayerHand(Player player, String cardId) {
+        PlayerInfo hand = playerInfo.get(player);
+        hand.addDestinationCard(cardId);
+    }
+
+    public void removeTrainCardFromPlayerHand(Player player, String cardId) {
+        PlayerInfo hand = playerInfo.get(player);
+        hand.removeTrainCard(cardId);
+    }
+
+    public void removeDestinationCardToPlayerHand(Player player, String cardId) {
+        PlayerInfo hand = playerInfo.get(player);
+        hand.removeDestinationCard(cardId);
+    }
+
 }
