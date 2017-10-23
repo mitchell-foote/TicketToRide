@@ -1,8 +1,5 @@
 package com.example.gameModel.classes;
 
-import com.example.gameModel.interfaces.ICard;
-import com.example.gameModel.interfaces.ICardDeck;
-
 import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
@@ -11,7 +8,7 @@ import java.util.Set;
  * Created by Mitchell Foote on 10/18/2017.
  */
 
-public class DestinationDeck implements ICardDeck
+public class DestinationDeck
 {
     private Set<String> DrawPile;
     private Set<String> DiscardPile;
@@ -20,13 +17,11 @@ public class DestinationDeck implements ICardDeck
         initDeck();
     }
 
-    @Override
     public void initDeck() {
         DrawPile = DestinationLookupTable.getIdStringSet();
         DiscardPile = new HashSet<>();
     }
 
-    @Override
     public DestinationCard drawRandomCard() {
         int index = new Random().nextInt(DrawPile.size());
         int i = 0;
@@ -43,7 +38,6 @@ public class DestinationDeck implements ICardDeck
 
     //There is no real "discard pile," as cards are supposed to be added to the bottom of the DrawPile.
     //So, when the DrawPile is empty, we just re-add all the "discarded" cards. Players will have no idea.
-    @Override
     public void removeCardById(String cardId) {
         DrawPile.remove(cardId);
         if (DrawPile.isEmpty()) {
@@ -56,9 +50,4 @@ public class DestinationDeck implements ICardDeck
         DiscardPile.add(cardId);
     }
 
-
-    @Override
-    public Class<?> getICardClassType() {
-        return DestinationCard.class;
-    }
 }

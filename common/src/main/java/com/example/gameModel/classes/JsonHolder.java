@@ -4,6 +4,7 @@ package com.example.gameModel.classes;
  * Created by ninjup on 10/22/17.
  */
 
+//Later, I'll make this read files instead of having hardcoded json
 public class JsonHolder {
 
     public static String getDestinationJson() {

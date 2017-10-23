@@ -12,6 +12,7 @@ import java.util.UUID;
 import com.example.Exceptions.FailedJoinException;
 import com.example.Exceptions.FailedLeaveException;
 import com.example.Exceptions.FailedLoginException;
+import com.example.gameModel.GameModel;
 import com.example.model.classes.login.BaseGameSummary;
 import com.example.model.classes.users.Player;
 import com.example.model.classes.users.User;
@@ -29,6 +30,7 @@ public class ServerModel {
     private Set<User> users;
     private Map<String, User> authTable;
     private Map<String, User> usernameTable;
+    private Map<String, GameModel> fullGames;
 
     private ServerModel() {
         games = new HashMap<>();
@@ -148,6 +150,7 @@ public class ServerModel {
         BaseGameSummary game = findGameById(gameId);
         if (game != null) {
             game.startGame();
+            fullGames.put(gameId, new GameModel(game.getFullGameId(), game.getPlayers()));
             return true;
         }
         return false;

@@ -1,13 +1,12 @@
 package com.example.gameModel.classes;
 
 import com.example.gameModel.enums.City;
-import com.example.gameModel.interfaces.ICard;
 
 /**
  * Created by Mitchell Foote on 10/18/2017.
  */
 
-public class DestinationCard implements ICard
+public class DestinationCard
 {
     private City FirstCity;
     private City SecondCity;
@@ -21,7 +20,7 @@ public class DestinationCard implements ICard
         this.Value = value;
         this.ReferenceId = referenceId;
     }
-    @Override
+
     public String getReferenceId()
     {
         return this.ReferenceId;

@@ -1,7 +1,5 @@
 package com.example.gameModel.classes;
 
-import com.example.gameModel.interfaces.ICard;
-import com.example.gameModel.interfaces.ICardLookupTable;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 

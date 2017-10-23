@@ -6,6 +6,7 @@ import com.example.model.enums.SharedColor;
 
 
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * Created by Mitchell Foote on 9/22/2017.
@@ -17,6 +18,7 @@ public class BaseGameSummary
     private String gameName;
     private Map<String, SharedColor> players;
     private Boolean started;
+    private String fullGameId;
 
     public BaseGameSummary(String id, String ownerUsername, String gameName, Map<String, SharedColor> players) {
         this.id = id;
@@ -24,6 +26,7 @@ public class BaseGameSummary
         this.gameName = gameName;
         this.players = players;
         started = false;
+        fullGameId = UUID.randomUUID().toString();
     }
 
     public String getId() {
@@ -76,6 +79,8 @@ public class BaseGameSummary
 
     public void setStarted(boolean started){
         this.started = started;
+        if (started) {
+        }
     }
 
     public void startGame() {
@@ -126,5 +131,9 @@ public class BaseGameSummary
             hash = hash*31 + this.getId().charAt(i);
         }
         return hash;
+    }
+
+    public String getFullGameId() {
+        return fullGameId;
     }
 }

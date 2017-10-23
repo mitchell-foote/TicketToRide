@@ -1,13 +1,12 @@
 package com.example.gameModel.classes;
 
-import com.example.gameModel.interfaces.ICard;
 import com.example.model.enums.SharedColor;
 
 /**
  * Created by Mitchell Foote on 10/18/2017.
  */
 
-public class TrainCard implements ICard
+public class TrainCard
 {
     private SharedColor Color;
     private String ReferenceId;
@@ -21,7 +20,6 @@ public class TrainCard implements ICard
         return this.Color;
     }
 
-    @Override
     public String getReferenceId()
     {
         return this.ReferenceId;
