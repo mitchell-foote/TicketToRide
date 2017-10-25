@@ -1,4 +1,4 @@
-package com.example.model.GameSummaries;
+package com.example.model.PlayerGameSummaries;
 
 import com.example.model.enums.SharedColor;
 
