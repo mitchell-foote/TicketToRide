@@ -15,10 +15,10 @@ public class GameFacade implements IGameAccessor {
 
     private ServerModel model = ServerModel.instance();
 
-    public ICommandContainer addTrainCard(String cardId, String authId, String gameId) {
+    public ICommandContainer drawTrainCard(String authId, String gameId) {
         GameModel game = model.findFullGameById(gameId);
         Player player = model.findPlayerFromToken(authId);
-        game.addTrainCardToPlayerHand(player, cardId);
+        String cardId = game.drawTrainCard(player);
 
         return null;
     }
@@ -33,11 +33,34 @@ public class GameFacade implements IGameAccessor {
         return null;
     }
 
-    public ICommandContainer addDestinationCard(String cardId, String authId, String gameId) {
+    public ICommandContainer drawDestinationCard(String authId, String gameId) {
         GameModel game = model.findFullGameById(gameId);
         Player player = model.findPlayerFromToken(authId);
-        game.addDestinationCardToPlayerHand(player, cardId);
+        String cardId = game.drawDestinationCard(player);
 
         return null;
     }
+
+    public ICommandContainer addFaceUpTrainCard(String authId, String cardId, String gameId) {
+        GameModel game = model.findFullGameById(gameId);
+        Player player = model.findPlayerFromToken(authId);
+        game.selectFaceUpTrainCard(player, cardId);
+
+        return null;
+    }
+
+    public ICommandContainer returnDestinationCard(String authId, String cardId, String gameId) {
+        GameModel game = model.findFullGameById(gameId);
+        game.returnDestinationCard(cardId);
+
+        return null;
+    }
+
+    public ICommandContainer endTurn(String authId, String gameId) {
+        GameModel game = model.findFullGameById(gameId);
+        String nextPlayerName = game.incrementTurn();
+
+        return null;
+    }
+
 }

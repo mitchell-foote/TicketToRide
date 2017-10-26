@@ -10,8 +10,11 @@ import java.util.List;
 
 public interface IGameAccessor
 {
-    ICommandContainer addTrainCard(String cardId, String authId, String gameId);
+    ICommandContainer drawTrainCard(String authId, String gameId);
     List<ICommandContainer> getClientCommands(String lastCommandHash, String authId, String gameId);
     ICommandContainer postMessage(String message, String authId, String gameId);
-    ICommandContainer addDestinationCard(String cardId, String authId, String gameId);
+    ICommandContainer drawDestinationCard(String authId, String gameId);
+    ICommandContainer returnDestinationCard(String authId, String cardId, String gameId);
+    ICommandContainer endTurn(String authId, String gameId);
+    ICommandContainer addFaceUpTrainCard(String authId, String cardId, String gameId);
 }

@@ -4,6 +4,8 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -19,6 +21,7 @@ public class TrainLookupTable
     static {
         Type type = new TypeToken<Map<String, TrainCard>>(){}.getType();
         MappingTable = new Gson().fromJson(JsonHolder.getTrainCardJson(), type);
+        MappingTable = Collections.unmodifiableMap(MappingTable);
     }
 
     public static TrainCard getCardById(String cardId) {
@@ -26,7 +29,7 @@ public class TrainLookupTable
     }
 
     public static Set<String> getIdStringSet() {
-        return MappingTable.keySet();
+        return new HashSet<>(MappingTable.keySet());
     }
 
     //for testing
@@ -34,7 +37,8 @@ public class TrainLookupTable
         TrainDeck deck = new TrainDeck();
 
         for (int i = 0; i < 105; i++) {
-            TrainCard card = deck.drawRandomCard();
+            String cardId = deck.drawRandomCard();
+            TrainCard card = getCardById(cardId);
             System.out.println(card.getColor());
             System.out.println();
         }

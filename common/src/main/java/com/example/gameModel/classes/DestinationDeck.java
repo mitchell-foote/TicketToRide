@@ -22,14 +22,13 @@ public class DestinationDeck
         DiscardPile = new HashSet<>();
     }
 
-    public DestinationCard drawRandomCard() {
+    public String drawRandomCard() {
         int index = new Random().nextInt(DrawPile.size());
         int i = 0;
         for (String s : DrawPile) {
             if (i == index) {
-                DestinationCard card = DestinationLookupTable.getCardById(s);
                 removeCardById(s);
-                return card;
+                return s;
             }
             i++;
         }

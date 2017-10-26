@@ -49,21 +49,32 @@ public class GameModel {
         commands.add(command);
     }
 
-    private void incrementTurn() {
+    public String incrementTurn() {
         nextTurn++;
-        if (nextTurn == orderedPlayers.size()) {
+        if (nextTurn >= orderedPlayers.size()) {
             nextTurn = 0;
         }
+        return orderedPlayers.get(nextTurn).getName();
     }
 
-    public void addTrainCardToPlayerHand(Player player, String cardId) {
+    public String drawTrainCard(Player player) {
         PlayerInfo hand = playerInfo.get(player);
-        hand.addTrainCard(cardId);
+        String randomTrainCardId = trainDeck.drawRandomCard();
+        hand.addTrainCard(randomTrainCardId);
+        return randomTrainCardId;
     }
 
-    public void addDestinationCardToPlayerHand(Player player, String cardId) {
+    public String drawDestinationCard(Player player) {
         PlayerInfo hand = playerInfo.get(player);
-        hand.addDestinationCard(cardId);
+        String randomDesCardId = desDeck.drawRandomCard();
+        hand.addDestinationCard(randomDesCardId);
+        return randomDesCardId;
+    }
+
+    public void selectFaceUpTrainCard(Player player, String cardId) {
+        PlayerInfo hand = playerInfo.get(player);
+        String sameCardId = trainDeck.drawFaceUpCard(cardId);
+        hand.addTrainCard(sameCardId);
     }
 
     public void removeTrainCardFromPlayerHand(Player player, String cardId) {
@@ -74,6 +85,10 @@ public class GameModel {
     public void removeDestinationCardToPlayerHand(Player player, String cardId) {
         PlayerInfo hand = playerInfo.get(player);
         hand.removeDestinationCard(cardId);
+    }
+
+    public void returnDestinationCard(String cardId) {
+        desDeck.returnCard(cardId);
     }
 
 }

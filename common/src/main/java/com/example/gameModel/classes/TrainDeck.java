@@ -26,18 +26,19 @@ public class TrainDeck
         }
     }
 
-    public TrainCard drawRandomCard()
-    {
+    public String drawRandomCard() {
         String id = getRandomCardId();
-        TrainCard card = TrainLookupTable.getCardById(id);
         removeCardById(id);
-        return card;
+        return id;
     }
 
-    public TrainCard drawFaceUpCard(String cardId) {
+    public String drawFaceUpCard(String cardId) {
         for (String s : FaceUpPile) {
             if (cardId.equals(s)) {
-                return TrainLookupTable.getCardById(cardId);
+                FaceUpPile.remove(s);
+                FaceUpPile.add(drawRandomCard());
+
+                return s;
             }
         }
         return null;

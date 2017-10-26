@@ -5,6 +5,8 @@ import com.google.gson.reflect.TypeToken;
 
 import java.io.InputStream;
 import java.lang.reflect.Type;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -20,6 +22,7 @@ public class DestinationLookupTable {
     static {
         Type type = new TypeToken<Map<String, DestinationCard>>(){}.getType();
         MappingTable = new Gson().fromJson(JsonHolder.getDestinationJson(), type);
+        MappingTable = Collections.unmodifiableMap(MappingTable);
     }
 
     public static DestinationCard getCardById(String cardId) {
@@ -27,7 +30,7 @@ public class DestinationLookupTable {
     }
 
     public static Set<String> getIdStringSet() {
-        return MappingTable.keySet();
+        return new HashSet<>(MappingTable.keySet());
     }
 
     //for testing
@@ -35,7 +38,8 @@ public class DestinationLookupTable {
         DestinationDeck deck = new DestinationDeck();
 
         for (int i = 0; i < 30; i++) {
-            DestinationCard card = deck.drawRandomCard();
+            String cardId = deck.drawRandomCard();
+            DestinationCard card = getCardById(cardId);
             System.out.println(card.getFirstCity());
             System.out.println(card.getSecondCity());
             System.out.println(card.getValue());
