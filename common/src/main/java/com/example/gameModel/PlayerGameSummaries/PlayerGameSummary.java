@@ -45,16 +45,16 @@ public class PlayerGameSummary {
         return handSize;
     }
 
-    public void setHandSize(int handSize) {
-        this.handSize = handSize;
+    public void incrementHandSize() {
+        this.handSize++;
     }
 
     public int getPoints() {
         return points;
     }
 
-    public void setPoints(int points) {
-        this.points = points;
+    public void incrementPoints(int points) {
+        this.points += points;
     }
 
     public int getTrainsRemaining() {

@@ -3,6 +3,7 @@ package com.example.fifteam.tickettoride.model;
 import com.example.gameModel.PlayerGameSummaries.PlayerGameSummary;
 import com.example.gameModel.PlayerGameSummaries.UserGameSummary;
 import com.example.gameModel.classes.ChatEntry;
+import com.example.gameModel.classes.DestinationCard;
 import com.example.gameModel.classes.MapSummary;
 
 import java.util.ArrayList;
@@ -29,13 +30,16 @@ public class ClientGameModel extends Observable {
     private MapSummary mapSummary;
     private String gameID;
     private List<ChatEntry> chatHistory;
+    private List<DestinationCard> destinationCardsToChoose;
+    private List<String> gameHistory;
 
     private ClientGameModel(){
         this.playerSummaryMap = new HashMap<>();
         this.userSummary = new UserGameSummary();
         this.mapSummary = new MapSummary();
         this.chatHistory = new ArrayList<>();
-
+        this.destinationCardsToChoose = new ArrayList<>();
+        this.gameHistory = new ArrayList<>();
     }
 
     public String getGameID() {
@@ -70,14 +74,14 @@ public class ClientGameModel extends Observable {
 
     public void updatePlayerCardCount(String playerId, int newCardCount){
         PlayerGameSummary playerToUpdate= this.playerSummaryMap.get(playerId);
-        playerToUpdate.setHandSize(newCardCount);
+        playerToUpdate.incrementHandSize();
         setChanged();
         notifyObservers();
     }
 
     public void updatePlayerPoints(String playerId, int newPointCount){
         PlayerGameSummary playerToUpdate = this.playerSummaryMap.get(playerId);
-        playerToUpdate.setPoints(newPointCount);
+        playerToUpdate.incrementPoints(newPointCount);
         setChanged();
         notifyObservers();
     }
@@ -95,7 +99,21 @@ public class ClientGameModel extends Observable {
 
     public void addChatEntry(ChatEntry toAdd){
         this.chatHistory.add(toAdd);
+        setChanged();
+        notifyObservers();
     }
+
+    public List<String> getGameHistory(){
+        return this.gameHistory;
+    }
+
+    public void addHistoryEntry(String toAdd){
+        this.gameHistory.add(toAdd);
+        setChanged();
+        notifyObservers();
+    }
+
+
 
 
 

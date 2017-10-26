@@ -51,11 +51,9 @@ public class UserGameSummary extends PlayerGameSummary {
     }
 
     public void addCard(SharedColor colorToAdd){
-
+        this.incrementHandSize();
         int toIncrement = this.hand.get(colorToAdd);
-
         toIncrement++;
-
         this.hand.put(colorToAdd,toIncrement);
     }
 
