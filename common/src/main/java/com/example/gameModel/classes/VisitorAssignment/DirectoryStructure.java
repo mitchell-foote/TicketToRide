@@ -27,3 +27,10 @@ public class DirectoryNode extends DirectoryStructureNode{
     public FileNode[] getFileNodes(){}
     public DirectoryNode[] getDirectoryNodes(){}
 }
+
+interface Visitor{
+
+    public void vistFileNode(FileNode fileNode);
+
+    public void visitDirectoryNode(DirectoryNode directoryNode);
+}
