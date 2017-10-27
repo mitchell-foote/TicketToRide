@@ -16,7 +16,7 @@ import java.util.List;
  * used by the commands to access the model
  */
 
-class ClientGameProxy implements IGameAccessor{
+class ClientGameProxy {
     private static final ClientGameProxy ourInstance = new ClientGameProxy();
 
     static ClientGameProxy getInstance(){
@@ -31,7 +31,7 @@ class ClientGameProxy implements IGameAccessor{
     }
 
 
-    public ICommandContainer drawTrainCard(String username, String cardId){
+    public String drawTrainCard(String username, String cardId){
 
         //gets the player whose hand will be adjusted and the card in question
         PlayerGameSummary playerToDraw = model.getPlayerById(username);

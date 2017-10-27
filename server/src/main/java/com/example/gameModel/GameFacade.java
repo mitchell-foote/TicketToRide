@@ -15,12 +15,12 @@ public class GameFacade implements IGameAccessor {
 
     private ServerModel model = ServerModel.instance();
 
-    public ICommandContainer drawTrainCard(String authId, String gameId) {
+    public String drawTrainCard(String authId, String gameId) {
         GameModel game = model.findFullGameById(gameId);
         Player player = model.findPlayerFromToken(authId);
         String cardId = game.drawTrainCard(player);
 
-        return null;
+        return cardId;
     }
 
     public List<ICommandContainer> getClientCommands(String lastCommandHash, String authId, String gameId) {
@@ -33,34 +33,32 @@ public class GameFacade implements IGameAccessor {
         return null;
     }
 
-    public ICommandContainer drawDestinationCard(String authId, String gameId) {
+    public String drawDestinationCard(String authId, String gameId) {
         GameModel game = model.findFullGameById(gameId);
         Player player = model.findPlayerFromToken(authId);
         String cardId = game.drawDestinationCard(player);
 
-        return null;
+        return cardId;
     }
 
-    public ICommandContainer addFaceUpTrainCard(String authId, String cardId, String gameId) {
+    public String addFaceUpTrainCard(String authId, String cardId, String gameId) {
         GameModel game = model.findFullGameById(gameId);
         Player player = model.findPlayerFromToken(authId);
-        game.selectFaceUpTrainCard(player, cardId);
+        String sameCardId = game.selectFaceUpTrainCard(player, cardId);
 
-        return null;
+        return sameCardId;
     }
 
-    public ICommandContainer returnDestinationCard(String authId, String cardId, String gameId) {
+    public boolean returnDestinationCard(String authId, String cardId, String gameId) {
         GameModel game = model.findFullGameById(gameId);
-        game.returnDestinationCard(cardId);
-
-        return null;
+        return game.returnDestinationCard(cardId);
     }
 
-    public ICommandContainer endTurn(String authId, String gameId) {
+    public String endTurn(String authId, String gameId) {
         GameModel game = model.findFullGameById(gameId);
         String nextPlayerName = game.incrementTurn();
 
-        return null;
+        return nextPlayerName;
     }
 
 }

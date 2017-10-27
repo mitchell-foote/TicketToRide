@@ -71,10 +71,11 @@ public class GameModel {
         return randomDesCardId;
     }
 
-    public void selectFaceUpTrainCard(Player player, String cardId) {
+    public String selectFaceUpTrainCard(Player player, String cardId) {
         PlayerInfo hand = playerInfo.get(player);
         String sameCardId = trainDeck.drawFaceUpCard(cardId);
         hand.addTrainCard(sameCardId);
+        return sameCardId;
     }
 
     public void removeTrainCardFromPlayerHand(Player player, String cardId) {
@@ -87,8 +88,9 @@ public class GameModel {
         hand.removeDestinationCard(cardId);
     }
 
-    public void returnDestinationCard(String cardId) {
+    public boolean returnDestinationCard(String cardId) {
         desDeck.returnCard(cardId);
+        return true;
     }
 
 }

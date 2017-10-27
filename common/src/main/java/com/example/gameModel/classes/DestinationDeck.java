@@ -45,8 +45,10 @@ public class DestinationDeck
         }
     }
 
-    public void returnCard(String cardId) {
-        DiscardPile.add(cardId);
+    public boolean returnCard(String cardId) {
+        if (DiscardPile.add(cardId)) {
+            return true;
+        } else return false;
     }
 
 }
