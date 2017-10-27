@@ -1,7 +1,5 @@
 package com.example.gameModel.classes.GumBalls;
 
-import sun.reflect.ReflectionFactory;
-
 /**
  * Created by Mitchell Foote on 10/23/2017.
  */
@@ -15,7 +13,7 @@ public class GumballExMachina
 
 }
 
-class State
+abstract class State
 {
     GumballExMachina holder;
     State(){}
@@ -51,16 +49,17 @@ class NoBallsNoQuarter extends State{
     }
     @Override
     void addGumballs(int Count){
-
+        holder.gumballs =+ Count;
+        holder.currentState = YesBallsNoQuarter.getReference(holder);
     }
     @Override
     void insertQuarter(){
-
+        holder.hasQuarter = true;
+        holder.currentState = NoBallsYesQuarter.getReference(holder);
     }
     @Override
-    void removeQuarter()
-    {
-
+    void removeQuarter() {
+        return;
     }
     @Override
     void turnHandle(){
@@ -68,6 +67,7 @@ class NoBallsNoQuarter extends State{
     }
 
 }
+
 class YesBallsYesQuarter extends State{
     private static YesBallsYesQuarter instance;
     private YesBallsYesQuarter(GumballExMachina machina){
@@ -81,22 +81,30 @@ class YesBallsYesQuarter extends State{
     }
     @Override
     void addGumballs(int Count){
-
+        holder.gumballs += Count;
     }
     @Override
     void insertQuarter(){
-
+        return;
     }
     @Override
     void removeQuarter()
     {
-
+        holder.hasQuarter = false;
+        holder.currentState = YesBallsNoQuarter.getReference(holder);
     }
     @Override
     void turnHandle(){
-        return;
+        holder.gumballs -= 1;
+        holder.money += 1;
+        if (holder.gumballs == 0){
+            holder.currentState = NoBallsNoQuarter.getReference(holder);
+        } else {
+            holder.currentState = YesBallsNoQuarter.getReference(holder);
+        }
     }
 }
+
 class NoBallsYesQuarter extends State {
     private static NoBallsYesQuarter instance;
     private NoBallsYesQuarter(GumballExMachina machina){
@@ -110,22 +118,26 @@ class NoBallsYesQuarter extends State {
     }
     @Override
     void addGumballs(int Count){
-
+        holder.gumballs =+ Count;
+        holder.currentState = YesBallsYesQuarter.getReference(holder);
     }
     @Override
     void insertQuarter(){
-
+        return;
     }
     @Override
-    void removeQuarter()
-    {
-
+    void removeQuarter() {
+        holder.hasQuarter = false;
+        holder.currentState = NoBallsNoQuarter.getReference(holder);
     }
     @Override
     void turnHandle(){
-        return;
+        holder.hasQuarter = false;
+        holder.money += 1;
+        holder.currentState = NoBallsNoQuarter.getReference(holder);
     }
 }
+
 class YesBallsNoQuarter extends State {
     private static YesBallsNoQuarter instance;
     private YesBallsNoQuarter(GumballExMachina machina){
@@ -139,16 +151,16 @@ class YesBallsNoQuarter extends State {
     }
     @Override
     void addGumballs(int Count){
-
+        holder.gumballs += Count;
     }
     @Override
     void insertQuarter(){
-
+        holder.hasQuarter = true;
+        holder.currentState = YesBallsYesQuarter.getReference(holder);
     }
     @Override
-    void removeQuarter()
-    {
-
+    void removeQuarter() {
+        return;
     }
     @Override
     void turnHandle(){
