@@ -30,7 +30,7 @@ public class DirectoryNode extends DirectoryStructureNode{
 
 interface Visitor{
 
-    public void vistFileNode(FileNode fileNode);
+    void vistFileNode(FileNode fileNode);
 
-    public void visitDirectoryNode(DirectoryNode directoryNode);
+    void visitDirectoryNode(DirectoryNode directoryNode);
 }
