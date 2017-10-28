@@ -5,6 +5,8 @@ import com.example.gameCommunication.commands.interfaces.ICommandData;
 import com.example.gameCommunication.commands.interfaces.IGameCommand;
 import com.example.gameModel.interfaces.IGameAccessor;
 
+import java.util.Date;
+
 /**
  * Created by Mitchell Foote on 10/28/2017.
  */
@@ -20,7 +22,7 @@ public class AddTrainCarCommandData implements ICommandData
     @Override
     public String getCommandHash()
     {
-        return ((Integer) (userIdentifier.hashCode() + gameId.hashCode())).toString();
+        return ((Integer) (userIdentifier.hashCode() + gameId.hashCode())).toString() + new Date().toString();
     }
 
     @Override
