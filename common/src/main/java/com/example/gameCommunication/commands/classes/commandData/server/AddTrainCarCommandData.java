@@ -1,6 +1,6 @@
-package com.example.gameCommunication.commands.classes.commandData;
+package com.example.gameCommunication.commands.classes.commandData.server;
 
-import com.example.gameCommunication.commands.classes.fullCommands.AddTrainCarServerCommand;
+import com.example.gameCommunication.commands.classes.fullCommands.server.AddTrainCarServerCommand;
 import com.example.gameCommunication.commands.interfaces.ICommandData;
 import com.example.gameCommunication.commands.interfaces.IGameCommand;
 import com.example.gameModel.interfaces.IGameAccessor;
