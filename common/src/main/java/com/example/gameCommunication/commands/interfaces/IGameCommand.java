@@ -6,4 +6,5 @@ package com.example.gameCommunication.commands.interfaces;
 
 public interface IGameCommand
 {
+    void execute();
 }

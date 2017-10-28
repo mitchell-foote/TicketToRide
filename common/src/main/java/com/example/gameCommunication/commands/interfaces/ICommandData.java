@@ -1,5 +1,7 @@
 package com.example.gameCommunication.commands.interfaces;
 
+import com.example.gameModel.interfaces.IGameAccessor;
+
 /**
  * Created by Mitchell Foote on 10/18/2017.
  */
@@ -7,5 +9,5 @@ package com.example.gameCommunication.commands.interfaces;
 public interface ICommandData
 {
     String getCommandHash();
-    IGameCommand makeFullCommandObject();
+    IGameCommand makeFullCommandObject(IGameAccessor accessor);
 }
