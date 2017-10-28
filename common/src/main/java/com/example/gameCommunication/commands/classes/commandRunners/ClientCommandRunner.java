@@ -1,5 +1,6 @@
 package com.example.gameCommunication.commands.classes.commandRunners;
 
+import com.example.gameCommunication.commands.classes.containers.CommandContainer;
 import com.example.gameCommunication.commands.interfaces.IClientCommandData;
 import com.example.gameModel.interfaces.IClientCommandAccessor;
 
@@ -18,6 +19,11 @@ public class ClientCommandRunner
     public void runCommands(List<IClientCommandData> dataList){
         for(IClientCommandData data : dataList){
             data.makeFullCommandObject(this.mAccessor).execute();
+        }
+    }
+    public void runCommandsFromContainer(List<CommandContainer> dataList){
+        for(CommandContainer data : dataList){
+            ((IClientCommandData) data.Data).makeFullCommandObject(mAccessor).execute();
         }
     }
 

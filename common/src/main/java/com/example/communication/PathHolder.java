@@ -34,7 +34,7 @@ public class PathHolder
     }
     public static String getCreateGameURL(){ return "/games/create"; }
     public static String getStartGameURL(){return "/games/start";}
-    public static String getGameCommandsURL(){return "/ingame/command";}
+    public static String getInGameCommandsURL(){return "/ingame/command";}
     public static String getGameCommandListURL(){return "/ingame/comandlist";}
     public static String getHost(){ return "localhost";}
     public static String getPort() {return "30001";}
