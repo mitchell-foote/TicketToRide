@@ -14,5 +14,5 @@ public interface IClientCommandAccessor
     void drawDestinationCard(String username, List<String> cardId);
     void returnDestinationCard(String username, String cardId);
     void nextTurn(String username);
-    void addFaceUpTrainCard(String username, String cardId);
+    void addFaceUpTrainCard(String username, String cardId, String newCardId);
 }
