@@ -1,5 +1,6 @@
 package com.example.gameCommunication.commands.classes.containers;
 
+import com.example.gameCommunication.commands.enums.CommandTypesEnum;
 import com.example.gameCommunication.commands.interfaces.ICommandContainer;
 import com.example.gameCommunication.commands.interfaces.ICommandData;
 
@@ -9,16 +10,16 @@ import com.example.gameCommunication.commands.interfaces.ICommandData;
 
 public class CommandContainer implements ICommandContainer
 {
-    private String Type;
-    private Object Data;
+    public CommandTypesEnum Type;
+    public Object Data;
     public CommandContainer(){};
-    public CommandContainer(String type, ICommandData data)
+    public CommandContainer(CommandTypesEnum type, Object data)
     {
         this.Type = type;
         this.Data = data;
     }
     @Override
-    public String getType()
+    public CommandTypesEnum getType()
     {
         return Type;
     }

@@ -11,11 +11,11 @@ import java.util.Date;
  * Created by Mitchell Foote on 10/28/2017.
  */
 
-public class AddTrainCarClientCommandData implements IClientCommandData
+public class AddTrainCardClientCommandData implements IClientCommandData
 {
     public String Username;
     public String CardId;
-    public AddTrainCarClientCommandData(String username, String cardId){
+    public AddTrainCardClientCommandData(String username, String cardId){
         this.Username = username;
         this.CardId = cardId;
     }

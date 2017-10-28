@@ -20,5 +20,6 @@ public class ReturnDestinationCardClientCommand implements IGameCommand
     public void execute()
     {
         this.mAccessor.returnDestinationCard(mData.Username, mData.CardId);
+        this.mAccessor.setCommandHash(mData.getCommandHash());
     }
 }

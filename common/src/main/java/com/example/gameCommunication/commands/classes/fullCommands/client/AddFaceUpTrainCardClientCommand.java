@@ -20,5 +20,6 @@ public class AddFaceUpTrainCardClientCommand implements IGameCommand
     public void execute()
     {
         this.mAccessor.addFaceUpTrainCard(mData.Username, mData.CardId, mData.NewCardId);
+        this.mAccessor.setCommandHash(mData.getCommandHash());
     }
 }

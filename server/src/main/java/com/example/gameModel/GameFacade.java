@@ -1,5 +1,6 @@
 package com.example.gameModel;
 
+import com.example.gameCommunication.commands.classes.containers.CommandContainer;
 import com.example.gameCommunication.commands.interfaces.ICommandContainer;
 import com.example.gameModel.interfaces.IGameAccessor;
 import com.example.model.ServerModel;
@@ -23,14 +24,14 @@ public class GameFacade implements IGameAccessor {
         return cardId;
     }
 
-    public List<ICommandContainer> getClientCommands(String lastCommandHash, String authId, String gameId) {
+    public List<CommandContainer> getClientCommands(String lastCommandHash, String authId, String gameId) {
 
         return null;
     }
 
-    public ICommandContainer postMessage(String message, String authId, String gameId) {
+    public void postMessage(String message, String authId, String gameId) {
 
-        return null;
+        return;
     }
 
     public String drawDestinationCard(String authId, String gameId) {

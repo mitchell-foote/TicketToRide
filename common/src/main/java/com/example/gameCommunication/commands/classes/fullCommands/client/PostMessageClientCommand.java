@@ -20,5 +20,6 @@ public class PostMessageClientCommand implements IGameCommand
     public void execute()
     {
         mAccessor.postMessage(mData.Message, mData.Username);
+        mAccessor.setCommandHash(mData.getCommandHash());
     }
 }

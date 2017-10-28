@@ -20,5 +20,6 @@ public class NextTurnClientCommand implements IGameCommand
     public void execute()
     {
         this.mAccessor.nextTurn(mData.Username);
+        this.mAccessor.setCommandHash(mData.getCommandHash());
     }
 }

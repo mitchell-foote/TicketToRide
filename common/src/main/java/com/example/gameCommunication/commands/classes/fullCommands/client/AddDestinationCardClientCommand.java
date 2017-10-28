@@ -21,5 +21,6 @@ public class AddDestinationCardClientCommand implements IGameCommand
     public void execute()
     {
         mAccessor.drawDestinationCard(mCommandData.Username, mCommandData.CardIds);
+        mAccessor.setCommandHash(mCommandData.getCommandHash());
     }
 }

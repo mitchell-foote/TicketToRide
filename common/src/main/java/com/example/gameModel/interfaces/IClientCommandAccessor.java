@@ -1,5 +1,7 @@
 package com.example.gameModel.interfaces;
 
+import com.example.gameCommunication.commands.interfaces.IClientCommandData;
+
 import java.util.List;
 
 /**
@@ -9,10 +11,10 @@ import java.util.List;
 public interface IClientCommandAccessor
 {
     void drawTrainCard(String username, String cardId);
-
     void postMessage(String message, String username);
     void drawDestinationCard(String username, List<String> cardId);
     void returnDestinationCard(String username, String cardId);
     void nextTurn(String username);
     void addFaceUpTrainCard(String username, String cardId, String newCardId);
+    void setCommandHash(String newHash);
 }

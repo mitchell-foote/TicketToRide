@@ -1,6 +1,6 @@
 package com.example.gameCommunication.commands.classes.fullCommands.client;
 
-import com.example.gameCommunication.commands.classes.commandData.client.AddTrainCarClientCommandData;
+import com.example.gameCommunication.commands.classes.commandData.client.AddTrainCardClientCommandData;
 import com.example.gameCommunication.commands.interfaces.IGameCommand;
 import com.example.gameModel.interfaces.IClientCommandAccessor;
 
@@ -11,8 +11,8 @@ import com.example.gameModel.interfaces.IClientCommandAccessor;
 public class AddTrainCarClientCommand implements IGameCommand
 {
     private IClientCommandAccessor mAccessor;
-    private AddTrainCarClientCommandData mCommandData;
-    public AddTrainCarClientCommand(IClientCommandAccessor accessor, AddTrainCarClientCommandData data){
+    private AddTrainCardClientCommandData mCommandData;
+    public AddTrainCarClientCommand(IClientCommandAccessor accessor, AddTrainCardClientCommandData data){
         this.mAccessor = accessor;
         this.mCommandData = data;
     }
@@ -20,5 +20,6 @@ public class AddTrainCarClientCommand implements IGameCommand
     public void execute()
     {
         mAccessor.drawTrainCard(mCommandData.Username, mCommandData.CardId);
+        mAccessor.setCommandHash(mCommandData.getCommandHash());
     }
 }
