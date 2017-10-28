@@ -20,6 +20,6 @@ public class AddDestinationCardClientCommand implements IGameCommand
     @Override
     public void execute()
     {
-        mAccessor.drawDestinationCard(mCommandData.Username, mCommandData.CardId);
+        mAccessor.drawDestinationCard(mCommandData.Username, mCommandData.CardIds);
     }
 }

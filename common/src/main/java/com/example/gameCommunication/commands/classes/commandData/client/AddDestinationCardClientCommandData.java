@@ -6,6 +6,7 @@ import com.example.gameCommunication.commands.interfaces.IGameCommand;
 import com.example.gameModel.interfaces.IClientCommandAccessor;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by Mitchell Foote on 10/28/2017.
@@ -14,15 +15,15 @@ import java.util.Date;
 public class AddDestinationCardClientCommandData implements IClientCommandData
 {
     public String Username;
-    public String CardId;
-    public AddDestinationCardClientCommandData(String username, String cardId){
+    public List<String> CardIds;
+    public AddDestinationCardClientCommandData(String username, List<String> cardId){
         this.Username = username;
-        this.CardId = cardId;
+        this.CardIds = cardId;
     }
     @Override
     public String getCommandHash()
     {
-        return ((Integer)(Username.hashCode() + CardId.hashCode())).toString() + new Date().toString();
+        return ((Integer)(Username.hashCode() + CardIds.hashCode())).toString() + new Date().toString();
     }
 
     @Override
