@@ -24,4 +24,22 @@ public class TrainCard
     {
         return this.ReferenceId;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof TrainCard)) return false;
+
+        TrainCard trainCard = (TrainCard) o;
+
+        if (getColor() != trainCard.getColor()) return false;
+        return getReferenceId() != null ? getReferenceId().equals(trainCard.getReferenceId()) : trainCard.getReferenceId() == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getColor() != null ? getColor().hashCode() : 0;
+        result = 31 * result + (getReferenceId() != null ? getReferenceId().hashCode() : 0);
+        return result;
+    }
 }

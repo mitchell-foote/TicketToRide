@@ -40,4 +40,26 @@ public class DestinationCard
     {
         return Value;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof DestinationCard)) return false;
+
+        DestinationCard that = (DestinationCard) o;
+
+        if (getFirstCity() != that.getFirstCity()) return false;
+        if (getSecondCity() != that.getSecondCity()) return false;
+        if (!getValue().equals(that.getValue())) return false;
+        return getReferenceId().equals(that.getReferenceId());
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getFirstCity().hashCode();
+        result = 31 * result + getSecondCity().hashCode();
+        result = 31 * result + getValue().hashCode();
+        result = 31 * result + getReferenceId().hashCode();
+        return result;
+    }
 }

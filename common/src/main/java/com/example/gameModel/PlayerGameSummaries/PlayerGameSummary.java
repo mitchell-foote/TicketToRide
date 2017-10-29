@@ -9,20 +9,23 @@ import com.example.model.enums.SharedColor;
 public class PlayerGameSummary {
     private String name;
     private SharedColor color;
-    private int handSize;
+    private int trainHandSize;
     private int points;
     private int trainsRemaining;
+    private int numDestinationCards;
 
     public PlayerGameSummary(){
 
     }
 
-    public PlayerGameSummary(String name, SharedColor color, int handSize, int points, int trainsRemaining) {
+    public PlayerGameSummary(String name, SharedColor color, int trainHandSize, int points,
+                             int trainsRemaining, int numDestinationCards) {
         this.name = name;
         this.color = color;
-        this.handSize = handSize;
+        this.trainHandSize = trainHandSize;
         this.points = points;
         this.trainsRemaining = trainsRemaining;
+        this.numDestinationCards = numDestinationCards;
     }
 
     public String getName() {
@@ -41,12 +44,12 @@ public class PlayerGameSummary {
         this.color = color;
     }
 
-    public int getHandSize() {
-        return handSize;
+    public int getTrainHandSize() {
+        return trainHandSize;
     }
 
-    public void incrementHandSize() {
-        this.handSize++;
+    public void incrementTrainHandSize() {
+        this.trainHandSize++;
     }
 
     public int getPoints() {
@@ -63,5 +66,39 @@ public class PlayerGameSummary {
 
     public void setTrainsRemaining(int trainsRemaining) {
         this.trainsRemaining = trainsRemaining;
+    }
+
+    public int getNumDestinationCards(){
+        return this.numDestinationCards;
+    }
+
+    public void incrementNumDestCards(int toInc){
+        this.numDestinationCards += toInc;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof PlayerGameSummary)) return false;
+
+        PlayerGameSummary that = (PlayerGameSummary) o;
+
+        if (getTrainHandSize() != that.getTrainHandSize()) return false;
+        if (getPoints() != that.getPoints()) return false;
+        if (getTrainsRemaining() != that.getTrainsRemaining()) return false;
+        if (getName() != null ? !getName().equals(that.getName()) : that.getName() != null)
+            return false;
+        return getColor() == that.getColor();
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getName() != null ? getName().hashCode() : 0;
+        result = 31 * result + (getColor() != null ? getColor().hashCode() : 0);
+        result = 31 * result + getTrainHandSize();
+        result = 31 * result + getNumDestinationCards();
+        result = 31 * result + getPoints();
+        result = 31 * result + getTrainsRemaining();
+        return result;
     }
 }

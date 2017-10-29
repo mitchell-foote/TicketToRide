@@ -5,6 +5,7 @@ import com.example.gameModel.PlayerGameSummaries.UserGameSummary;
 import com.example.gameModel.classes.ChatEntry;
 import com.example.gameModel.classes.DestinationCard;
 import com.example.gameModel.classes.MapSummary;
+import com.example.gameModel.classes.TrainCard;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -32,6 +33,10 @@ public class ClientGameModel extends Observable {
     private List<ChatEntry> chatHistory;
     private List<DestinationCard> destinationCardsToChoose;
     private List<String> gameHistory;
+    private String nextTurn;
+    private String lastExecutedHash;
+    private List<TrainCard> faceUpTrainCards;
+    private boolean isUserTurn;
 
     private ClientGameModel(){
         this.playerSummaryMap = new HashMap<>();
@@ -40,6 +45,9 @@ public class ClientGameModel extends Observable {
         this.chatHistory = new ArrayList<>();
         this.destinationCardsToChoose = new ArrayList<>();
         this.gameHistory = new ArrayList<>();
+        this.lastExecutedHash = null;
+        this.faceUpTrainCards = new ArrayList<>();
+        this.isUserTurn = false;
     }
 
     public String getGameID() {
@@ -74,7 +82,7 @@ public class ClientGameModel extends Observable {
 
     public void updatePlayerCardCount(String playerId, int newCardCount){
         PlayerGameSummary playerToUpdate= this.playerSummaryMap.get(playerId);
-        playerToUpdate.incrementHandSize();
+        playerToUpdate.incrementTrainHandSize();
         setChanged();
         notifyObservers();
     }
@@ -113,9 +121,53 @@ public class ClientGameModel extends Observable {
         notifyObservers();
     }
 
+    public void setNextTurn(String userNameToSet){
+        this.nextTurn= userNameToSet;
+        setChanged();
+        notifyObservers();
+    }
 
+    public List<DestinationCard> getDestinationCardsToChoose() {
+        return destinationCardsToChoose;
+    }
 
+    public void setDestinationCardsToChoose(List<DestinationCard> destinationCardsToChoose) {
+        this.destinationCardsToChoose = destinationCardsToChoose;
+        setChanged();
+        notifyObservers();
+    }
 
+    public String getLastExecutedHash() {
+        return lastExecutedHash;
+    }
 
+    public void setLastExecutedHash(String lastExecutedHash) {
+        this.lastExecutedHash = lastExecutedHash;
+    }
 
+    public List<TrainCard> getFaceUpTrainCards() {
+        return faceUpTrainCards;
+    }
+
+    public void addToFaceUpTrainCards(TrainCard toAdd) {
+        this.faceUpTrainCards.add(toAdd);
+        setChanged();
+        notifyObservers();
+    }
+
+    public boolean isUserTurn() {
+        return isUserTurn;
+    }
+
+    public void setUserTurn(boolean userTurn) {
+        isUserTurn = userTurn;
+    }
+
+    public UserGameSummary getUserSummary() {
+        return userSummary;
+    }
+
+    public void setUserSummary(UserGameSummary userSummary) {
+        this.userSummary = userSummary;
+    }
 }
