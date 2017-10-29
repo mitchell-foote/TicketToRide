@@ -37,6 +37,7 @@ public class ServerModel {
         users = new HashSet<>();
         authTable = new HashMap<>();
         usernameTable = new HashMap<>();
+        fullGames = new HashMap<>();
     }
 
     public static ServerModel instance() {
