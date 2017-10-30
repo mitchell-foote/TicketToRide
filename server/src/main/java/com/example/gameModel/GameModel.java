@@ -57,6 +57,9 @@ public class GameModel {
 
     public List<CommandContainer> getCommandsFromHash(String lastHash) {
         List<CommandContainer> recentCommands = new ArrayList<>();
+        if (lastHash.equals("ALL")) {
+            lastHash = commands.get(0).getCommandHash();
+        }
 
         for (int i = 0; i < commands.size(); i++) {
             if (lastHash.equals(commands.get(i).getCommandHash())) {
@@ -72,6 +75,10 @@ public class GameModel {
 
     public List<IClientCommandData> getCommandDataFromHash(String lastHash) {
         List<IClientCommandData> recentCommands = new ArrayList<>();
+
+        if (lastHash.equals("ALL")) {
+            lastHash = commands.get(commands.size() - 1).getCommandHash();
+        }
 
         for (int i = 0; i < commands.size(); i++) {
             if (lastHash.equals(commands.get(i).getCommandHash())) {
