@@ -1,6 +1,7 @@
 package com.example.gameModel;
 
 import com.example.communication.commands.ICommand;
+import com.example.gameCommunication.commands.interfaces.IClientCommandData;
 import com.example.gameCommunication.commands.interfaces.IGameCommand;
 import com.example.gameModel.classes.DestinationDeck;
 import com.example.gameModel.classes.TrainDeck;
@@ -25,7 +26,7 @@ public class GameModel {
     private int nextTurn;
     private DestinationDeck desDeck;
     private TrainDeck trainDeck;
-    private List<IGameCommand> commands;
+    private List<IClientCommandData> commands;
 
     public GameModel(String gameId, Map<String, SharedColor> players) {
         this.gameId = gameId;
@@ -41,12 +42,17 @@ public class GameModel {
         nextTurn = 0;
         desDeck = new DestinationDeck();
         trainDeck = new TrainDeck();
-        commands = new ArrayList<IGameCommand>();
+        commands = new ArrayList<IClientCommandData>();
     }
 
 
-    public void addCommand(IGameCommand command) {
+    public void addCommand(IClientCommandData command) {
         commands.add(command);
+    }
+
+    public List<IClientCommandData> getCommands() {
+
+        return null;
     }
 
     public String incrementTurn() {
@@ -73,9 +79,9 @@ public class GameModel {
 
     public String selectFaceUpTrainCard(Player player, String cardId) {
         PlayerInfo hand = playerInfo.get(player);
-        String sameCardId = trainDeck.drawFaceUpCard(cardId);
-        hand.addTrainCard(sameCardId);
-        return sameCardId;
+        String replacementCard = trainDeck.drawFaceUpCard(cardId);
+        hand.addTrainCard(replacementCard);
+        return replacementCard;
     }
 
     public void removeTrainCardFromPlayerHand(Player player, String cardId) {

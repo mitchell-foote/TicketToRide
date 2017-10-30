@@ -36,9 +36,10 @@ public class TrainDeck
         for (String s : FaceUpPile) {
             if (cardId.equals(s)) {
                 FaceUpPile.remove(s);
-                FaceUpPile.add(drawRandomCard());
+                String replacementCard = drawRandomCard();
+                FaceUpPile.add(replacementCard);
 
-                return s;
+                return replacementCard;
             }
         }
         return null;
