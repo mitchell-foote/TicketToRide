@@ -6,13 +6,16 @@ import com.example.gameModel.classes.ChatEntry;
 import com.example.gameModel.classes.DestinationCard;
 import com.example.gameModel.classes.MapSummary;
 import com.example.gameModel.classes.TrainCard;
+import com.example.model.classes.users.Player;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Set;
 
 /**
  * Created by samks on 10/24/2017.
@@ -40,7 +43,7 @@ public class ClientGameModel extends Observable {
 
     private ClientGameModel(){
         this.playerSummaryMap = new HashMap<>();
-        this.userSummary = new UserGameSummary();
+        this.setUserSummary(new UserGameSummary());
         this.mapSummary = new MapSummary();
         this.chatHistory = new ArrayList<>();
         this.destinationCardsToChoose = new ArrayList<>();
@@ -121,6 +124,10 @@ public class ClientGameModel extends Observable {
         notifyObservers();
     }
 
+    public String getNextTurn(){
+        return this.nextTurn;
+    }
+
     public void setNextTurn(String userNameToSet){
         this.nextTurn= userNameToSet;
         setChanged();
@@ -170,4 +177,12 @@ public class ClientGameModel extends Observable {
     public void setUserSummary(UserGameSummary userSummary) {
         this.userSummary = userSummary;
     }
+
+    public List<PlayerGameSummary> getPlayerGameSummaryList(){
+        Collection<PlayerGameSummary> playerCollection = this.playerSummaryMap.values();
+        List<PlayerGameSummary> toReturn = new ArrayList<>(playerCollection);
+        toReturn.remove(userSummary);
+        return toReturn;
+    }
+
 }
