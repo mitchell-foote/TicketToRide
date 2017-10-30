@@ -1,5 +1,6 @@
 package com.example.fifteam.tickettoride.views;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
@@ -106,7 +107,9 @@ public class GameLobbyView extends Fragment {
     }
 
     public void switchToGameView() {
-        ((MainActivity) getContext()).switchFragment(new TempGameView());
+        Context context = getContext();
+        Intent i = new Intent(context, GameView.class);
+        context.startActivity(i);
     }
 
 }
