@@ -2,6 +2,8 @@ package com.example.gameModel;
 
 import com.example.gameCommunication.commands.classes.commandBuilders.ClientCommandDataBuilder;
 import com.example.gameCommunication.commands.classes.containers.CommandContainer;
+import com.example.gameCommunication.commands.enums.CommandTypesEnum;
+import com.example.gameCommunication.commands.interfaces.IClientCommandData;
 import com.example.gameCommunication.commands.interfaces.ICommandContainer;
 import com.example.gameModel.interfaces.IGameAccessor;
 import com.example.model.ServerModel;
@@ -24,24 +26,29 @@ public class GameFacade implements IGameAccessor {
         Player player = model.findPlayerFromToken(authId);
         String cardId = game.drawTrainCard(player);
 
-        game.addCommand(commandBuilder.drawTrainCard(player.getName(), cardId));
+        game.addCommand(commandBuilder.drawTrainCard(player.getName(), cardId), CommandTypesEnum.AddTrainCard);
 
         return cardId;
     }
 
     public List<CommandContainer> getClientCommands(String lastCommandHash, String authId, String gameId) {
         GameModel game = model.findFullGameById(gameId);
-        Player player = model.findPlayerFromToken(authId);
 
+        return game.getCommandsFromHash(lastCommandHash);
+    }
 
-        return null;
+    //I don't know if we need this, but I made it just in case
+    public List<IClientCommandData> getClientCommandsData(String lastCommandHash, String authId, String gameId) {
+        GameModel game = model.findFullGameById(gameId);
+
+        return game.getCommandDataFromHash(lastCommandHash);
     }
 
     public void postMessage(String message, String authId, String gameId) {
         GameModel game = model.findFullGameById(gameId);
         Player player = model.findPlayerFromToken(authId);
 
-        game.addCommand(commandBuilder.postMessage(message, player.getName()));
+        game.addCommand(commandBuilder.postMessage(message, player.getName()), CommandTypesEnum.PostMessage);
 
         return;
     }
@@ -53,7 +60,7 @@ public class GameFacade implements IGameAccessor {
         List<String> cards = new ArrayList<>();
         cards.add(cardId);
 
-        game.addCommand(commandBuilder.drawDestinationCard(player.getName(), cards));
+        game.addCommand(commandBuilder.drawDestinationCard(player.getName(), cards), CommandTypesEnum.AddDestination);
 
         return cardId;
     }
@@ -63,7 +70,7 @@ public class GameFacade implements IGameAccessor {
         Player player = model.findPlayerFromToken(authId);
         String replacementCard = game.selectFaceUpTrainCard(player, cardId);
 
-        game.addCommand(commandBuilder.addFaceUpTrainCard(player.getName(), cardId, replacementCard));
+        game.addCommand(commandBuilder.addFaceUpTrainCard(player.getName(), cardId, replacementCard), CommandTypesEnum.AddFaceUpTrain);
 
         return replacementCard;
     }
@@ -73,17 +80,20 @@ public class GameFacade implements IGameAccessor {
         Player player = model.findPlayerFromToken(authId);
         boolean success = game.returnDestinationCard(cardId);
 
-        game.addCommand(commandBuilder.returnDestinationCard(player.getName(), cardId));
+        game.addCommand(commandBuilder.returnDestinationCard(player.getName(), cardId), CommandTypesEnum.ReturnDestinationCard);
 
         return success;
     }
 
     public String endTurn(String authId, String gameId) {
         GameModel game = model.findFullGameById(gameId);
-        String nextPlayerName = game.incrementTurn();
+        String nextPlayerName = null;
 
-        game.addCommand(commandBuilder.nextTurn(nextPlayerName));
-
+        if (game != null) {
+            nextPlayerName = game.incrementTurn();
+            game.addCommand(commandBuilder.nextTurn(nextPlayerName), CommandTypesEnum.NextOrEndTurn);
+        }
+        System.out.println("New turn: " + nextPlayerName + " will go next");
         return nextPlayerName;
     }
 

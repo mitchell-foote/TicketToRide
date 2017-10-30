@@ -1,6 +1,8 @@
 package com.example.gameModel;
 
 import com.example.communication.commands.ICommand;
+import com.example.gameCommunication.commands.classes.containers.CommandContainer;
+import com.example.gameCommunication.commands.enums.CommandTypesEnum;
 import com.example.gameCommunication.commands.interfaces.IClientCommandData;
 import com.example.gameCommunication.commands.interfaces.IGameCommand;
 import com.example.gameModel.classes.DestinationDeck;
@@ -27,6 +29,7 @@ public class GameModel {
     private DestinationDeck desDeck;
     private TrainDeck trainDeck;
     private List<IClientCommandData> commands;
+    private List<CommandTypesEnum> correspondingCommTypes;
 
     public GameModel(String gameId, Map<String, SharedColor> players) {
         this.gameId = gameId;
@@ -34,7 +37,7 @@ public class GameModel {
         playerInfo = new HashMap<>();
 
         for (Map.Entry<String, SharedColor> entry : players.entrySet()) {
-            Player player = ServerModel.instance().findPlayerFromToken(entry.getKey());
+            Player player = ServerModel.instance().findPlayerFromName(entry.getKey());
             orderedPlayers.add(player);
             playerInfo.put(player, new PlayerInfo(entry.getValue()));
         }
@@ -42,17 +45,43 @@ public class GameModel {
         nextTurn = 0;
         desDeck = new DestinationDeck();
         trainDeck = new TrainDeck();
-        commands = new ArrayList<IClientCommandData>();
+        commands = new ArrayList<>();
+        correspondingCommTypes = new ArrayList<>();
     }
 
 
-    public void addCommand(IClientCommandData command) {
+    public void addCommand(IClientCommandData command, CommandTypesEnum type) {
         commands.add(command);
+        correspondingCommTypes.add(type);
     }
 
-    public List<IClientCommandData> getCommands() {
+    public List<CommandContainer> getCommandsFromHash(String lastHash) {
+        List<CommandContainer> recentCommands = new ArrayList<>();
 
-        return null;
+        for (int i = 0; i < commands.size(); i++) {
+            if (lastHash.equals(commands.get(i).getCommandHash())) {
+                for (int j = i + 1; j < commands.size(); j++) {
+                    recentCommands.add(new CommandContainer(correspondingCommTypes.get(j), commands.get(j)));
+                }
+                break;
+            }
+        }
+
+        return recentCommands;
+    }
+
+    public List<IClientCommandData> getCommandDataFromHash(String lastHash) {
+        List<IClientCommandData> recentCommands = new ArrayList<>();
+
+        for (int i = 0; i < commands.size(); i++) {
+            if (lastHash.equals(commands.get(i).getCommandHash())) {
+                for (int j = i + 1; j < commands.size(); j++) {
+                    recentCommands.add(commands.get(j));
+                }
+                break;
+            }
+        }
+        return recentCommands;
     }
 
     public String incrementTurn() {
@@ -60,6 +89,7 @@ public class GameModel {
         if (nextTurn >= orderedPlayers.size()) {
             nextTurn = 0;
         }
+
         return orderedPlayers.get(nextTurn).getName();
     }
 

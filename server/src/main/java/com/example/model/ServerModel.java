@@ -112,6 +112,10 @@ public class ServerModel {
         return authTable.get(authToken);
     }
 
+    public User findPlayerFromName(String userName) {
+        return usernameTable.get(userName);
+    }
+
     public BaseGameSummary findGameById(String gameId) {
         return games.get(gameId);
     }
@@ -151,7 +155,8 @@ public class ServerModel {
         BaseGameSummary game = findGameById(gameId);
         if (game != null) {
             game.startGame();
-            fullGames.put(gameId, new GameModel(game.getFullGameId(), game.getPlayers()));
+            GameModel gameModel = new GameModel(game.getFullGameId(), game.getPlayers());
+            fullGames.put(game.getFullGameId(), gameModel);
             return true;
         }
         return false;

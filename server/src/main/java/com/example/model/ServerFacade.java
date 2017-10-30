@@ -5,6 +5,8 @@ import com.example.Exceptions.FailedJoinException;
 import com.example.Exceptions.FailedLeaveException;
 import com.example.Exceptions.FailedLoginException;
 import com.example.communication.IServerAccessor;
+import com.example.gameModel.GameFacade;
+import com.example.gameModel.GameModel;
 import com.example.model.classes.login.BaseGameSummary;
 import com.example.model.classes.users.User;
 import com.example.model.enums.SharedColor;
@@ -91,7 +93,13 @@ public class ServerFacade implements IServerAccessor
 
     public boolean startGame(String gameId, String authToken) throws FailedAuthException {
         if (model.findPlayerFromToken(authToken) != null) {
-            return model.startGame(gameId);
+            boolean success = model.startGame(gameId);
+            if (success) {
+                String fullGameId = model.findGameById(gameId).getFullGameId();
+                GameFacade accessor = new GameFacade();
+                accessor.endTurn(authToken, fullGameId);
+            }
+            return success;
         } else {
             throw new FailedAuthException("Authentication failed");
         }
