@@ -6,7 +6,9 @@ import com.example.gameModel.classes.ChatEntry;
 import com.example.gameModel.classes.DestinationCard;
 import com.example.gameModel.classes.MapSummary;
 import com.example.gameModel.classes.TrainCard;
-import com.example.model.classes.users.Player;
+import com.example.model.classes.login.BaseGameSummary;
+import com.example.model.classes.users.User;
+import com.example.model.enums.SharedColor;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -29,7 +31,7 @@ public class ClientGameModel extends Observable {
         return ourInstance;
     }
 
-    private String gameId;
+
     private String authToken;
     private Map<String, PlayerGameSummary> playerSummaryMap;
     private UserGameSummary userSummary;
@@ -45,8 +47,9 @@ public class ClientGameModel extends Observable {
     private int numOpponentsDestCardsUp;
 
     private ClientGameModel(){
+        this.nextTurn = null;
         this.playerSummaryMap = new HashMap<>();
-        this.setUserSummary(new UserGameSummary());
+        this.setUserSummary(null);
         this.mapSummary = new MapSummary();
         this.chatHistory = new ArrayList<>();
         this.destinationCardsToChoose = new ArrayList<>();
@@ -79,8 +82,6 @@ public class ClientGameModel extends Observable {
 
     public void addPlayer(PlayerGameSummary toAdd){
         this.playerSummaryMap.put(toAdd.getName(),toAdd);
-        setChanged();
-        notifyObservers();
     }
 
     public PlayerGameSummary getPlayerById(String id){
@@ -211,13 +212,6 @@ public class ClientGameModel extends Observable {
         this.numOpponentsDestCardsUp--;
     }
 
-    public String getGameId() {
-        return gameId;
-    }
-
-    public void setGameId(String gameId) {
-        this.gameId = gameId;
-    }
 
     public String getAuthToken() {
         return authToken;
@@ -225,5 +219,41 @@ public class ClientGameModel extends Observable {
 
     public void setAuthToken(String authToken) {
         this.authToken = authToken;
+    }
+
+    public void initGame(BaseGameSummary baseGameSummary, User user){
+        String newGameID = baseGameSummary.getFullGameId();
+        this.setGameID(newGameID);
+
+        String newAuthToken = user.getAuthToken();
+        this.setAuthToken(newAuthToken);
+
+        Map<String, SharedColor> playerMap = baseGameSummary.getPlayers();
+
+        //retrieve the user data from the player map then remove the user from the map so as to not
+        //duplicate them
+        String userUserName = baseGameSummary.getOwner();
+        SharedColor userColor = playerMap.get(userUserName);
+        playerMap.remove(userUserName);
+
+
+        //set the user player and add them to the player list
+        UserGameSummary userGameSummary = new UserGameSummary(userUserName,userColor);
+        this.setUserSummary(userGameSummary);
+        this.addPlayer(userGameSummary);
+
+        //get the set of keys for players in the map
+        Set<String> keySet = playerMap.keySet();
+
+        //iterate over the set and create new player objects for each of the entries
+        for(String s : keySet){
+            SharedColor playerColor = playerMap.get(s);
+            PlayerGameSummary playerGameSummary = new PlayerGameSummary(s,playerColor);
+            this.addPlayer(playerGameSummary);
+        }
+
+        setChanged();
+        notifyObservers();
+
     }
 }

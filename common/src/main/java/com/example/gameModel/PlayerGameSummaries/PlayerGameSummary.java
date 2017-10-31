@@ -1,5 +1,6 @@
 package com.example.gameModel.PlayerGameSummaries;
 
+import com.example.model.classes.users.Player;
 import com.example.model.enums.SharedColor;
 
 /**
@@ -16,6 +17,15 @@ public class PlayerGameSummary {
 
     public PlayerGameSummary(){
 
+    }
+
+    public PlayerGameSummary(String name, SharedColor color){
+        this.name = name;
+        this.color = color;
+        this.trainHandSize = 0;
+        this.points = 0;
+        this.numDestinationCards = 0;
+        this.trainsRemaining = 45;
     }
 
     public PlayerGameSummary(String name, SharedColor color, int trainHandSize, int points,

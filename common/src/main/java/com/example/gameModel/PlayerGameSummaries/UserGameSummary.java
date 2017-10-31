@@ -31,7 +31,8 @@ public class UserGameSummary extends PlayerGameSummary {
         this.destinations = destinations;
     }
 
-    public  UserGameSummary(){
+    public  UserGameSummary(String username, SharedColor color){
+        super(username,color);
         this.hand = new HashMap<>();
         this.destinations = new ArrayList<>();
     }

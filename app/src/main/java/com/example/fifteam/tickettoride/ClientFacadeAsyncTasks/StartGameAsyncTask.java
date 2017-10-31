@@ -3,6 +3,7 @@ package com.example.fifteam.tickettoride.ClientFacadeAsyncTasks;
 import android.os.AsyncTask;
 
 import com.example.fifteam.tickettoride.interfaces.Toaster;
+import com.example.fifteam.tickettoride.model.ClientGameModel;
 import com.example.fifteam.tickettoride.model.ClientModel;
 import com.example.fifteam.tickettoride.serverCommunications.ServerProxy;
 import com.example.model.classes.login.BaseGameSummary;
@@ -54,6 +55,8 @@ public class StartGameAsyncTask extends AsyncTask<Void, Void, StartGameAsyncTask
         if(startGameResult.isValid()){
             BaseGameSummary currGame = model.getCurrentGame();
             currGame.setStarted(true);
+            //initialize the gameModel with the correct starting info
+            ClientGameModel.getInstance().initGame(currGame,model.getUser());
         }
         else {
             this.toaster.displayMessage(startGameResult.getErrorMessage());
