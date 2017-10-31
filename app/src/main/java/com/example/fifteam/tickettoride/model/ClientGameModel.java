@@ -29,6 +29,8 @@ public class ClientGameModel extends Observable {
         return ourInstance;
     }
 
+    private String gameId;
+    private String authToken;
     private Map<String, PlayerGameSummary> playerSummaryMap;
     private UserGameSummary userSummary;
     private MapSummary mapSummary;
@@ -40,6 +42,7 @@ public class ClientGameModel extends Observable {
     private String lastExecutedHash;
     private List<TrainCard> faceUpTrainCards;
     private boolean isUserTurn;
+    private int numOpponentsDestCardsUp;
 
     private ClientGameModel(){
         this.playerSummaryMap = new HashMap<>();
@@ -51,6 +54,7 @@ public class ClientGameModel extends Observable {
         this.lastExecutedHash = null;
         this.faceUpTrainCards = new ArrayList<>();
         this.isUserTurn = false;
+        this.setNumOpponentsDestCards(0);
     }
 
     public String getGameID() {
@@ -124,14 +128,20 @@ public class ClientGameModel extends Observable {
         notifyObservers();
     }
 
+    public void addMultHistoryEntry(List<String> toAdd){
+        for(String s : toAdd){
+            this.gameHistory.add(s);
+        }
+        setChanged();
+        notifyObservers();
+    }
+
     public String getNextTurn(){
         return this.nextTurn;
     }
 
     public void setNextTurn(String userNameToSet){
         this.nextTurn= userNameToSet;
-        setChanged();
-        notifyObservers();
     }
 
     public List<DestinationCard> getDestinationCardsToChoose() {
@@ -185,4 +195,35 @@ public class ClientGameModel extends Observable {
         return toReturn;
     }
 
+    public int getNumOpponentsDestCards() {
+        return numOpponentsDestCardsUp;
+    }
+
+    public void setNumOpponentsDestCards(int numOpponentsDestCards) {
+        numOpponentsDestCardsUp = numOpponentsDestCards;
+    }
+
+    public void incOpponentDestUp(){
+        this.numOpponentsDestCardsUp++;
+    }
+
+    public void decOpponentDestUp(){
+        this.numOpponentsDestCardsUp--;
+    }
+
+    public String getGameId() {
+        return gameId;
+    }
+
+    public void setGameId(String gameId) {
+        this.gameId = gameId;
+    }
+
+    public String getAuthToken() {
+        return authToken;
+    }
+
+    public void setAuthToken(String authToken) {
+        this.authToken = authToken;
+    }
 }

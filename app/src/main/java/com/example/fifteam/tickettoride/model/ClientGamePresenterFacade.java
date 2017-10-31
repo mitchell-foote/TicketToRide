@@ -1,5 +1,6 @@
 package com.example.fifteam.tickettoride.model;
 
+import com.example.fifteam.tickettoride.ClientFacadeAsyncTasks.ReturnDestinationCardAsyncTask;
 import com.example.gameModel.PlayerGameSummaries.PlayerGameSummary;
 import com.example.gameModel.PlayerGameSummaries.UserGameSummary;
 import com.example.gameModel.classes.ChatEntry;
@@ -62,5 +63,11 @@ class ClientGamePresenterFacade {
 
     public boolean isUserTurn(){
         return model.isUserTurn();
+    }
+
+    public void discardDestCard(String cardId){
+        String authId = model.getAuthToken();
+        String gameId = model.getGameID();
+        new ReturnDestinationCardAsyncTask().execute(authId,cardId,gameId);
     }
 }

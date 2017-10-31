@@ -85,7 +85,9 @@ class ClientGameCommandFacade implements IClientCommandAccessor{
             model.addHistoryEntry(historyEntry);
         }
         else{
-            return;
+            for(String s : cardId) {
+                model.incOpponentDestUp();
+            }
         }
     }
     public void returnDestinationCard(String username, String cardId){
@@ -116,18 +118,7 @@ class ClientGameCommandFacade implements IClientCommandAccessor{
 
         }
         else{
-            int destCardsToInc;
-            if(cardId == null){
-                destCardsToInc = 3;
-            }
-            else{
-                destCardsToInc = 2;
-            }
-            playerGameSummary.incrementNumDestCards(destCardsToInc);
-
-            String historyEntry = playerGameSummary.getName() + " took " + destCardsToInc +
-                    " destination cards.";
-            model.addHistoryEntry(historyEntry);
+            model.decOpponentDestUp();
         }
 
     }
@@ -181,12 +172,33 @@ class ClientGameCommandFacade implements IClientCommandAccessor{
     public void nextTurn(String nextUser){
         UserGameSummary currUser = model.getUserSummary();
         String currUserName = currUser.getName();
+
         if(nextUser.equals(currUserName)){
             model.setUserTurn(true);
         }
         else{
             model.setUserTurn(false);
         }
+        String currTurn = model.getNextTurn();
+
+
+        if(currTurn != null) {
+            String endTurnEntry;
+            if (currUser.getName().equals(currTurn)) {
+                endTurnEntry = "You ended your turn.";
+            } else {
+                endTurnEntry = currTurn + " ended their turn.";
+                if(model.getNumOpponentsDestCards() > 0){
+                    String destEntry = currTurn + " picked up " + model.getNumOpponentsDestCards() +
+                            " destination cards.";
+                    model.addHistoryEntry(destEntry);
+                    model.setNumOpponentsDestCards(0);
+                }
+            }
+            model.addHistoryEntry(endTurnEntry);
+        }
         model.setNextTurn(nextUser);
+
+
     }
 }
