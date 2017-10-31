@@ -6,4 +6,5 @@ package com.example.gameModel.interfaces;
 
 public interface ICity
 {
+
 }

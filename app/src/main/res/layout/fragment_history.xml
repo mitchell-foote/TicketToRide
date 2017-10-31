@@ -1,14 +1,16 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:tools="http://schemas.android.com/tools"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             tools:context="com.example.fifteam.tickettoride.views.inGameViews.HistoryFragment"
-    android:background="#DD7373">
+<?xml version="1.0" encoding="utf-8"?>
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#DD7373" >
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/history_recycler_view"
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="I am the game history fragment."/>
+        android:layout_height="wrap_content" />
 
-</FrameLayout>
+</LinearLayout>

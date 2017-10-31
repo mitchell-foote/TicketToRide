@@ -62,8 +62,6 @@ public class GameLobbyPresenter implements Observer, Toaster{
     }
 
     public void startGame() {
-        ClientFacade.getInstance().removeObserver(this);
         ClientFacade.getInstance().startGame(this);
-        view.switchToGameView();
     }
 }

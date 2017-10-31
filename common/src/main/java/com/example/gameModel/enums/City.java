@@ -1,11 +1,13 @@
 package com.example.gameModel.enums;
 
+import com.example.gameModel.interfaces.ICity;
+
 /**
  * Created by ninjup on 10/22/17.
  * cities to be used as anchors for routes
  */
 
-public enum City {
+public enum City implements ICity {
 
     Atlanta (33.748995, -84.387982),
     Boston (42.360082, -71.058880),
@@ -25,7 +27,7 @@ public enum City {
     Miami (25.7617,-80.1918),
     Montreal (45.5017,-73.56730),
     Nashville (36.1627,-86.78160),
-    New_Orleans (23.9511,-90.07150),
+    New_Orleans (29.9511,-90.07150),
     New_York (40.7128,-74.0060),
     Oklahoma_City (35.4676,-97.5164),
     Omaha (41.2524,-95.9980),

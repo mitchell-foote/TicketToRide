@@ -1,5 +1,6 @@
 package com.example.gameModel.classes;
 
+import com.example.gameModel.enums.City;
 import com.example.gameModel.interfaces.ICity;
 import com.example.gameModel.interfaces.IRoute;
 import com.example.model.enums.SharedColor;
@@ -10,39 +11,58 @@ import com.example.model.enums.SharedColor;
 
 public class Route implements IRoute
 {
+    String routeID;
+    SharedColor color;
+    int length;
+    City endpoint1;
+    City endpoint2;
+    boolean claimable;
+
+    public Route() {
+
+    }
+
+    public Route(String routeID, SharedColor color, int length, City endpoint1, City endpoint2) {
+        this.routeID = routeID;
+        this.color = color;
+        this.length = length;
+        this.endpoint1 = endpoint1;
+        this.endpoint2 = endpoint2;
+    }
+
     @Override
     public boolean isClaimable()
     {
-        return false;
+        return claimable;
     }
 
     @Override
-    public ICity getEndpoint1()
+    public City getEndpoint1()
     {
-        return null;
+        return endpoint1;
     }
 
     @Override
-    public ICity getEndpoint2()
+    public City getEndpoint2()
     {
-        return null;
+        return endpoint2;
     }
 
     @Override
     public SharedColor getColor()
     {
-        return null;
+        return color;
     }
 
     @Override
     public String getRouteId()
     {
-        return null;
+        return routeID;
     }
 
     @Override
     public int getLength()
     {
-        return 0;
+        return length;
     }
 }

@@ -6,7 +6,7 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#7C77B9" >
+    android:background="@drawable/steam_train_background">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/chat_recycler_view"

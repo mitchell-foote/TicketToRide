@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import com.example.fifteam.tickettoride.views.GameMapView;
 import com.example.fifteam.tickettoride.views.LoginView;
 
 public class MainActivity extends AppCompatActivity
