@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.fifteam.tickettoride.R;
+import com.example.fifteam.tickettoride.presenters.inGamePresenters.HistoryPresenter;
 import com.example.fifteam.tickettoride.views.adapters.ChatAdapter;
 import com.example.fifteam.tickettoride.views.adapters.HistoryAdapter;
 
@@ -24,6 +25,7 @@ public class HistoryFragment extends Fragment {
     private RecyclerView historyRecyclerView;
     private RecyclerView.Adapter historyAdapter;
     private RecyclerView.LayoutManager historyLayoutManager;
+    private HistoryPresenter presenter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -41,11 +43,16 @@ public class HistoryFragment extends Fragment {
         historyList.add("Player 1 drew a destination card.");
         historyList.add("Player 2 claimed a route from San Fransisco to Los Angeles.");
         historyList.add("Player 3 drew two train cards.");
+        presenter = new HistoryPresenter(this);
 
-        historyAdapter = new HistoryAdapter(getActivity(), historyList);
+        historyAdapter = new HistoryAdapter(getActivity(), presenter.getHistoryEntries());
         historyRecyclerView.setAdapter(historyAdapter);
 
         return v;
+    }
+
+    public void updateAdaptor(){
+        historyAdapter.notifyDataSetChanged();
     }
 
 }
