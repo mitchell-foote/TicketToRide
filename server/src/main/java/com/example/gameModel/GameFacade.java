@@ -32,17 +32,18 @@ public class GameFacade implements IGameAccessor {
     }
 
     public List<CommandContainer> getClientCommands(String lastCommandHash, String authId, String gameId) {
+        System.out.println("GameFacade is getting client commands");
         GameModel game = model.findFullGameById(gameId);
 
         return game.getCommandsFromHash(lastCommandHash);
     }
 
     //I don't know if we need this, but I made it just in case
-    public List<IClientCommandData> getClientCommandsData(String lastCommandHash, String authId, String gameId) {
+/*    public List<IClientCommandData> getClientCommandsData(String lastCommandHash, String authId, String gameId) {
         GameModel game = model.findFullGameById(gameId);
 
         return game.getCommandDataFromHash(lastCommandHash);
-    }
+    } */
 
     public void postMessage(String message, String authId, String gameId) {
         GameModel game = model.findFullGameById(gameId);
