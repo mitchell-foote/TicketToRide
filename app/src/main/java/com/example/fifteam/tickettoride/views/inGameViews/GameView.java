@@ -60,6 +60,8 @@ public class GameView extends FragmentActivity implements OnMapReadyCallback {
         initializeButtons();
         initializeTextViews();
 
+        //TODO: Need to display user points somewhere
+
         presenter = new GamePresenter(this);
     }
 

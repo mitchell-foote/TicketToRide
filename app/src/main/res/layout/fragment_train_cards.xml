@@ -13,12 +13,24 @@
         android:orientation="vertical">
 
         <ImageView
+            android:id="@+id/trainCard0"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:adjustViewBounds="true"
+            android:paddingBottom="5dp"
+            android:paddingTop="10dp"
+            android:src="@drawable/card_locomotive" />
+
+        <ImageView
             android:id="@+id/trainCard1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:adjustViewBounds="true"
-            android:src="@drawable/card_locomotive" />
+            android:src="@drawable/card_locomotive"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp" />
 
         <ImageView
             android:id="@+id/trainCard2"
@@ -26,7 +38,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:adjustViewBounds="true"
-            android:src="@drawable/card_locomotive" />
+            android:src="@drawable/card_locomotive"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp" />
 
         <ImageView
             android:id="@+id/trainCard3"
@@ -34,7 +48,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:adjustViewBounds="true"
-            android:src="@drawable/card_locomotive" />
+            android:src="@drawable/card_locomotive"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp" />
 
         <ImageView
             android:id="@+id/trainCard4"
@@ -42,25 +58,20 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:adjustViewBounds="true"
-            android:src="@drawable/card_locomotive" />
-
-        <ImageView
-            android:id="@+id/trainCard5"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:adjustViewBounds="true"
+            android:paddingBottom="10dp"
+            android:paddingTop="5dp"
             android:src="@drawable/card_locomotive" />
 
     </LinearLayout>
 
     <ImageView
+        android:id="@+id/trainCard_deck"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
         android:layout_weight="1"
         android:adjustViewBounds="true"
-        android:layout_gravity="center_vertical"
         android:rotation="90"
-        android:src="@drawable/card_locomotive" />
+        android:src="@drawable/card_train_back" />
 
 </LinearLayout>
