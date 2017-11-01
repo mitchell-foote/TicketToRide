@@ -38,7 +38,7 @@ public class GameView extends FragmentActivity implements OnMapReadyCallback {
     private TextView cardCountRed;
     private TextView cardCountWhite;
     private TextView cardCountYellow;
-    private TextView cardCountWild;
+    private TextView cardCountRainbow;
     private TextView trainCount;
 
     private GamePresenter presenter;
@@ -150,7 +150,7 @@ public class GameView extends FragmentActivity implements OnMapReadyCallback {
         cardCountRed = (TextView) findViewById(R.id.toolBar_cardQuantity_red);
         cardCountWhite = (TextView) findViewById(R.id.toolBar_cardQuantity_white);
         cardCountYellow = (TextView) findViewById(R.id.toolBar_cardQuantity_yellow);
-        cardCountWild = (TextView) findViewById(R.id.toolBar_cardQuantity_locomotive);
+        cardCountRainbow = (TextView) findViewById(R.id.toolBar_cardQuantity_rainbow);
         trainCount = (TextView) findViewById(R.id.toolBar_trainQuantity);
     }
 
@@ -158,17 +158,19 @@ public class GameView extends FragmentActivity implements OnMapReadyCallback {
         usernameTextView.setText(username);
     }
 
-    public void setCounts() {
-        //TODO: have this be fed actual information from the presenter
-        cardCountBlack.setText("-1");
-        cardCountBlue.setText("-1");
-        cardCountGreen.setText("-1");
-        cardCountOrange.setText("-1");
-        cardCountPurple.setText("-1");
-        cardCountRed.setText("-1");
-        cardCountWhite.setText("-1");
-        cardCountYellow.setText("-1");
-        cardCountWild.setText("-1");
-        trainCount.setText("-1");
+    public void setHand(int black, int blue, int green, int orange, int purple, int red, int white, int yellow, int rainbow) {
+        cardCountBlack.setText(String.valueOf(black));
+        cardCountBlue.setText(String.valueOf(blue));
+        cardCountGreen.setText(String.valueOf(green));
+        cardCountOrange.setText(String.valueOf(orange));
+        cardCountPurple.setText(String.valueOf(purple));
+        cardCountRed.setText(String.valueOf(red));
+        cardCountWhite.setText(String.valueOf(white));
+        cardCountYellow.setText(String.valueOf(yellow));
+        cardCountRainbow.setText(String.valueOf(rainbow));
+    }
+
+    public void setTrainCount(int trains) {
+        trainCount.setText(String.valueOf(trains));
     }
 }

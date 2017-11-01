@@ -164,7 +164,7 @@
             android:src="@drawable/card_locomotive" />
 
         <TextView
-            android:id="@+id/toolBar_cardQuantity_locomotive"
+            android:id="@+id/toolBar_cardQuantity_rainbow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"

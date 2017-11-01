@@ -6,15 +6,17 @@ import com.example.gameModel.PlayerGameSummaries.UserGameSummary;
 import com.example.gameModel.classes.ChatEntry;
 import com.example.gameModel.classes.DestinationCard;
 import com.example.gameModel.classes.TrainCard;
+import com.example.model.enums.SharedColor;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Observer;
 
 /**
  * Created by samks on 10/30/2017.
  */
 
-class ClientGamePresenterFacade {
+public class ClientGamePresenterFacade {
     private static final ClientGamePresenterFacade ourInstance = new ClientGamePresenterFacade();
 
     private ClientGameModel model = ClientGameModel.getInstance();
@@ -71,5 +73,11 @@ class ClientGamePresenterFacade {
         new ReturnDestinationCardAsyncTask().execute(authId,cardId,gameId);
     }
 
-    
+    public Map<SharedColor, Integer> getUserHand() {
+        return model.getUserSummary().getHand();
+    }
+
+    public int getUserTrainCount() {
+        return model.getUserSummary().getTrainsRemaining();
+    }
 }

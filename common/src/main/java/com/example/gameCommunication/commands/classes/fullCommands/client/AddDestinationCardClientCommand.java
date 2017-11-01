@@ -5,6 +5,8 @@ import com.example.gameCommunication.commands.classes.commandData.server.AddDest
 import com.example.gameCommunication.commands.interfaces.IGameCommand;
 import com.example.gameModel.interfaces.IClientCommandAccessor;
 
+import java.util.Arrays;
+
 /**
  * Created by Mitchell Foote on 10/28/2017.
  */
@@ -20,7 +22,7 @@ public class AddDestinationCardClientCommand implements IGameCommand
     @Override
     public void execute()
     {
-        mAccessor.drawDestinationCard(mCommandData.Username, mCommandData.CardIds);
+        mAccessor.drawDestinationCard(mCommandData.Username, Arrays.asList(mCommandData.CardIds));
         mAccessor.setCommandHash(mCommandData.getCommandHash());
     }
 }
