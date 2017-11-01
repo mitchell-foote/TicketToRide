@@ -45,6 +45,7 @@ public class GameMapView extends SupportMapFragment implements OnMapReadyCallbac
     GoogleMap map;
     MapView mapView;
     List<Route> routeList;
+    TextView routeNameText;
     TextView lengthText;
     TextView pointsText;
     List<Polygon> polygonList;
@@ -70,6 +71,7 @@ public class GameMapView extends SupportMapFragment implements OnMapReadyCallbac
 
         lengthText = (TextView) v.findViewById(R.id.length_text);
         pointsText = (TextView) v.findViewById(R.id.points_text);
+        //routeNameText = (TextView) v.findViewById(R.id.route_name_text);
 
         return v;
     }
