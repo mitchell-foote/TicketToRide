@@ -5,6 +5,7 @@ import android.util.Log;
 import com.example.fifteam.tickettoride.ClientFacadeAsyncTasks.ChatAsyncTask;
 import com.example.fifteam.tickettoride.ClientFacadeAsyncTasks.EndTurnAsyncTask;
 import com.example.fifteam.tickettoride.ClientFacadeAsyncTasks.ReturnDestinationCardAsyncTask;
+import com.example.fifteam.tickettoride.interfaces.Toaster;
 import com.example.gameModel.PlayerGameSummaries.PlayerGameSummary;
 import com.example.gameModel.PlayerGameSummaries.UserGameSummary;
 import com.example.gameModel.classes.ChatEntry;
@@ -131,5 +132,10 @@ public class ClientGamePresenterFacade {
         claimRouteLocally("25", SharedColor.GREEN);
         claimRouteLocally("30", SharedColor.BLUE);
         claimRouteLocally("35", SharedColor.PURPLE);
+    }
+
+    public void passToaster(Toaster toaster){
+        model.setToaster(toaster);
+
     }
 }

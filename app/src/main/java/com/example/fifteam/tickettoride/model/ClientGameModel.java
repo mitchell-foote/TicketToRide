@@ -1,6 +1,7 @@
 package com.example.fifteam.tickettoride.model;
 
 import com.example.fifteam.tickettoride.ClientFacadeAsyncTasks.GamePollerAsyncTask;
+import com.example.fifteam.tickettoride.interfaces.Toaster;
 import com.example.gameModel.PlayerGameSummaries.PlayerGameSummary;
 import com.example.gameModel.PlayerGameSummaries.UserGameSummary;
 import com.example.gameModel.classes.ChatEntry;
@@ -50,6 +51,7 @@ public class ClientGameModel extends Observable {
     private boolean isUserTurn;
     private int numOpponentsDestCardsUp;
     private boolean runningAsync;
+    private Toaster toaster;
 
     private ClientGameModel(){
         this.nextTurn = null;
@@ -158,6 +160,7 @@ public class ClientGameModel extends Observable {
 
     public void setNextTurn(String userNameToSet){
         this.nextTurn= userNameToSet;
+        this.toast("Player: " + nextTurn + " is up!");
     }
 
     public List<DestinationCard> getDestinationCardsToChoose() {
@@ -591,5 +594,13 @@ public class ClientGameModel extends Observable {
         notifyObservers();
         new GamePollerAsyncTask().execute();
 
+    }
+
+    public void setToaster(Toaster toaster){
+        this.toaster = toaster;
+    }
+
+    private void toast(String toToast){
+        this.toaster.displayMessage(toToast);
     }
 }
