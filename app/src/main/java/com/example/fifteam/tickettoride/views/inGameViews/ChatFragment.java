@@ -9,6 +9,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 
 import com.example.fifteam.tickettoride.R;
 import com.example.fifteam.tickettoride.presenters.inGamePresenters.ChatPresenter;
@@ -26,7 +28,8 @@ public class ChatFragment extends Fragment {
     private RecyclerView chatRecyclerView;
     private RecyclerView.Adapter chatAdapter;
     private RecyclerView.LayoutManager chatLayoutManager;
-
+    private EditText chatText;
+    private Button sendChat;
     private ChatPresenter presenter;
 
     @Override
@@ -44,6 +47,17 @@ public class ChatFragment extends Fragment {
         chatLayoutManager = new LinearLayoutManager(getContext());
         ((LinearLayoutManager) chatLayoutManager).setOrientation(LinearLayoutManager.VERTICAL);
         chatRecyclerView.setLayoutManager(chatLayoutManager);
+        chatText = (EditText) v.findViewById(R.id.chat_entry_field);
+        sendChat = (Button) v.findViewById(R.id.submit_chat_button);
+
+        sendChat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String chatValue = chatText.getText().toString();
+
+                presenter.sendChat(chatValue);
+            }
+        });
 
         List<ChatEntry> chatList = new ArrayList<>();
 
@@ -51,11 +65,16 @@ public class ChatFragment extends Fragment {
         chatList.add(new ChatEntry("Player2", "Hey guys!"));
         chatList.add(new ChatEntry("Player1", "Hey Player2."));
         chatList.add(new ChatEntry("Player3", "I'm going to win!"));
+        presenter = new ChatPresenter(this);
 
-        chatAdapter = new ChatAdapter(getActivity(), chatList);
+        chatAdapter = new ChatAdapter(getActivity(), presenter.getChats());
         chatRecyclerView.setAdapter(chatAdapter);
 
         return v;
+    }
+
+    public void updateAdapter(){
+        chatAdapter.notifyDataSetChanged();
     }
 
 }

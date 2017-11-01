@@ -49,6 +49,7 @@ public class ClientGameModel extends Observable {
     private List<Route> routeList;
     private boolean isUserTurn;
     private int numOpponentsDestCardsUp;
+    private boolean runningAsync;
 
     private ClientGameModel(){
         this.nextTurn = null;
@@ -63,6 +64,15 @@ public class ClientGameModel extends Observable {
         routeList = setUpRoutes();
         this.isUserTurn = false;
         this.setNumOpponentsDestCards(0);
+        this.runningAsync = false;
+    }
+
+    public boolean isRunningAsync() {
+        return runningAsync;
+    }
+
+    public void setRunningAsync(boolean runningAsync) {
+        this.runningAsync = runningAsync;
     }
 
     public String getGameID() {

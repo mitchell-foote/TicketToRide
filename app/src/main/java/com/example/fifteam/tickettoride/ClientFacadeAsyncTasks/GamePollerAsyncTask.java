@@ -5,6 +5,7 @@ import android.os.SystemClock;
 
 import com.example.fifteam.tickettoride.model.ClientGameCommandFacade;
 import com.example.fifteam.tickettoride.model.ClientGameModel;
+import com.example.fifteam.tickettoride.model.ClientModel;
 import com.example.fifteam.tickettoride.serverCommunications.GameServerProxy;
 import com.example.gameCommunication.commands.classes.commandRunners.ClientCommandRunner;
 import com.example.gameCommunication.commands.classes.containers.CommandContainer;
@@ -21,6 +22,10 @@ public class GamePollerAsyncTask extends AsyncTask<Void,Void,List<CommandContain
     protected List<CommandContainer> doInBackground(Void... voids) {
         GameServerProxy proxy = new GameServerProxy();
         ClientGameModel model = ClientGameModel.getInstance();
+        while(model.isRunningAsync()){
+            SystemClock.sleep(250);
+
+        }
         SystemClock.sleep(500);
         List<CommandContainer> commands = proxy.getClientCommands(model.getLastExecutedHash(),
                 model.getAuthToken(),model.getGameID());
@@ -36,6 +41,9 @@ public class GamePollerAsyncTask extends AsyncTask<Void,Void,List<CommandContain
             ClientCommandRunner runner = new ClientCommandRunner(facade);
             runner.runCommandsFromContainer(commandContainers);
         }
-        new GamePollerAsyncTask().execute();
+        while(ClientGameModel.getInstance().isRunningAsync()) {
+
+        }
+            new GamePollerAsyncTask().execute();
     }
 }
