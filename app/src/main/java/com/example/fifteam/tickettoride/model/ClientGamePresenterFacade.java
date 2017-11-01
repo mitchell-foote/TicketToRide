@@ -103,7 +103,11 @@ public class ClientGamePresenterFacade {
     }
 
     public void claimRouteLocally(String routeID, SharedColor ownerColor) {
+        model.claimRouteLocally(routeID, ownerColor);
+    }
 
+    public List<Route> getClaimedRoutes() {
+        return model.getClaimedRoutes();
     }
 
     public int getUserPoints() {
