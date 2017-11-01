@@ -2,6 +2,7 @@ package com.example.gameModel;
 
 import com.example.model.enums.SharedColor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -10,17 +11,16 @@ import java.util.List;
 
 public class PlayerInfo {
 
-    private List<String> destinationCards;
-    private List<String> trainCards;
-    private int remainingTrains;
-    private int points;
-    private boolean hasLongestRoad;
+    private List<String> destinationCards = new ArrayList<>();
+    private List<String> trainCards = new ArrayList<>();
+
+    private int remainingTrains = 45;
+    private int points = 0;
+    private boolean hasLongestRoad = false;
     private SharedColor color;
 
     public PlayerInfo(SharedColor color) {
         this.color = color;
-        points = 0;
-        hasLongestRoad = false;
     }
 
     public void addDestinationCard(String cardId) {
