@@ -125,9 +125,9 @@ public class ClientGamePresenterFacade {
         model.updatePlayerTrains(playerID, trainsToSubtract);
     }
 
-   // public List<DestinationCard> getUserDestinations() {
-     //   return model.getDestinations();
-    //}
+    public List<DestinationCard> getUserDestinations() {
+        return model.getUserSummary().getDestinations();
+    }
 
     public void addDestinations(List<DestinationCard> destinations) {
         model.getUserSummary().addDestination(destinations);
