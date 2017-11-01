@@ -114,6 +114,13 @@ public class ClientGamePresenterFacade {
         return model.getUserSummary().getPoints();
     }
 
+    public List<DestinationCard> getUserDestinations() {
+        return model.getUserSummary().getDestinations();
+    }
+
+    public void addDestinations(List<DestinationCard> destinations) {
+        model.getUserSummary().addDestination(destinations);
+    }
 
     public void demoTest() {
 
