@@ -19,7 +19,7 @@ public class GamePresenter implements Observer{
 
     public GamePresenter(GameView view) {
         this.view = view;
-        ClientFacade.getInstance().addObserver(this);
+        ClientGamePresenterFacade.getInstance().addObserver(this);
         view.setUsername(ClientFacade.getInstance().getUser().getName());
     }
 
