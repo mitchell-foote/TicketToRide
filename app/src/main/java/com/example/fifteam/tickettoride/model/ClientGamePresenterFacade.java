@@ -2,6 +2,7 @@ package com.example.fifteam.tickettoride.model;
 
 import android.util.Log;
 
+import com.example.fifteam.tickettoride.ClientFacadeAsyncTasks.ChatAsyncTask;
 import com.example.fifteam.tickettoride.ClientFacadeAsyncTasks.EndTurnAsyncTask;
 import com.example.fifteam.tickettoride.ClientFacadeAsyncTasks.ReturnDestinationCardAsyncTask;
 import com.example.gameModel.PlayerGameSummaries.PlayerGameSummary;
@@ -69,6 +70,10 @@ public class ClientGamePresenterFacade {
 
     public boolean isUserTurn(){
         return model.isUserTurn();
+    }
+
+    public void postChat(String message){
+        new ChatAsyncTask().execute(message);
     }
 
     public void discardDestCard(String cardId){

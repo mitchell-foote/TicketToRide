@@ -185,6 +185,9 @@ public class ClientGameCommandFacade implements IClientCommandAccessor{
         if(currTurn != null) {
             String endTurnEntry;
             if (currUser.getName().equals(currTurn)) {
+                if(!model.getDestinationCardsToChoose().isEmpty()){
+                    this.returnDestinationCard(currUserName,null);
+                }
                 endTurnEntry = "You ended your turn.";
             } else {
                 endTurnEntry = currTurn + " ended their turn.";
