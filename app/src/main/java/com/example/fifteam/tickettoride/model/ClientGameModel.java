@@ -161,6 +161,8 @@ public class ClientGameModel extends Observable {
     public void setNextTurn(String userNameToSet){
         this.nextTurn= userNameToSet;
         this.toast("Player: " + nextTurn + " is up!");
+        setChanged();
+        notifyObservers();
     }
 
     public List<DestinationCard> getDestinationCardsToChoose() {
