@@ -2,7 +2,10 @@ package com.example.fifteam.tickettoride.presenters.inGamePresenters;
 
 import com.example.fifteam.tickettoride.model.ClientGamePresenterFacade;
 import com.example.fifteam.tickettoride.views.inGameViews.TrainCardsFragment;
+import com.example.gameModel.classes.TrainCard;
+import com.example.model.enums.SharedColor;
 
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -21,6 +24,20 @@ public class TrainCardsPresenter implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-        ClientGamePresenterFacade.getInstance().getFaceUpTrainCards();
+
+        view.updateCardImages(getCardColors());
+    }
+
+    public SharedColor[] getCardColors() {
+//
+//        List<TrainCard> trainCards = ClientGamePresenterFacade.getInstance().getFaceUpTrainCards();
+//        SharedColor[] colors = new SharedColor[trainCards.size()];
+//
+//        for (int i = 0; i < trainCards.size(); i++) {
+//            colors[i] = trainCards.get(i).getColor();
+//        }
+//
+//        return colors;
+        return new SharedColor[]{SharedColor.GREEN, SharedColor.BLACK, SharedColor.ORANGE, SharedColor.PURPLE, SharedColor.WHITE};
     }
 }

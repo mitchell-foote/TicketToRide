@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.example.fifteam.tickettoride.R;
 import com.example.fifteam.tickettoride.presenters.inGamePresenters.TrainCardsPresenter;
+import com.example.model.enums.SharedColor;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -43,7 +44,7 @@ public class TrainCardsFragment extends Fragment {
 
         initializeCards(v);
         setCardListeners();
-
+        updateCardImages(presenter.getCardColors());
         return v;
     }
 
@@ -54,14 +55,14 @@ public class TrainCardsFragment extends Fragment {
         trainCard3 = (ImageView) v.findViewById(R.id.trainCard3);
         trainCard4 = (ImageView) v.findViewById(R.id.trainCard4);
 
-        faceUpTrainCards = new ImageView[] {trainCard0, trainCard1, trainCard2, trainCard3, trainCard4};
+        faceUpTrainCards = new ImageView[]{trainCard0, trainCard1, trainCard2, trainCard3, trainCard4};
 
         trainCardDeck = (ImageView) v.findViewById(R.id.trainCard_deck);
     }
 
     private void setCardListeners() {
 
-        for (int i = 0; i <  NUM_OF_FACE_UP_CARDS; i++) {
+        for (int i = 0; i < NUM_OF_FACE_UP_CARDS; i++) {
             final String toastText = "Can't draw card " + i + " yet!";
             faceUpTrainCards[i].setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -74,9 +75,42 @@ public class TrainCardsFragment extends Fragment {
         trainCardDeck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(),"Can't draw card from deck yet!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Can't draw card from deck yet!", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
+    //precondition: the size of sharedColor is equal to the number of face up cards (5)
+    public void updateCardImages(SharedColor[] colors) {
+
+        for (int i = 0; i < NUM_OF_FACE_UP_CARDS; i++) {
+            int cardResource = colorToResource(colors[i]);
+            faceUpTrainCards[i].setImageResource(cardResource);
+        }
+    }
+
+    private int colorToResource(SharedColor color) {
+        switch (color) {
+            case RAINBOW:
+                return R.drawable.card_locomotive;
+            case RED:
+                return R.drawable.card_wagon_red;
+            case ORANGE:
+                return R.drawable.card_wagon_orange;
+            case YELLOW:
+                return R.drawable.card_wagon_yellow;
+            case GREEN:
+                return R.drawable.card_wagon_green;
+            case BLUE:
+                return R.drawable.card_wagon_blue;
+            case PURPLE:
+                return R.drawable.card_wagon_purple;
+            case BLACK:
+                return R.drawable.card_wagon_black;
+            case WHITE:
+                return R.drawable.card_wagon_white;
+            default:
+                return R.drawable.card_train_back;
+        }
+    }
 }
