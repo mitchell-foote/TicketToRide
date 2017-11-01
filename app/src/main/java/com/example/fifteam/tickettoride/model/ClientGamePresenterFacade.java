@@ -18,7 +18,7 @@ class ClientGamePresenterFacade {
     private static final ClientGamePresenterFacade ourInstance = new ClientGamePresenterFacade();
 
     private ClientGameModel model = ClientGameModel.getInstance();
-    static ClientGamePresenterFacade getInstance() {
+    public static ClientGamePresenterFacade getInstance() {
         return ourInstance;
     }
 
@@ -70,4 +70,6 @@ class ClientGamePresenterFacade {
         String gameId = model.getGameID();
         new ReturnDestinationCardAsyncTask().execute(authId,cardId,gameId);
     }
+
+
 }
