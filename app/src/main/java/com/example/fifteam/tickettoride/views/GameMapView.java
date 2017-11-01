@@ -157,7 +157,7 @@ public class GameMapView extends SupportMapFragment implements OnMapReadyCallbac
             //actual drawing of the polygon on the map
             Polygon polygon = map.addPolygon(new PolygonOptions()
                     .add(point1, point2, point3, point4)
-                    .strokeColor(Color.RED)
+                    .strokeColor(getColorInt(r.getColor()))
                     .strokeWidth(2));
 
 
@@ -318,7 +318,46 @@ public class GameMapView extends SupportMapFragment implements OnMapReadyCallbac
     //this method takes a SharedColor object and returns the corresponding color integer
     private int getColorInt(SharedColor color) {
 
+        int color_int = Color.parseColor("#ff1493");
 
-        return 0;
+        switch(color) {
+            case BLACK: {
+                color_int = Color.BLACK;
+                break;
+            }
+            case WHITE: {
+                color_int = Color.WHITE;
+                break;
+            }
+            case BLUE: {
+                color_int = Color.BLUE;
+                break;
+            }
+            case RED: {
+                color_int = Color.RED;
+                break;
+            }
+            case ORANGE: {
+                color_int = Color.parseColor("#ff7f24");
+                break;
+            }
+            case YELLOW: {
+                color_int = Color.YELLOW;
+                break;
+            }
+            case GREEN: {
+                color_int = Color.GREEN;
+                break;
+            }
+            case PURPLE: {
+                color_int = Color.parseColor("#9932cc");
+                break;
+            }
+            case RAINBOW: {
+                color_int = Color.GRAY;
+                break;
+            }
+        }
+        return color_int;
     }
 }
