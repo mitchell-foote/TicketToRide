@@ -221,4 +221,10 @@ public class ClientFacade{
         }
         return;
     }
+
+    public void initGameModel(){
+        BaseGameSummary game = ClientModel.getInstance().getCurrentGame();
+        ClientGameModel.getInstance().initGame(game,model.getUser());
+
+    }
 }

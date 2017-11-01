@@ -56,7 +56,7 @@ public class StartGameAsyncTask extends AsyncTask<Void, Void, StartGameAsyncTask
             BaseGameSummary currGame = model.getCurrentGame();
             currGame.setStarted(true);
             //initialize the gameModel with the correct starting info
-            ClientGameModel.getInstance().initGame(currGame,model.getUser());
+            //ClientGameModel.getInstance().initGame(currGame,model.getUser());
         }
         else {
             this.toaster.displayMessage(startGameResult.getErrorMessage());
