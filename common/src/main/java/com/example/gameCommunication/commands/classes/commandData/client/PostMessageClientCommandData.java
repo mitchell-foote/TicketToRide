@@ -6,6 +6,7 @@ import com.example.gameCommunication.commands.interfaces.IGameCommand;
 import com.example.gameModel.interfaces.IClientCommandAccessor;
 
 import java.util.Date;
+import java.util.UUID;
 
 /**
  * Created by Mitchell Foote on 10/28/2017.
@@ -19,7 +20,7 @@ public class PostMessageClientCommandData implements IClientCommandData
     public PostMessageClientCommandData(String message, String username){
         this.Message = message;
         this.Username = username;
-        this.DateString = ((Long)new Date().getTime()).toString();
+        this.DateString = UUID.randomUUID().toString();
     }
     @Override
     public String getCommandHash()

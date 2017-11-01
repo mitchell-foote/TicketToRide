@@ -7,6 +7,7 @@ import com.example.gameModel.interfaces.IClientCommandAccessor;
 
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Created by Mitchell Foote on 10/28/2017.
@@ -20,7 +21,7 @@ public class AddDestinationCardClientCommandData implements IClientCommandData
     public AddDestinationCardClientCommandData(String username, String[] cardId){
         this.Username = username;
         this.CardIds = cardId;
-        this.DateString = ((Long)new Date().getTime()).toString();
+        this.DateString = UUID.randomUUID().toString();
     }
     @Override
     public String getCommandHash()
