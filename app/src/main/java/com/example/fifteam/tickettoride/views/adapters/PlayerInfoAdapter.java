@@ -1,7 +1,6 @@
 package com.example.fifteam.tickettoride.views.adapters;
 
 import android.app.Activity;
-import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;

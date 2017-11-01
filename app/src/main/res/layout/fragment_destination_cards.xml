@@ -1,14 +1,114 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:tools="http://schemas.android.com/tools"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             android:background="#8FBFE0"
-             tools:context="com.example.fifteam.tickettoride.views.inGameViews.DestinationCardsFragment">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#8FBFE0"
+    android:orientation="vertical"
+    tools:context="com.example.fifteam.tickettoride.views.inGameViews.DestinationCardsFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="I am the destination cards fragment."/>
+        android:id="@+id/your_destinations_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Your Destinations: " />
 
-</FrameLayout>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/your_destinations_recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:layout_below="@id/your_destinations_label">
+    </android.support.v7.widget.RecyclerView>
+
+    <Button
+        android:id="@+id/destination_card_select_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Keep Selected Destinations"
+        android:layout_alignParentBottom="true"/>
+
+    <LinearLayout
+        android:id="@+id/destination_card_options_recyclerView"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:layout_centerVertical="true"
+        android:layout_above="@id/destination_card_select_button">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/destination_option_textView0"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="CityA CityB Points" />
+
+            <CheckBox
+                android:id="@+id/destination_option_checkBox0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/destination_option_textView1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="CityA CityB Points" />
+
+            <CheckBox
+                android:id="@+id/destination_option_checkBox1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/destination_option_textView2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="CityA CityB Points" />
+
+            <CheckBox
+                android:id="@+id/destination_option_checkBox2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/select_destinations_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Select Destination Cards to Keep: "
+        android:layout_marginTop="20dp"
+        android:layout_above="@id/destination_card_options_recyclerView"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_above="@id/select_destinations_label"
+        android:layout_below="@id/your_destinations_recyclerView">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:layout_centerInParent="true"
+            android:background="#4F6A7C" />
+
+    </RelativeLayout>
+
+</RelativeLayout>
