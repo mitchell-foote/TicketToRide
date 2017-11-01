@@ -61,6 +61,10 @@ public class Route implements IRoute
         return color;
     }
 
+    public void setRouteID(String routeID) {
+        this.routeID = routeID;
+    }
+
     @Override
     public String getRouteId()
     {

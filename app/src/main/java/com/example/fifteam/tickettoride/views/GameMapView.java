@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.example.fifteam.tickettoride.R;
 import com.example.fifteam.tickettoride.model.ClientGamePresenterFacade;
+import com.example.fifteam.tickettoride.presenters.inGamePresenters.GameMapPresenter;
 import com.example.gameModel.classes.Route;
 import com.example.gameModel.enums.City;
 import com.example.model.enums.SharedColor;
@@ -47,12 +48,14 @@ public class GameMapView extends SupportMapFragment implements OnMapReadyCallbac
     TextView lengthText;
     TextView pointsText;
     List<Polygon> polygonList;
+    GameMapPresenter presenter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         routeList = ClientGamePresenterFacade.getInstance().getRouteList();
         polygonList = new ArrayList<>();
+        presenter = new GameMapPresenter(this);
     }
 
     @Override
@@ -104,13 +107,27 @@ public class GameMapView extends SupportMapFragment implements OnMapReadyCallbac
             @Override
             public void onPolygonClick(Polygon polygon) {
                 Route r = (Route) polygon.getTag();
-                lengthText.setText("Test");
-                pointsText.setText("Test");
+                Integer routeLength = r.getLength();
+                Integer pointValue = r.getPoints();
+                lengthText.setText(routeLength.toString());
+                pointsText.setText(pointValue.toString());
             }
         });
 
-        //LatLng sydney = new LatLng(-34, 151);
-        //map.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
+        /*
+        Route testRoute1 = new Route();
+        testRoute1.setRouteID("5");
+        testRoute1.setClaimed(SharedColor.RED);
+        Route testRoute2 = new Route();
+        testRoute2.setRouteID("10");
+        testRoute2.setClaimed(SharedColor.RED);
+        Route testRoute3 = new Route();
+        testRoute3.setRouteID("15");
+        testRoute3.setClaimed(SharedColor.RED);
+        claimRoute(testRoute1);
+        claimRoute(testRoute2);
+        claimRoute(testRoute3);
+        */
     }
 
     public void drawCities() {

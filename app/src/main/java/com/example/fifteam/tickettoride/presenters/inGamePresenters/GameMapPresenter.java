@@ -3,7 +3,9 @@ package com.example.fifteam.tickettoride.presenters.inGamePresenters;
 import com.example.fifteam.tickettoride.model.ClientGamePresenterFacade;
 import com.example.fifteam.tickettoride.views.GameMapView;
 import com.example.fifteam.tickettoride.views.inGameViews.DestinationCardsFragment;
+import com.example.gameModel.classes.Route;
 
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -22,6 +24,9 @@ public class GameMapPresenter implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-
+        List<Route> claimedList = ClientGamePresenterFacade.getInstance().getClaimedRoutes();
+        for (Route r : claimedList) {
+            view.claimRoute(r);
+        }
     }
 }
