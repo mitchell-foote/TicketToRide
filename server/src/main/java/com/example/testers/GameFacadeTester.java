@@ -4,12 +4,15 @@ import com.example.Exceptions.FailedAuthException;
 import com.example.Exceptions.FailedJoinException;
 import com.example.Exceptions.FailedLoginException;
 import com.example.gameCommunication.commands.classes.containers.CommandContainer;
+import com.example.gameCommunication.commands.interfaces.IClientCommandData;
 import com.example.gameModel.GameFacade;
+import com.example.gameModel.GameModel;
 import com.example.model.ServerFacade;
 import com.example.model.classes.login.BaseGameSummary;
 import com.example.model.enums.SharedColor;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -54,11 +57,29 @@ public class GameFacadeTester {
 
 
             commands = gfacade.getClientCommands("ALL", authToken, fullGameId);
-            System.out.println("number of commands: " + commands.size());
+
+            List<String> hashes = new ArrayList<>();
 
             for (int i = 0; i < commands.size(); i++) {
-
+                hashes.add(((IClientCommandData) commands.get(i).Data).getCommandHash());
             }
+
+            for (int i = 0; i < hashes.size(); i++) {
+                System.out.println(hashes.get(i));
+            }
+
+
+            commands = gfacade.getClientCommands(hashes.get(4), authToken, fullGameId);
+
+            List<String> secondHashes = new ArrayList<>();
+            for (int i = 0; i < commands.size(); i++) {
+                secondHashes.add(((IClientCommandData) commands.get(i).Data).getCommandHash());
+            }
+
+            for (int i = 0; i < secondHashes.size(); i++) {
+                System.out.println(secondHashes.get(i));
+            }
+
 
         } catch (FailedLoginException e)
         {
