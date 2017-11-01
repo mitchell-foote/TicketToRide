@@ -5,6 +5,7 @@ import com.example.gameModel.PlayerGameSummaries.PlayerGameSummary;
 import com.example.gameModel.PlayerGameSummaries.UserGameSummary;
 import com.example.gameModel.classes.ChatEntry;
 import com.example.gameModel.classes.DestinationCard;
+import com.example.gameModel.classes.Route;
 import com.example.gameModel.classes.TrainCard;
 import com.example.model.enums.SharedColor;
 
@@ -79,5 +80,13 @@ public class ClientGamePresenterFacade {
 
     public int getUserTrainCount() {
         return model.getUserSummary().getTrainsRemaining();
+    }
+
+    public List<Route> getRouteList() {
+        return model.getRouteList();
+    }
+
+    public void claimRouteLocally(String routeID, SharedColor ownerColor) {
+        
     }
 }
