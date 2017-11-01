@@ -87,6 +87,6 @@ public class ClientGamePresenterFacade {
     }
 
     public void claimRouteLocally(String routeID, SharedColor ownerColor) {
-        
+
     }
 }
