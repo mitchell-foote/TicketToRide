@@ -12,7 +12,7 @@ import java.util.Observer;
 
 public class ChatPresenter implements Observer{
 
-    ChatFragment view;
+    private ChatFragment view;
 
     public ChatPresenter(ChatFragment view) {
         this.view = view;

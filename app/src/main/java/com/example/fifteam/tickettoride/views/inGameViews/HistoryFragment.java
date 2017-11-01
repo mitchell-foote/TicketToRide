@@ -25,8 +25,6 @@ public class HistoryFragment extends Fragment {
     private RecyclerView.Adapter historyAdapter;
     private RecyclerView.LayoutManager historyLayoutManager;
 
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         /// Inflate the layout for this fragment

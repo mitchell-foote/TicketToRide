@@ -3,7 +3,6 @@ package com.example.fifteam.tickettoride.presenters.inGamePresenters;
 import com.example.fifteam.tickettoride.model.ClientFacade;
 import com.example.fifteam.tickettoride.model.ClientGamePresenterFacade;
 import com.example.fifteam.tickettoride.views.inGameViews.GameView;
-import com.example.model.classes.users.Player;
 import com.example.model.enums.SharedColor;
 
 import java.util.Map;
@@ -16,7 +15,7 @@ import java.util.Observer;
 
 public class GamePresenter implements Observer{
 
-    GameView view;
+    private GameView view;
 
     public GamePresenter(GameView view) {
         this.view = view;

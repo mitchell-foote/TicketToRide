@@ -19,7 +19,6 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-//TO BE USED LATER
 public class GameView extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;

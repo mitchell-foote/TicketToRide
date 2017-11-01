@@ -12,7 +12,7 @@ import java.util.Observer;
 
 public class HistoryPresenter implements Observer{
 
-    HistoryFragment view;
+    private HistoryFragment view;
 
     public HistoryPresenter(HistoryFragment view) {
         this.view = view;

@@ -12,7 +12,7 @@ import java.util.Observer;
 
 public class DestinationCardsPresenter implements Observer{
 
-    DestinationCardsFragment view;
+    private DestinationCardsFragment view;
 
     public DestinationCardsPresenter(DestinationCardsFragment view) {
         this.view = view;

@@ -12,7 +12,7 @@ import java.util.Observer;
 
 public class TrainCardsPresenter implements Observer {
 
-    TrainCardsFragment view;
+    private TrainCardsFragment view;
 
     public TrainCardsPresenter(TrainCardsFragment view) {
         this.view = view;

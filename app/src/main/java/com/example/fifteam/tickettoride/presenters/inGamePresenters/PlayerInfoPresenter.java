@@ -12,7 +12,7 @@ import java.util.Observer;
 
 public class PlayerInfoPresenter implements Observer {
 
-    PlayerInfoFragment view;
+    private PlayerInfoFragment view;
 
     public PlayerInfoPresenter(PlayerInfoFragment view) {
         this.view = view;
