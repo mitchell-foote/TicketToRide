@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.fifteam.tickettoride.R;
+import com.example.gameModel.classes.ChatEntry;
 
 import java.util.List;
 
@@ -19,7 +20,7 @@ import java.util.List;
 public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
 
     private Activity context;
-    private List<String> chatList;
+    private List<ChatEntry> chatList;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public LinearLayout chatLayout;
@@ -29,7 +30,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
         }
     }
 
-    public ChatAdapter(Activity context, List<String> chatList) {
+    public ChatAdapter(Activity context, List<ChatEntry> chatList) {
         this.context = context;
         this.chatList = chatList;
     }
@@ -45,13 +46,13 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(ChatAdapter.ViewHolder holder, int position) {
-        final String chat_item = chatList.get(position); //declared final so that listener below can use it
+        final ChatEntry chat_item = chatList.get(position); //declared final so that listener below can use it
 
         TextView chatPlayerName = (TextView) holder.chatLayout.findViewById(R.id.chat_player_name);
-        chatPlayerName.setText(chat_item);
+        chatPlayerName.setText(chat_item.getName() + ": ");
 
         TextView historyMessage = (TextView) holder.chatLayout.findViewById(R.id.chat_message);
-        historyMessage.setText(chat_item);
+        historyMessage.setText(chat_item.getContent());
     }
 
     @Override
