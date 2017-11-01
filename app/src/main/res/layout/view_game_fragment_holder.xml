@@ -11,10 +11,183 @@
         android:orientation="horizontal">
 
         <TextView
+            android:id="@+id/toolBar_username"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Game Info Goes Here"/>
+            android:layout_gravity="center_vertical"
+            android:text="Username" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:adjustViewBounds="true"
+            android:maxHeight="20dp"
+            android:src="@drawable/card_wagon_black" />
+
+        <TextView
+            android:id="@+id/toolBar_cardQuantity_black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_gravity="center_vertical"
+            android:text="0" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:adjustViewBounds="true"
+            android:maxHeight="20dp"
+            android:src="@drawable/card_wagon_blue" />
+
+        <TextView
+            android:id="@+id/toolBar_cardQuantity_blue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_gravity="center_vertical"
+            android:text="0" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:adjustViewBounds="true"
+            android:maxHeight="20dp"
+            android:src="@drawable/card_wagon_green" />
+
+        <TextView
+            android:id="@+id/toolBar_cardQuantity_green"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_gravity="center_vertical"
+            android:text="0" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:adjustViewBounds="true"
+            android:maxHeight="20dp"
+            android:src="@drawable/card_wagon_orange" />
+
+        <TextView
+            android:id="@+id/toolBar_cardQuantity_orange"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_gravity="center_vertical"
+            android:text="0" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:adjustViewBounds="true"
+            android:maxHeight="20dp"
+            android:src="@drawable/card_wagon_purple" />
+
+        <TextView
+            android:id="@+id/toolBar_cardQuantity_purple"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_gravity="center_vertical"
+            android:text="0" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:adjustViewBounds="true"
+            android:maxHeight="20dp"
+            android:src="@drawable/card_wagon_red" />
+
+        <TextView
+            android:id="@+id/toolBar_cardQuantity_red"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_gravity="center_vertical"
+            android:text="0" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:adjustViewBounds="true"
+            android:maxHeight="20dp"
+            android:src="@drawable/card_wagon_white" />
+
+        <TextView
+            android:id="@+id/toolBar_cardQuantity_white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_gravity="center_vertical"
+            android:text="0" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:adjustViewBounds="true"
+            android:maxHeight="20dp"
+            android:src="@drawable/card_wagon_yellow" />
+
+        <TextView
+            android:id="@+id/toolBar_cardQuantity_yellow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_gravity="center_vertical"
+            android:text="0" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:adjustViewBounds="true"
+            android:maxHeight="20dp"
+            android:src="@drawable/card_locomotive" />
+
+        <TextView
+            android:id="@+id/toolBar_cardQuantity_locomotive"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_gravity="center_vertical"
+            android:text="0" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:adjustViewBounds="true"
+            android:maxHeight="20dp"
+            android:src="@drawable/ic_train_piece" />
+
+        <TextView
+            android:id="@+id/toolBar_trainQuantity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_gravity="center_vertical"
+            android:text="0" />
+
     </LinearLayout>
 
     <LinearLayout
