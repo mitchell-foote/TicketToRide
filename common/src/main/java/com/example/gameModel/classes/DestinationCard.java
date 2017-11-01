@@ -62,4 +62,10 @@ public class DestinationCard
         result = 31 * result + getReferenceId().hashCode();
         return result;
     }
+
+    public String toString(){
+        String toReturn = "City 1: " + getFirstCity() + " City 2: " + getSecondCity() + " Points: "
+                + this.getValue();
+        return toReturn;
+    }
 }
