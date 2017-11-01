@@ -13,6 +13,7 @@ import com.sun.net.httpserver.HttpHandler;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.HttpURLConnection;
 
 /**
  * Created by Mitchell Foote on 10/28/2017.
@@ -25,7 +26,7 @@ public class InGameCommandHandler extends Handler implements HttpHandler
     public void handle(HttpExchange httpExchange) throws IOException
     {
         System.out.println("Command in game handler reached");
-
+        System.out.println("request URI=" + httpExchange.getRequestURI());
         try {
             if (httpExchange.getRequestMethod().toLowerCase().equals("post")) {
                 InputStream reqBody  = httpExchange.getRequestBody();
@@ -40,6 +41,8 @@ public class InGameCommandHandler extends Handler implements HttpHandler
                 IGameCommand command;
                 data.body = CommandSerializationHelper.getInstance().DeSerializeClient((CommandContainer) data.body,false);
                 ((ICommandData) ((CommandContainer) data.body).Data).makeFullCommandObject(serverFacade).execute();
+                httpExchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
+
                 httpExchange.close();
             }
             else
@@ -48,6 +51,8 @@ public class InGameCommandHandler extends Handler implements HttpHandler
             }
         } catch (IOException e) {
             serverError(httpExchange, e);
+            e.printStackTrace();
+        } catch(Exception e){
             e.printStackTrace();
         }
     }

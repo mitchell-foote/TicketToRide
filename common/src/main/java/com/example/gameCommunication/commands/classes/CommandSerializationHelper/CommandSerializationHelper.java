@@ -3,11 +3,13 @@ package com.example.gameCommunication.commands.classes.CommandSerializationHelpe
 import com.example.gameCommunication.commands.classes.commandData.client.AddDestinationCardClientCommandData;
 import com.example.gameCommunication.commands.classes.commandData.client.AddFaceUpTrainCardClientCommandData;
 import com.example.gameCommunication.commands.classes.commandData.client.AddTrainCardClientCommandData;
+import com.example.gameCommunication.commands.classes.commandData.client.NextTurnClientCommandData;
 import com.example.gameCommunication.commands.classes.commandData.client.PostMessageClientCommandData;
 import com.example.gameCommunication.commands.classes.commandData.client.ReturnDestinationCardClientCommandData;
 import com.example.gameCommunication.commands.classes.commandData.server.AddDestinationCardCommandData;
 import com.example.gameCommunication.commands.classes.commandData.server.AddFaceUpTrainCardCommandData;
 import com.example.gameCommunication.commands.classes.commandData.server.AddTrainCarCommandData;
+import com.example.gameCommunication.commands.classes.commandData.server.EndTurnCommandData;
 import com.example.gameCommunication.commands.classes.commandData.server.GetCommandListCommandData;
 import com.example.gameCommunication.commands.classes.commandData.server.PostMessageCommandData;
 import com.example.gameCommunication.commands.classes.commandData.server.ReturnDestinationCardCommandData;
@@ -85,6 +87,16 @@ public class CommandSerializationHelper
             }
             case GetCommands:{
                 cc.Data = new Gson().fromJson(new Gson().toJson(cc.Data), GetCommandListCommandData.class);
+                break;
+            }
+            case NextOrEndTurn:{
+                if(isClient){
+                    cc.Data = new Gson().fromJson(new Gson().toJson(cc.Data), NextTurnClientCommandData.class);
+
+                }
+                else {
+                    cc.Data = new Gson().fromJson(new Gson().toJson(cc.Data), EndTurnCommandData.class);
+                }
                 break;
             }
             default:{

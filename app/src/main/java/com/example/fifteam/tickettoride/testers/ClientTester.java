@@ -1,6 +1,13 @@
 package com.example.fifteam.tickettoride.testers;
 
+import com.example.fifteam.tickettoride.model.ClientFacade;
+import com.example.fifteam.tickettoride.model.ClientGameCommandFacade;
+import com.example.fifteam.tickettoride.serverCommunications.GameServerProxy;
 import com.example.fifteam.tickettoride.serverCommunications.ServerProxy;
+import com.example.gameCommunication.commands.classes.commandData.client.AddDestinationCardClientCommandData;
+import com.example.gameCommunication.commands.classes.commandRunners.ClientCommandRunner;
+import com.example.gameCommunication.commands.classes.containers.CommandContainer;
+import com.example.gameCommunication.commands.interfaces.IClientCommandData;
 import com.example.model.classes.login.BaseGameSummary;
 import com.example.model.enums.SharedColor;
 
@@ -14,7 +21,10 @@ public class ClientTester
 {
     public static void main(String[] args){
         ServerProxy proxy = new ServerProxy();
-
+        GameServerProxy gameServerProxy = new GameServerProxy();
+        ClientFacade facade = ClientFacade.getInstance();
+        ClientGameCommandFacade otherFacade = ClientGameCommandFacade.getInstance();
+        ClientCommandRunner runner = new ClientCommandRunner(otherFacade);
 
         try
         {
@@ -27,6 +37,17 @@ public class ClientTester
             boolean joined = proxy.joinGame(gameId, SharedColor.GREEN, secondPlayer);
             boolean started = proxy.startGame(gameId,secondPlayer);
             gameList = proxy.getGames(authAgain);
+            BaseGameSummary gameSummary = gameList.get(0);
+            String fullGameId = gameSummary.getFullGameId();
+            gameServerProxy.drawDestinationCard(authAgain,fullGameId);
+            gameServerProxy.drawDestinationCard(authAgain, fullGameId);
+            List<CommandContainer> commands = gameServerProxy.getClientCommands("ALL", authAgain, fullGameId);
+            CommandContainer container = commands.get(commands.size() -1);
+            AddDestinationCardClientCommandData data = (AddDestinationCardClientCommandData) container.Data;
+            gameServerProxy.returnDestinationCard(authAgain,data.CardIds[0],fullGameId);
+            gameServerProxy.endTurn(authAgain, fullGameId);
+            commands = gameServerProxy.getClientCommands("ALL", authAgain, fullGameId);
+            //runner.runCommandsFromContainer(commands);
             boolean leaved = proxy.leaveGame(gameId, authAgain);
             leaved = proxy.leaveGame(gameId, secondPlayer);
 
