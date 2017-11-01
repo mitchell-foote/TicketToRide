@@ -67,10 +67,10 @@ public class GameMapView extends SupportMapFragment implements OnMapReadyCallbac
         drawCities();
         drawRoutes(new ArrayList<Route>());
 
-        map.setMinZoomPreference(3.6f);
+        map.setMinZoomPreference(3.2f);
         map.setMaxZoomPreference(5.0f);
 
-        LatLngBounds mapBounds = new LatLngBounds(new LatLng(29, -115), new LatLng(48, -80));
+        LatLngBounds mapBounds = new LatLngBounds(new LatLng(29, -118), new LatLng(49, -77));
         map.setLatLngBoundsForCameraTarget(mapBounds);
 
         map.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(39.6, -97.3)));
