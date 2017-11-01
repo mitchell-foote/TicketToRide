@@ -64,10 +64,14 @@ public class TrainCardsFragment extends Fragment {
 
         for (int i = 0; i < NUM_OF_FACE_UP_CARDS; i++) {
             final String toastText = "Can't draw card " + i + " yet!";
+            final int pos = i;
             faceUpTrainCards[i].setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(getActivity(), toastText, Toast.LENGTH_SHORT).show();
+
+                    //this is for demo purposes
+                    faceUpTrainCards[pos].setImageResource(colorToResource(SharedColor.RAINBOW));
+                    //Toast.makeText(getActivity(), toastText, Toast.LENGTH_SHORT).show();
                 }
             });
         }

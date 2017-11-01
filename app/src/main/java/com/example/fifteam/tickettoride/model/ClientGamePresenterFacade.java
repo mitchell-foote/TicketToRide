@@ -113,4 +113,16 @@ public class ClientGamePresenterFacade {
     public int getUserPoints() {
         return model.getUserSummary().getPoints();
     }
+
+
+    public void demoTest() {
+
+        claimRouteLocally("5", SharedColor.RED);
+        claimRouteLocally("10", SharedColor.BLUE);
+        claimRouteLocally("15", SharedColor.PURPLE);
+        claimRouteLocally("20", SharedColor.RED);
+        claimRouteLocally("25", SharedColor.GREEN);
+        claimRouteLocally("30", SharedColor.BLUE);
+        claimRouteLocally("35", SharedColor.PURPLE);
+    }
 }
