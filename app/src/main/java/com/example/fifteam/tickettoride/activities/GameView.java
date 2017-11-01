@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.ImageButton;
 
 import com.example.fifteam.tickettoride.R;
+import com.example.fifteam.tickettoride.views.GameMapView;
 import com.example.fifteam.tickettoride.views.TempGameView;
 import com.example.fifteam.tickettoride.views.inGameViews.ChatFragment;
 import com.example.fifteam.tickettoride.views.inGameViews.DestinationCardsFragment;
@@ -18,7 +19,6 @@ import com.example.fifteam.tickettoride.views.inGameViews.TrainCardsFragment;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -36,18 +36,20 @@ public class GameView extends FragmentActivity implements OnMapReadyCallback {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.view_game_fragment_holder);
-
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.game_map_container);
-        mapFragment.getMapAsync(this);
+//
+//        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
+//        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+//                .findFragmentById(R.id.game_map_container);
+//        mapFragment.getMapAsync(this);
 
         TempGameView testFragment = new TempGameView();
+        GameMapView mapFragment = new GameMapView();
 
         FragmentManager manager=getSupportFragmentManager();//create an instance of fragment manager
         FragmentTransaction transaction=manager.beginTransaction();//create an instance of Fragment-transaction
 
         transaction.add(R.id.game_misc_container, testFragment, "frag_misc_tag");
+        transaction.add(R.id.game_map_container, mapFragment, "frag_map_tag");
         transaction.commit();
 
         initializeButtons();

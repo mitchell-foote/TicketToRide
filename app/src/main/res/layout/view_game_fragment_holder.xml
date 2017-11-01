@@ -75,7 +75,7 @@
         android:layout_below="@id/game_top_toolbar">
     </FrameLayout>
 
-    <fragment
+    <FrameLayout
         android:id="@+id/game_map_container"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
