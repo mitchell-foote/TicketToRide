@@ -22,6 +22,14 @@ public class GameMapPresenter implements Observer {
         ClientGamePresenterFacade.getInstance().addObserver(this);
     }
 
+    public void addToPlayerScore(int score) {
+        ClientGamePresenterFacade.getInstance().updatePlayerPoints(score);
+    }
+
+    public void subtractPlayerTrains(int trains) {
+        ClientGamePresenterFacade.getInstance().updatePlayerTrains(trains);
+    }
+
     @Override
     public void update(Observable o, Object arg) {
         List<Route> claimedList = ClientGamePresenterFacade.getInstance().getClaimedRoutes();

@@ -7,8 +7,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.fifteam.tickettoride.ClientFacadeAsyncTasks.DemoAsyncTask;
 import com.example.fifteam.tickettoride.R;
 import com.example.fifteam.tickettoride.model.ClientGamePresenterFacade;
 import com.example.fifteam.tickettoride.presenters.inGamePresenters.GameMapPresenter;
@@ -48,6 +50,7 @@ public class GameMapView extends SupportMapFragment implements OnMapReadyCallbac
     TextView routeNameText;
     TextView lengthText;
     TextView pointsText;
+    Button demoButton;
     List<Polygon> polygonList;
     GameMapPresenter presenter;
 
@@ -71,7 +74,16 @@ public class GameMapView extends SupportMapFragment implements OnMapReadyCallbac
 
         lengthText = (TextView) v.findViewById(R.id.length_text);
         pointsText = (TextView) v.findViewById(R.id.points_text);
+        demoButton = (Button) v.findViewById(R.id.demo_button);
         //routeNameText = (TextView) v.findViewById(R.id.route_name_text);
+
+        demoButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                new DemoAsyncTask().execute();
+            }
+        });
 
         return v;
     }
@@ -340,6 +352,8 @@ public class GameMapView extends SupportMapFragment implements OnMapReadyCallbac
             if (r.getRouteId().equals(claimedRoute.getRouteId())) {
                 p.setFillColor(getColorInt(claimedRoute.getOwnerColor()));
                 p.setClickable(false);
+                presenter.addToPlayerScore(claimedRoute.getPoints());
+                presenter.subtractPlayerTrains(claimedRoute.getLength());
             }
         }
     }

@@ -114,6 +114,15 @@ public class ClientGamePresenterFacade {
         return model.getUserSummary().getPoints();
     }
 
+    public void updatePlayerPoints(int newPointCount) {
+        String playerID = model.getUserSummary().getName();
+        model.updatePlayerPoints(playerID, newPointCount);
+    }
+
+    public void updatePlayerTrains(int trainsToSubtract) {
+        String playerID = model.getUserSummary().getName();
+        model.updatePlayerTrains(playerID, trainsToSubtract);
+    }
 
     public void demoTest() {
 

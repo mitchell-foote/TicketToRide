@@ -117,9 +117,9 @@ public class ClientGameModel extends Observable {
         notifyObservers();
     }
 
-    public void updatePlayerTrains(String playerId, int newTrainCount){
+    public void updatePlayerTrains(String playerId, int trainsToSubtract){
         PlayerGameSummary playerToUpdate = this.playerSummaryMap.get(playerId);
-        playerToUpdate.setTrainsRemaining(newTrainCount);
+        playerToUpdate.subtractFromTrainsRemaining(trainsToSubtract);
         setChanged();
         notifyObservers();
     }

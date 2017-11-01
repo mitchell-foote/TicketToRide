@@ -49,14 +49,6 @@ public class DemoAsyncTask extends AsyncTask<Void,Integer,Void> {
             case 6:
                 facade.claimRouteLocally("35", SharedColor.PURPLE);
                 break;
-            case 7:
-                break;
-            case 8:
-                break;
-            case 9:
-                break;
-            case 10:
-                break;
         }
     }
 }

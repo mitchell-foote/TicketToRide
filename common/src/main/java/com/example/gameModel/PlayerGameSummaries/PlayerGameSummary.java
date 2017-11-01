@@ -76,8 +76,8 @@ public class PlayerGameSummary {
         return trainsRemaining;
     }
 
-    public void setTrainsRemaining(int trainsRemaining) {
-        this.trainsRemaining = trainsRemaining;
+    public void subtractFromTrainsRemaining(int trainsToSubtract) {
+        this.trainsRemaining -= trainsToSubtract;
     }
 
     public int getNumDestinationCards(){
