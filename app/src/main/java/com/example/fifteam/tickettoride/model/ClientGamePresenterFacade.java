@@ -71,5 +71,5 @@ class ClientGamePresenterFacade {
         new ReturnDestinationCardAsyncTask().execute(authId,cardId,gameId);
     }
 
-
+    
 }

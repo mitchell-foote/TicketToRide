@@ -36,7 +36,7 @@ public class PathHolder
     public static String getStartGameURL(){return "/games/start";}
     public static String getInGameCommandsURL(){return "/ingame/command";}
     public static String getGameCommandListURL(){return "/ingame/comandlist";}
-    public static String getHost(){ return "10.0.2.2";}
+    public static String getHost(){ return "192.168.1.136";}
     public static String getPort() {return "30001";}
 
 }
