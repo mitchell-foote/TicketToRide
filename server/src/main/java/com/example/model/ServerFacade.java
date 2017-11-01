@@ -11,7 +11,10 @@ import com.example.model.classes.login.BaseGameSummary;
 import com.example.model.classes.users.User;
 import com.example.model.enums.SharedColor;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by ninjup on 9/26/17.
@@ -98,6 +101,26 @@ public class ServerFacade implements IServerAccessor
                 String fullGameId = model.findGameById(gameId).getFullGameId();
                 GameFacade accessor = new GameFacade();
                 accessor.endTurn(authToken, fullGameId);
+
+                BaseGameSummary game = model.findGameById(gameId);
+                Set<String> playerNames = game.getPlayers().keySet();
+                List<String> playerTokens = new ArrayList<>();
+                for (String s : playerNames) {
+                    playerTokens.add(model.findPlayerFromName(s).getAuthToken());
+                }
+
+                for (String s : playerTokens) {
+                    accessor.drawDestinationCard(s, fullGameId);
+                    accessor.drawDestinationCard(s, fullGameId);
+                    accessor.drawDestinationCard(s, fullGameId);
+
+                    accessor.drawTrainCard(s, fullGameId);
+                    accessor.drawTrainCard(s, fullGameId);
+                    accessor.drawTrainCard(s, fullGameId);
+                    accessor.drawTrainCard(s, fullGameId);
+                }
+
+
             }
             return success;
         } else {
