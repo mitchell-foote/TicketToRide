@@ -78,7 +78,7 @@ public class ClientGameCommandFacade implements IClientCommandAccessor{
                 newDestinationCardList.add(tempCard);
             }
             //set the list in the model as list of destination cards to choose from
-            model.setDestinationCardsToChoose(newDestinationCardList);
+            model.addDestinationCardsToChoose(newDestinationCardList);
 
             //prepare entry for game history
             String historyEntry = "You drew " + cardId.size() + " destination cards!";
@@ -86,7 +86,7 @@ public class ClientGameCommandFacade implements IClientCommandAccessor{
         }
         else{
             for(String s : cardId) {
-                model.incOpponentDestUp();
+                playerToDraw.incFaceUpDestCards();
             }
         }
     }
@@ -118,7 +118,7 @@ public class ClientGameCommandFacade implements IClientCommandAccessor{
 
         }
         else{
-            model.decOpponentDestUp();
+            playerGameSummary.decFaceUpDestCards();
         }
 
     }
@@ -190,9 +190,11 @@ public class ClientGameCommandFacade implements IClientCommandAccessor{
                 }
                 endTurnEntry = "You ended your turn.";
             } else {
+                PlayerGameSummary currPlayer = model.getPlayerById(currTurn);
+
                 endTurnEntry = currTurn + " ended their turn.";
-                if(model.getNumOpponentsDestCards() > 0){
-                    String destEntry = currTurn + " picked up " + model.getNumOpponentsDestCards() +
+                if(currPlayer.getFaceUpDestCards() > 0){
+                    String destEntry = currTurn + " picked up " + currPlayer.getFaceUpDestCards() +
                             " destination cards.";
                     model.addHistoryEntry(destEntry);
                     model.setNumOpponentsDestCards(0);

@@ -14,6 +14,7 @@ public class PlayerGameSummary {
     private int points;
     private int trainsRemaining;
     private int numDestinationCards;
+    private int faceUpDestCards;
 
     public PlayerGameSummary(){
 
@@ -26,6 +27,7 @@ public class PlayerGameSummary {
         this.points = 0;
         this.numDestinationCards = 0;
         this.trainsRemaining = 45;
+        faceUpDestCards = 0;
     }
 
     public PlayerGameSummary(String name, SharedColor color, int trainHandSize, int points,
@@ -86,6 +88,17 @@ public class PlayerGameSummary {
         this.numDestinationCards += toInc;
     }
 
+    public void incFaceUpDestCards(){
+        this.faceUpDestCards++;
+    }
+
+    public void decFaceUpDestCards(){
+        this.faceUpDestCards--;
+    }
+
+    public int getFaceUpDestCards(){
+        return this.faceUpDestCards;
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

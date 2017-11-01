@@ -160,6 +160,12 @@ public class ClientGameModel extends Observable {
         notifyObservers();
     }
 
+    public void addDestinationCardsToChoose(List<DestinationCard> destinationCards){
+        this.destinationCardsToChoose.addAll(destinationCards);
+        setChanged();
+        notifyObservers();
+    }
+
     public String getLastExecutedHash() {
         return lastExecutedHash;
     }
