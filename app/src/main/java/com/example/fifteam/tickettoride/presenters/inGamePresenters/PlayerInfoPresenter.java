@@ -2,7 +2,9 @@ package com.example.fifteam.tickettoride.presenters.inGamePresenters;
 
 import com.example.fifteam.tickettoride.model.ClientGamePresenterFacade;
 import com.example.fifteam.tickettoride.views.inGameViews.PlayerInfoFragment;
+import com.example.gameModel.PlayerGameSummaries.PlayerGameSummary;
 
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -21,6 +23,10 @@ public class PlayerInfoPresenter implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
+        view.updateAdapter();
+    }
 
+    public List<PlayerGameSummary> getPlayerInfo() {
+        return ClientGamePresenterFacade.getInstance().getOtherPlayerGameList();
     }
 }

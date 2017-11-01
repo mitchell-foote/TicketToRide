@@ -1,14 +1,15 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:tools="http://schemas.android.com/tools"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             android:background="#70B77E"
-             tools:context="com.example.fifteam.tickettoride.views.inGameViews.PlayerInfoFragment">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#70B77E"
+    tools:context="com.example.fifteam.tickettoride.views.inGameViews.PlayerInfoFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/player_info_recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="I am the player info fragment."/>
-
+        android:layout_margin="20dp"
+        />
 </FrameLayout>
