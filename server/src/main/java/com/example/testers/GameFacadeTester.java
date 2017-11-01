@@ -38,12 +38,27 @@ public class GameFacadeTester {
             System.out.println("full game id: " + fullGameId);
 
             List<CommandContainer> commands = gfacade.getClientCommands("ALL", authToken, fullGameId);
-            gfacade.drawDestinationCard(authToken, fullGameId);
-            gfacade.drawDestinationCard(authToken, fullGameId);
-            gfacade.drawDestinationCard(authToken, fullGameId);
+
+            gfacade.drawTrainCard(authToken, fullGameId);
+            gfacade.drawTrainCard(authToken, fullGameId);
+            gfacade.drawTrainCard(authToken, fullGameId);
+            gfacade.drawTrainCard(authToken, fullGameId);
+
+            String firstDesCard = gfacade.drawDestinationCard(authToken, fullGameId);
+            String secondDesCard = gfacade.drawDestinationCard(authToken, fullGameId);
+            String thirdDesCard = gfacade.drawDestinationCard(authToken, fullGameId);
+
+            gfacade.returnDestinationCard(authToken, firstDesCard, fullGameId);
+            gfacade.returnDestinationCard(authToken, secondDesCard, fullGameId);
+            gfacade.returnDestinationCard(authToken, thirdDesCard, fullGameId);
+
 
             commands = gfacade.getClientCommands("ALL", authToken, fullGameId);
             System.out.println("number of commands: " + commands.size());
+
+            for (int i = 0; i < commands.size(); i++) {
+
+            }
 
         } catch (FailedLoginException e)
         {

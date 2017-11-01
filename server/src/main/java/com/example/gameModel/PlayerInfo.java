@@ -25,26 +25,46 @@ public class PlayerInfo {
 
     public void addDestinationCard(String cardId) {
         destinationCards.add(cardId);
+        System.out.println("Adding destination card to " + color.toString() + " player's hand. His hand contains: ");
+        for (int i = 0; i < destinationCards.size(); i++) {
+            System.out.println(destinationCards.get(i));
+        }
     }
 
     public void removeDestinationCard(String cardId) {
         for (int i = 0; i < destinationCards.size(); i++) {
             if (destinationCards.get(i).equals(cardId)) {
                 destinationCards.remove(i);
+                System.out.println("Removed destination card: " + cardId + " from " + color.toString() + " player's hand. His hand contains: ");
+                for (int j = 0; j < destinationCards.size(); j++) {
+                    System.out.println(destinationCards.get(j));
+                }
+                return;
             }
         }
+        System.out.println("Error: cardId not found in player's hand");
     }
 
     public void addTrainCard(String cardId) {
         trainCards.add(cardId);
+        System.out.println("Adding train card to " + color.toString() + " player's hand. His hand contains: ");
+        for (int i = 0; i < trainCards.size(); i++) {
+            System.out.println(trainCards.get(i));
+        }
     }
 
     public void removeTrainCard(String cardId) {
         for (int i = 0; i < trainCards.size(); i++) {
             if (trainCards.get(i).equals(cardId)) {
                 trainCards.remove(i);
+                System.out.println("Removed train card: " + cardId + " from " + color.toString() + " player's hand. His hand contains: ");
+                for (int j = 0; j < trainCards.size(); j++) {
+                    System.out.println(trainCards.get(j));
+                }
+                return;
             }
         }
+        System.out.println("Error: cardId not found in player's hand");
     }
 
 

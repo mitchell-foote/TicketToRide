@@ -80,6 +80,7 @@ public class GameFacade implements IGameAccessor {
         GameModel game = model.findFullGameById(gameId);
         Player player = model.findPlayerFromToken(authId);
         boolean success = game.returnDestinationCard(cardId);
+        game.removeDestinationCardToPlayerHand(player, cardId);
 
         game.addCommand(commandBuilder.returnDestinationCard(player.getName(), cardId), CommandTypesEnum.ReturnDestinationCard);
 
