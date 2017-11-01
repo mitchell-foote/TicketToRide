@@ -29,6 +29,7 @@ public class DestinationCardsFragment extends Fragment {
     private RecyclerView.Adapter myDestinationsAdapter;
     private RecyclerView.LayoutManager myDestinationsLayoutManager;
 
+    private TextView myDestLabel;
     private TextView option0Text;
     private TextView option1Text;
     private TextView option2Text;
@@ -65,6 +66,8 @@ public class DestinationCardsFragment extends Fragment {
         option1CheckBox = (CheckBox) v.findViewById(R.id.destination_option_checkBox1);
         option2CheckBox = (CheckBox) v.findViewById(R.id.destination_option_checkBox2);
 
+        myDestLabel = (TextView) v.findViewById(R.id.your_destinations_label);
+
         setCheckboxListeners();
 
         selectDestinationsButton = (Button) v.findViewById(R.id.destination_card_select_button);
@@ -77,6 +80,7 @@ public class DestinationCardsFragment extends Fragment {
 
         setIsSelectingDestinations(false);
         presenter.checkForDestinations();
+        myDestLabel.setText("Your Destinations: (" + myDestinationsAdapter.getItemCount() + ")");
 
         return v;
     }
@@ -136,6 +140,7 @@ public class DestinationCardsFragment extends Fragment {
     }
 
     public void updateAdapter() {
-        myDestinationsAdapter.notifyDataSetChanged();
+        myDestinationsAdapter = new DestinationAdapter(getActivity(), presenter.getMyDestinations());
+        myDestLabel.setText("Your Destinations: (" + myDestinationsAdapter.getItemCount() + ")");
     }
 }

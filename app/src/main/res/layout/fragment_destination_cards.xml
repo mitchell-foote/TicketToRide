@@ -10,7 +10,7 @@
         android:id="@+id/your_destinations_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Your Destinations:" />
+        android:text="Your Destinations: " />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/your_destinations_recyclerView"

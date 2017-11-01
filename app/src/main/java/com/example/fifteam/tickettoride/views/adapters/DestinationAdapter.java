@@ -37,16 +37,17 @@ public class DestinationAdapter extends RecyclerView.Adapter<DestinationAdapter.
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        final String destination = destinations.get(position).toString();
+        DestinationCard destination = destinations.get(position);
+        final String destinationString = destination.toString();
 
         TextView destinationTextView = (TextView) holder.destinationLayout.findViewById(R.id.owned_destination_textView);
 
-        destinationTextView.setText(destination);
+        destinationTextView.setText(destinationString);
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return destinations.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
