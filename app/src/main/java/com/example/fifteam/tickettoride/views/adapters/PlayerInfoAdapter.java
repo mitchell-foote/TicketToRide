@@ -56,6 +56,8 @@ public class PlayerInfoAdapter extends RecyclerView.Adapter<PlayerInfoAdapter.Vi
         destTextView.setText(destinations);
         pointTextView.setText(points);
         trainTextView.setText(trainsRemaining);
+
+        //TODO: indicate color of player in view, probably by changing background
     }
 
     @Override
