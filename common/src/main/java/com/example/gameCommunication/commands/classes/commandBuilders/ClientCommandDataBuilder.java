@@ -35,7 +35,7 @@ public class ClientCommandDataBuilder implements IClientCommandDataBuilder
     @Override
     public IClientCommandData drawDestinationCard(String username, List<String> cardId)
     {
-        return new AddDestinationCardClientCommandData(username, cardId);
+        return new AddDestinationCardClientCommandData(username, cardId.toArray(new String[0]));
     }
 
     @Override

@@ -15,8 +15,8 @@ import java.util.List;
 public class AddDestinationCardClientCommandData implements IClientCommandData
 {
     public String Username;
-    public List<String> CardIds;
-    public AddDestinationCardClientCommandData(String username, List<String> cardId){
+    public String[] CardIds = new String[3];
+    public AddDestinationCardClientCommandData(String username, String[] cardId){
         this.Username = username;
         this.CardIds = cardId;
     }

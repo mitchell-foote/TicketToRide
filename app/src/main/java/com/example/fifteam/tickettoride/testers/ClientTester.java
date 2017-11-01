@@ -30,6 +30,7 @@ public class ClientTester
             boolean leaved = proxy.leaveGame(gameId, authAgain);
             leaved = proxy.leaveGame(gameId, secondPlayer);
 
+
         } catch (Exception e)
         {
             e.printStackTrace();

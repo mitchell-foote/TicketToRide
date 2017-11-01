@@ -50,7 +50,7 @@ public class GetInGameCommandList extends Handler implements HttpHandler
                 GetCommandListCommandData commandData =  ((GetCommandListCommandData) ((CommandContainer) data.body).Data);
                 CommandContainer[] commandDataList = (CommandContainer[])serverFacade
                         .getClientCommands(commandData.LastCommandHash, commandData.AuthId, commandData.GameId)
-                        .toArray();
+                        .toArray(new CommandContainer[0]);
 
                 BaseResponse response = new BaseResponse();
                 response.type = "list";
@@ -69,6 +69,8 @@ public class GetInGameCommandList extends Handler implements HttpHandler
             }
         } catch (IOException e) {
             serverError(httpExchange, e);
+            e.printStackTrace();
+        } catch(Exception e){
             e.printStackTrace();
         }
     }

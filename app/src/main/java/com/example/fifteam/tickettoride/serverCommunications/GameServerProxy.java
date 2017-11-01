@@ -6,6 +6,7 @@ import com.example.communication.PathHolder;
 import com.example.gameCommunication.commands.classes.commandData.client.AddDestinationCardClientCommandData;
 import com.example.gameCommunication.commands.classes.commandData.client.AddFaceUpTrainCardClientCommandData;
 import com.example.gameCommunication.commands.classes.commandData.client.AddTrainCardClientCommandData;
+import com.example.gameCommunication.commands.classes.commandData.client.NextTurnClientCommandData;
 import com.example.gameCommunication.commands.classes.commandData.client.PostMessageClientCommandData;
 import com.example.gameCommunication.commands.classes.commandData.client.ReturnDestinationCardClientCommandData;
 import com.example.gameCommunication.commands.classes.commandData.server.AddDestinationCardCommandData;
@@ -72,6 +73,10 @@ public class GameServerProxy implements IGameAccessor
                     }
                     case ReturnDestinationCard: {
                         cc.Data = new Gson().fromJson(new Gson().toJson(cc.Data), ReturnDestinationCardClientCommandData.class);
+                        break;
+                    }
+                    case NextOrEndTurn:{
+                        cc.Data = new Gson().fromJson(new Gson().toJson(cc.Data), NextTurnClientCommandData.class);
                         break;
                     }
                     default:{
