@@ -35,6 +35,26 @@ public class UserGameSummary extends PlayerGameSummary {
         super(username,color);
         this.hand = new HashMap<>();
         this.destinations = new ArrayList<>();
+        this.initHand();
+    }
+
+    public void initHand(){
+        this.hand.put(SharedColor.BLACK, 0);
+        this.hand.put(SharedColor.BLUE, 0);
+        this.hand.put(SharedColor.GREEN, 0);
+        this.hand.put(SharedColor.ORANGE, 0);
+        this.hand.put(SharedColor.PURPLE, 0);
+        this.hand.put(SharedColor.RED, 0);
+        this.hand.put(SharedColor.RAINBOW, 0);
+        this.hand.put(SharedColor.WHITE, 0);
+        this.hand.put(SharedColor.YELLOW, 0);
+
+
+
+
+
+
+
     }
 
     public Map<SharedColor, Integer> getHand() {
@@ -56,9 +76,14 @@ public class UserGameSummary extends PlayerGameSummary {
 
     public void addCard(SharedColor colorToAdd){
         this.incrementTrainHandSize();
-        int toIncrement = this.hand.get(colorToAdd);
-        toIncrement++;
-        this.hand.put(colorToAdd,toIncrement);
+        if(this.hand.get(colorToAdd) == null){
+            this.hand.put(colorToAdd,1);
+        }
+        else {
+            int toIncrement = this.hand.get(colorToAdd);
+            toIncrement++;
+            this.hand.put(colorToAdd, toIncrement);
+        }
     }
 
     public void addDestination(List<DestinationCard> toAdd){
