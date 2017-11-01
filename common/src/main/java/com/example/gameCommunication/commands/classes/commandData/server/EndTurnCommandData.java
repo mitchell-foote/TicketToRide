@@ -15,14 +15,16 @@ public class EndTurnCommandData implements ICommandData
 {
     public String AuthId;
     public String GameId;
+    public String DateString;
     public EndTurnCommandData(String authId, String gameId){
         this.GameId = gameId;
         this.AuthId = authId;
+        this.DateString = new Date().toString();
     }
     @Override
     public String getCommandHash()
     {
-        return ((Integer)(AuthId.hashCode() + GameId.hashCode())).toString() + new Date().toString();
+        return ((Integer)(AuthId.hashCode() + GameId.hashCode())).toString() + DateString;
     }
 
     @Override

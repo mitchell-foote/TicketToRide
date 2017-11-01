@@ -16,15 +16,17 @@ public class PostMessageCommandData implements ICommandData
     public String Message;
     public String AuthId;
     public String GameId;
+    public String DateString;
     public PostMessageCommandData(String message, String authId, String gameId){
         this.Message = message;
         this.AuthId = authId;
         this.GameId = gameId;
+        this.DateString = new Date().toString();
     }
     @Override
     public String getCommandHash()
     {
-        return ((Integer)(Message.hashCode() + AuthId.hashCode() + GameId.hashCode())).toString() + new Date().toString();
+        return ((Integer)(Message.hashCode() + AuthId.hashCode() + GameId.hashCode())).toString() + DateString;
     }
 
     @Override

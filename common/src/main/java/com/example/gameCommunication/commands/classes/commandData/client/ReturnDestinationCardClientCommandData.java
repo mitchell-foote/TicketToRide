@@ -15,15 +15,16 @@ public class ReturnDestinationCardClientCommandData implements IClientCommandDat
 {
     public String Username;
     public String CardId;
-
+    public String DateString;
     public ReturnDestinationCardClientCommandData(String username, String cardId){
         this.Username = username;
         this.CardId = cardId;
+        this.DateString = ((Long)new Date().getTime()).toString();
     }
     @Override
     public String getCommandHash()
     {
-        return ((Integer)(this.Username.hashCode() + this.CardId.hashCode() )).toString() + new Date().toString();
+        return this.Username+ "XX" + this.DateString;
     }
 
     @Override

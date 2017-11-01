@@ -15,14 +15,16 @@ public class AddTrainCarCommandData implements ICommandData
 {
     public String userIdentifier;
     public String gameId;
+    public String DateString;
     public AddTrainCarCommandData(String userId, String gameId){
         this.userIdentifier = userId;
         this.gameId = gameId;
+        this.DateString = new Date().toString();
     }
     @Override
     public String getCommandHash()
     {
-        return ((Integer) (userIdentifier.hashCode() + gameId.hashCode())).toString() + new Date().toString();
+        return ((Integer) (userIdentifier.hashCode() + gameId.hashCode())).toString() + this.DateString;
     }
 
     @Override

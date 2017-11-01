@@ -15,14 +15,16 @@ public class PostMessageClientCommandData implements IClientCommandData
 {
     public String Message;
     public String Username;
+    public String DateString;
     public PostMessageClientCommandData(String message, String username){
         this.Message = message;
         this.Username = username;
+        this.DateString = ((Long)new Date().getTime()).toString();
     }
     @Override
     public String getCommandHash()
     {
-        return ((Integer)(Message.hashCode() + Username.hashCode())).toString() + new Date().toString();
+        return this.Username + "P" + this.DateString;
     }
 
     @Override

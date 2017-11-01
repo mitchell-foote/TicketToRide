@@ -14,13 +14,15 @@ import java.util.Date;
 public class NextTurnClientCommandData implements IClientCommandData
 {
     public String Username;
+    public String DateString;
     public NextTurnClientCommandData(String username){
         this.Username = username;
+        DateString = ((Long)new Date().getTime()).toString();
     }
     @Override
     public String getCommandHash()
     {
-        return ((Integer)(this.Username.hashCode())).toString() + new Date().toString();
+        return this.Username +"NXT"+ this.DateString;
     }
 
     @Override

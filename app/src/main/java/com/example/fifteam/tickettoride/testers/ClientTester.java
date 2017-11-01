@@ -46,7 +46,14 @@ public class ClientTester
             AddDestinationCardClientCommandData data = (AddDestinationCardClientCommandData) container.Data;
             gameServerProxy.returnDestinationCard(authAgain,data.CardIds[0],fullGameId);
             gameServerProxy.endTurn(authAgain, fullGameId);
+            gameServerProxy.postMessage("What up",authAgain, fullGameId);
+
             commands = gameServerProxy.getClientCommands("ALL", authAgain, fullGameId);
+            CommandContainer container1 = commands.get(3);
+            IClientCommandData data1 = (IClientCommandData) container1.Data;
+            String hash = data1.getCommandHash();
+            commands = gameServerProxy.getClientCommands(hash,authAgain,fullGameId);
+            //commands = gameServerProxy.getClientCommands((Icommands.get(3));
             //runner.runCommandsFromContainer(commands);
             boolean leaved = proxy.leaveGame(gameId, authAgain);
             leaved = proxy.leaveGame(gameId, secondPlayer);

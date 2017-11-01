@@ -16,15 +16,17 @@ public class AddFaceUpTrainCardClientCommandData implements IClientCommandData
     public String Username;
     public String CardId;
     public String NewCardId;
+    public String DateString;
     public AddFaceUpTrainCardClientCommandData(String username, String cardId, String newCardId){
         this.Username = username;
         this.CardId = cardId;
         this.NewCardId = newCardId;
+        this.DateString = ((Long)new Date().getTime()).toString();
     }
     @Override
     public String getCommandHash()
     {
-        return ((Integer)(this.Username.hashCode() + this.CardId.hashCode() + this.NewCardId.hashCode())).toString() + new Date().toString();
+        return this.Username  + "ADDTRN"+ this.DateString;
     }
 
     @Override
