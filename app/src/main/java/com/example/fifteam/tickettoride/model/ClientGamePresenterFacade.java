@@ -105,4 +105,8 @@ public class ClientGamePresenterFacade {
     public void claimRouteLocally(String routeID, SharedColor ownerColor) {
 
     }
+
+    public int getUserPoints() {
+        return model.getUserSummary().getPoints();
+    }
 }

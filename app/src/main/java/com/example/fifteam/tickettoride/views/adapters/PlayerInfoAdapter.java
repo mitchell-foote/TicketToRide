@@ -1,6 +1,7 @@
 package com.example.fifteam.tickettoride.views.adapters;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 
 import com.example.fifteam.tickettoride.R;
 import com.example.gameModel.PlayerGameSummaries.PlayerGameSummary;
+import com.example.model.enums.SharedColor;
 
 import java.util.List;
 
@@ -57,7 +59,8 @@ public class PlayerInfoAdapter extends RecyclerView.Adapter<PlayerInfoAdapter.Vi
         pointTextView.setText(points);
         trainTextView.setText(trainsRemaining);
 
-        //TODO: indicate color of player in view, probably by changing background
+        int playerColor = SharedColor.sharedColorToHex(player.getColor());
+        nameTextView.setBackgroundColor(playerColor);
     }
 
     @Override

@@ -14,8 +14,9 @@
             android:id="@+id/toolBar_username"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:textStyle="bold"
             android:text="Username" />
 
         <ImageView
@@ -32,8 +33,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_gravity="center_vertical"
-            android:text="0" />
+            android:layout_gravity="center_vertical" />
 
         <ImageView
             android:layout_width="wrap_content"
@@ -49,8 +49,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_gravity="center_vertical"
-            android:text="0" />
+            android:layout_gravity="center_vertical"/>
 
         <ImageView
             android:layout_width="wrap_content"
@@ -66,8 +65,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_gravity="center_vertical"
-            android:text="0" />
+            android:layout_gravity="center_vertical"/>
 
         <ImageView
             android:layout_width="wrap_content"
@@ -83,8 +81,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_gravity="center_vertical"
-            android:text="0" />
+            android:layout_gravity="center_vertical" />
 
         <ImageView
             android:layout_width="wrap_content"
@@ -100,8 +97,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_gravity="center_vertical"
-            android:text="0" />
+            android:layout_gravity="center_vertical" />
 
         <ImageView
             android:layout_width="wrap_content"
@@ -117,8 +113,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_gravity="center_vertical"
-            android:text="0" />
+            android:layout_gravity="center_vertical"/>
 
         <ImageView
             android:layout_width="wrap_content"
@@ -134,8 +129,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_gravity="center_vertical"
-            android:text="0" />
+            android:layout_gravity="center_vertical"/>
 
         <ImageView
             android:layout_width="wrap_content"
@@ -151,8 +145,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_gravity="center_vertical"
-            android:text="0" />
+            android:layout_gravity="center_vertical" />
 
         <ImageView
             android:layout_width="wrap_content"
@@ -168,8 +161,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_gravity="center_vertical"
-            android:text="0" />
+            android:layout_gravity="center_vertical"/>
 
         <ImageView
             android:layout_width="wrap_content"
@@ -185,8 +177,21 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:layout_gravity="center_vertical"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:text="0" />
+            android:layout_weight="1"
+            android:text="Points: " />
+
+        <TextView
+            android:id="@+id/toolBar_points"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1" />
 
     </LinearLayout>
 

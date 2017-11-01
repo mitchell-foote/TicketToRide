@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.fifteam.tickettoride.R;
@@ -39,6 +40,7 @@ public class GameView extends FragmentActivity implements OnMapReadyCallback {
     private TextView cardCountYellow;
     private TextView cardCountRainbow;
     private TextView trainCount;
+    private TextView pointsCount;
 
     private GamePresenter presenter;
 
@@ -60,9 +62,11 @@ public class GameView extends FragmentActivity implements OnMapReadyCallback {
         initializeButtons();
         initializeTextViews();
 
-        //TODO: Need to display user points somewhere
-
         presenter = new GamePresenter(this);
+
+        LinearLayout toolbar = (LinearLayout) findViewById(R.id.game_top_toolbar);
+        int userColor = presenter.getUserColor();
+        toolbar.setBackgroundColor(userColor);
     }
 
     /**
@@ -153,6 +157,7 @@ public class GameView extends FragmentActivity implements OnMapReadyCallback {
         cardCountYellow = (TextView) findViewById(R.id.toolBar_cardQuantity_yellow);
         cardCountRainbow = (TextView) findViewById(R.id.toolBar_cardQuantity_rainbow);
         trainCount = (TextView) findViewById(R.id.toolBar_trainQuantity);
+        pointsCount = (TextView)  findViewById(R.id.toolBar_points);
     }
 
     public void setUsername(String username) {
@@ -173,5 +178,9 @@ public class GameView extends FragmentActivity implements OnMapReadyCallback {
 
     public void setTrainCount(int trains) {
         trainCount.setText(String.valueOf(trains));
+    }
+
+    public void setPoints(int points) {
+        pointsCount.setText(String.valueOf(points));
     }
 }

@@ -29,6 +29,8 @@ public class GamePresenter implements Observer{
         int trains = ClientGamePresenterFacade.getInstance().getUserTrainCount();
         view.setTrainCount(trains);
 
+        int points = ClientGamePresenterFacade.getInstance().getUserPoints();
+        view.setPoints(points);
         setHand(ClientGamePresenterFacade.getInstance().getUserHand());
     }
 
@@ -75,5 +77,10 @@ public class GamePresenter implements Observer{
             }
         }
         view.setHand(black, blue, green, orange, purple, red, white, yellow, rainbow);
+    }
+
+    public int getUserColor() {
+        SharedColor color = ClientGamePresenterFacade.getInstance().getUserGameSummary().getColor();
+        return SharedColor.sharedColorToHex(color);
     }
 }
