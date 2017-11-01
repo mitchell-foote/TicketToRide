@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.ImageButton;
 
 import com.example.fifteam.tickettoride.R;
+import com.example.fifteam.tickettoride.presenters.inGamePresenters.GamePresenter;
 import com.example.fifteam.tickettoride.views.GameMapView;
 import com.example.fifteam.tickettoride.views.TempGameView;
 import com.example.fifteam.tickettoride.views.inGameViews.ChatFragment;
@@ -32,15 +33,14 @@ public class GameView extends FragmentActivity implements OnMapReadyCallback {
     private ImageButton chatButton;
     private ImageButton historyButton;
 
+    private GamePresenter presenter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.view_game_fragment_holder);
-//
-//        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-//        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-//                .findFragmentById(R.id.game_map_container);
-//        mapFragment.getMapAsync(this);
+
+        presenter = new GamePresenter(this);
 
         TempGameView testFragment = new TempGameView();
         GameMapView mapFragment = new GameMapView();

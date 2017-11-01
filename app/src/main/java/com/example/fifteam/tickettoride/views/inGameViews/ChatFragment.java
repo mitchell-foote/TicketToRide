@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.fifteam.tickettoride.R;
+import com.example.fifteam.tickettoride.presenters.inGamePresenters.ChatPresenter;
 import com.example.fifteam.tickettoride.views.adapters.ChatAdapter;
 import com.example.gameModel.classes.ChatEntry;
 
@@ -26,9 +27,12 @@ public class ChatFragment extends Fragment {
     private RecyclerView.Adapter chatAdapter;
     private RecyclerView.LayoutManager chatLayoutManager;
 
+    private ChatPresenter presenter;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        presenter = new ChatPresenter(this);
     }
 
     @Override
