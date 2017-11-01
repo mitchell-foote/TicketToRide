@@ -31,7 +31,7 @@
             android:ems="10"
             android:inputType="textPersonName"
             android:layout_toEndOf="@id/createGameButton"
-            android:text="Game Name"/>
+            android:hint="Game Name"/>
 
         <Button
             android:id="@+id/joinGameButton"

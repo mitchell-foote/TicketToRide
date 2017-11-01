@@ -1,4 +1,4 @@
-package com.example.fifteam.tickettoride.activities;
+package com.example.fifteam.tickettoride.views.inGameViews;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
