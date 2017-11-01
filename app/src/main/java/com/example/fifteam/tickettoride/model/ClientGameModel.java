@@ -533,7 +533,7 @@ public class ClientGameModel extends Observable {
 
         //retrieve the user data from the player map then remove the user from the map so as to not
         //duplicate them
-        String userUserName = baseGameSummary.getOwner();
+        String userUserName = user.getName();
         SharedColor userColor = playerMap.get(userUserName);
         playerMap.remove(userUserName);
 

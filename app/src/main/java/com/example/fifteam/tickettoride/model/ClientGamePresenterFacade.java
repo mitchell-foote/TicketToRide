@@ -1,5 +1,8 @@
 package com.example.fifteam.tickettoride.model;
 
+import android.util.Log;
+
+import com.example.fifteam.tickettoride.ClientFacadeAsyncTasks.EndTurnAsyncTask;
 import com.example.fifteam.tickettoride.ClientFacadeAsyncTasks.ReturnDestinationCardAsyncTask;
 import com.example.gameModel.PlayerGameSummaries.PlayerGameSummary;
 import com.example.gameModel.PlayerGameSummaries.UserGameSummary;
@@ -71,7 +74,15 @@ public class ClientGamePresenterFacade {
     public void discardDestCard(String cardId){
         String authId = model.getAuthToken();
         String gameId = model.getGameID();
-        new ReturnDestinationCardAsyncTask().execute(authId,cardId,gameId);
+        if(cardId != null) {
+            try {
+                new ReturnDestinationCardAsyncTask().execute(authId, cardId, gameId).get();
+            }
+            catch (Exception e){
+                Log.d("error",e.getLocalizedMessage());
+            }
+        }
+        new EndTurnAsyncTask().execute(authId,gameId);
     }
 
     public Map<SharedColor, Integer> getUserHand() {
