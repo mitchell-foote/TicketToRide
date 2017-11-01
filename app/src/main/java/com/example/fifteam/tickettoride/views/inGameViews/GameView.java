@@ -7,16 +7,12 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.example.fifteam.tickettoride.R;
 import com.example.fifteam.tickettoride.presenters.inGamePresenters.GamePresenter;
 import com.example.fifteam.tickettoride.views.GameMapView;
 import com.example.fifteam.tickettoride.views.TempGameView;
-import com.example.fifteam.tickettoride.views.inGameViews.ChatFragment;
-import com.example.fifteam.tickettoride.views.inGameViews.DestinationCardsFragment;
-import com.example.fifteam.tickettoride.views.inGameViews.HistoryFragment;
-import com.example.fifteam.tickettoride.views.inGameViews.PlayerInfoFragment;
-import com.example.fifteam.tickettoride.views.inGameViews.TrainCardsFragment;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -33,14 +29,24 @@ public class GameView extends FragmentActivity implements OnMapReadyCallback {
     private ImageButton chatButton;
     private ImageButton historyButton;
 
+    private TextView usernameTextView;
+    private TextView cardCountBlack;
+    private TextView cardCountBlue;
+    private TextView cardCountGreen;
+    private TextView cardCountOrange;
+    private TextView cardCountPurple;
+    private TextView cardCountRed;
+    private TextView cardCountWhite;
+    private TextView cardCountYellow;
+    private TextView cardCountWild;
+    private TextView trainCount;
+
     private GamePresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.view_game_fragment_holder);
-
-        presenter = new GamePresenter(this);
 
         TempGameView testFragment = new TempGameView();
         GameMapView mapFragment = new GameMapView();
@@ -53,6 +59,9 @@ public class GameView extends FragmentActivity implements OnMapReadyCallback {
         transaction.commit();
 
         initializeButtons();
+        initializeTextViews();
+
+        presenter = new GamePresenter(this);
     }
 
     /**
@@ -129,5 +138,37 @@ public class GameView extends FragmentActivity implements OnMapReadyCallback {
                 ft.commit();
             }
         });
+    }
+
+    private void initializeTextViews() {
+        usernameTextView = (TextView) findViewById(R.id.toolBar_username);
+        cardCountBlack = (TextView) findViewById(R.id.toolBar_cardQuantity_black);
+        cardCountBlue = (TextView) findViewById(R.id.toolBar_cardQuantity_blue);
+        cardCountGreen = (TextView) findViewById(R.id.toolBar_cardQuantity_green);
+        cardCountOrange = (TextView) findViewById(R.id.toolBar_cardQuantity_orange);
+        cardCountPurple = (TextView) findViewById(R.id.toolBar_cardQuantity_purple);
+        cardCountRed = (TextView) findViewById(R.id.toolBar_cardQuantity_red);
+        cardCountWhite = (TextView) findViewById(R.id.toolBar_cardQuantity_white);
+        cardCountYellow = (TextView) findViewById(R.id.toolBar_cardQuantity_yellow);
+        cardCountWild = (TextView) findViewById(R.id.toolBar_cardQuantity_locomotive);
+        trainCount = (TextView) findViewById(R.id.toolBar_trainQuantity);
+    }
+
+    public void setUsername(String username) {
+        usernameTextView.setText(username);
+    }
+
+    public void setCounts() {
+        //TODO: have this be fed actual information from the presenter
+        cardCountBlack.setText("-1");
+        cardCountBlue.setText("-1");
+        cardCountGreen.setText("-1");
+        cardCountOrange.setText("-1");
+        cardCountPurple.setText("-1");
+        cardCountRed.setText("-1");
+        cardCountWhite.setText("-1");
+        cardCountYellow.setText("-1");
+        cardCountWild.setText("-1");
+        trainCount.setText("-1");
     }
 }
