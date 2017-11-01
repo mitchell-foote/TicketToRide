@@ -528,6 +528,24 @@ public class ClientGameModel extends Observable {
         return routeList;
     }
 
+    public void claimRouteLocally(String routeID, SharedColor ownerColor) {
+        for (Route r : routeList) {
+            if (r.getRouteId().equals(routeID)) {
+                r.setClaimed(ownerColor);
+            }
+        }
+    }
+
+    public List<Route> getClaimedRoutes() {
+        List<Route> claimed_list = new ArrayList<>();
+        for (Route r : routeList) {
+            if (!r.isClaimable()) {
+                claimed_list.add(r);
+            }
+        }
+        return claimed_list;
+    }
+
     public void initGame(BaseGameSummary baseGameSummary, User user){
         String newGameID = baseGameSummary.getFullGameId();
         this.setGameID(newGameID);

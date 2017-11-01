@@ -46,11 +46,13 @@ public class GameMapView extends SupportMapFragment implements OnMapReadyCallbac
     List<Route> routeList;
     TextView lengthText;
     TextView pointsText;
+    List<Polygon> polygonList;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         routeList = ClientGamePresenterFacade.getInstance().getRouteList();
+        polygonList = new ArrayList<>();
     }
 
     @Override
@@ -204,6 +206,7 @@ public class GameMapView extends SupportMapFragment implements OnMapReadyCallbac
 
             //links the Route object to the Polygon so that the object can be accessed later
             polygon.setTag(r);
+            polygonList.add(polygon);
         }
     }
 
@@ -291,6 +294,7 @@ public class GameMapView extends SupportMapFragment implements OnMapReadyCallbac
 
             //links the Route object to the Polygon so that the object can be accessed later
             polygon.setTag(r);
+            polygonList.add(polygon);
 
             //draw the sister route polygon
             Polygon s_polygon = map.addPolygon(new PolygonOptions()
@@ -307,6 +311,17 @@ public class GameMapView extends SupportMapFragment implements OnMapReadyCallbac
 
             //links the Route object to the Polygon so that the object can be accessed later
             s_polygon.setTag(sisterRoute);
+            polygonList.add(s_polygon);
+        }
+    }
+
+    public void claimRoute(Route claimedRoute) {
+        for (Polygon p : polygonList) {
+            Route r = (Route) p.getTag();
+            if (r.getRouteId().equals(claimedRoute.getRouteId())) {
+                p.setFillColor(getColorInt(claimedRoute.getOwnerColor()));
+                p.setClickable(false);
+            }
         }
     }
 
