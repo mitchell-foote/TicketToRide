@@ -1,5 +1,6 @@
 package com.example.fifteam.tickettoride.model;
 
+import com.example.fifteam.tickettoride.ClientFacadeAsyncTasks.GamePollerAsyncTask;
 import com.example.gameModel.PlayerGameSummaries.PlayerGameSummary;
 import com.example.gameModel.PlayerGameSummaries.UserGameSummary;
 import com.example.gameModel.classes.ChatEntry;
@@ -54,7 +55,7 @@ public class ClientGameModel extends Observable {
         this.chatHistory = new ArrayList<>();
         this.destinationCardsToChoose = new ArrayList<>();
         this.gameHistory = new ArrayList<>();
-        this.lastExecutedHash = null;
+        this.lastExecutedHash = "ALL";
         this.faceUpTrainCards = new ArrayList<>();
         this.isUserTurn = false;
         this.setNumOpponentsDestCards(0);
@@ -254,6 +255,7 @@ public class ClientGameModel extends Observable {
 
         setChanged();
         notifyObservers();
+        new GamePollerAsyncTask().execute();
 
     }
 }

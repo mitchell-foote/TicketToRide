@@ -18,10 +18,10 @@ import java.util.List;
  * used by the commands to access the model
  */
 
-class ClientGameCommandFacade implements IClientCommandAccessor{
+public class ClientGameCommandFacade implements IClientCommandAccessor{
     private static final ClientGameCommandFacade ourInstance = new ClientGameCommandFacade();
 
-    static ClientGameCommandFacade getInstance(){
+    public static ClientGameCommandFacade getInstance(){
         if(ourInstance.model == null){
             ourInstance.model = ClientGameModel.getInstance();
         }
