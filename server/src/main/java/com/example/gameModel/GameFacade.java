@@ -58,8 +58,13 @@ public class GameFacade implements IGameAccessor {
         GameModel game = model.findFullGameById(gameId);
         Player player = model.findPlayerFromToken(authId);
         String cardId = game.drawDestinationCard(player);
+        String secondCard = game.drawDestinationCard(player);
+        String thirdCard = game.drawDestinationCard(player);
+
         List<String> cards = new ArrayList<>();
         cards.add(cardId);
+        cards.add(secondCard);
+        cards.add(thirdCard);
 
         game.addCommand(commandBuilder.drawDestinationCard(player.getName(), cards), CommandTypesEnum.AddDestination);
 

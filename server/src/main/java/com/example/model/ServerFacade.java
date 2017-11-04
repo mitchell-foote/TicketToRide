@@ -111,8 +111,6 @@ public class ServerFacade implements IServerAccessor
 
                 for (String s : playerTokens) {
                     accessor.drawDestinationCard(s, fullGameId);
-                    accessor.drawDestinationCard(s, fullGameId);
-                    accessor.drawDestinationCard(s, fullGameId);
 
                     accessor.drawTrainCard(s, fullGameId);
                     accessor.drawTrainCard(s, fullGameId);
