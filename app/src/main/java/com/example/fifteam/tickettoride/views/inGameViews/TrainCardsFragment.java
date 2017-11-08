@@ -30,12 +30,30 @@ public class TrainCardsFragment extends Fragment {
     private ImageView trainCard4;
     private ImageView trainCardDeck;
 
+    /**
+     * Basic fragment creation, sets presenter for this view
+     *
+     * @param savedInstanceState
+     *
+     * @pre none
+     *
+     * @post the train cards view has a presenter connected to it
+     */
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         presenter = new TrainCardsPresenter(this);
     }
 
+    /**
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     *
+     * @pre the xml file for R.layout.fragment_train_cards has imageViews for the 5 train card options and the deck
+     *
+     * @post the view is inflated with the contents of the xml, the imageViews have onClickListeners
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -48,6 +66,13 @@ public class TrainCardsFragment extends Fragment {
         return v;
     }
 
+    /**
+     * @param v the train cards view
+     *
+     * @pre the view has 6 imageViews named trainCard0-4 and trainCard_deck
+     *
+     * @post the train card imageViews are remembered and usable by other functions of this view class
+     */
     private void initializeCards(View v) {
         trainCard0 = (ImageView) v.findViewById(R.id.trainCard0);
         trainCard1 = (ImageView) v.findViewById(R.id.trainCard1);
@@ -60,6 +85,11 @@ public class TrainCardsFragment extends Fragment {
         trainCardDeck = (ImageView) v.findViewById(R.id.trainCard_deck);
     }
 
+    /**
+     * @pre the intializeCards function of this view has already been called
+     *
+     * @post each of the train card image views have on click listeners attached to them, and they pop a toast and change image when clicked on
+     */
     private void setCardListeners() {
 
         for (int i = 0; i < NUM_OF_FACE_UP_CARDS; i++) {
@@ -84,7 +114,13 @@ public class TrainCardsFragment extends Fragment {
         });
     }
 
-    //precondition: the size of sharedColor is equal to the number of face up cards (5)
+    /**
+     * @param colors an array of SharedColors equivalent to the five face-up cards that may be drawn
+     *
+     * @pre the size of the colors array is exactly 5, the number of face up train cards in the game
+     *
+     * @post the images in the view are set to correspond to the five colors in the array
+     */
     public void updateCardImages(SharedColor[] colors) {
 
         for (int i = 0; i < NUM_OF_FACE_UP_CARDS; i++) {
@@ -93,6 +129,13 @@ public class TrainCardsFragment extends Fragment {
         }
     }
 
+    /**
+     * @param color a SharedColor to correspond to a train card image
+     *
+     * @pre none
+     *
+     * @post returns the id of the image resource that corresponds to that color of card
+     */
     private int colorToResource(SharedColor color) {
         switch (color) {
             case RAINBOW:

@@ -50,7 +50,7 @@ public class DestinationAdapter extends RecyclerView.Adapter<DestinationAdapter.
         return destinations.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         public LinearLayout destinationLayout;
         public ViewHolder(View itemView) {
             super(itemView);

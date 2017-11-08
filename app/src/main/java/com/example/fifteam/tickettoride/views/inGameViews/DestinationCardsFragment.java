@@ -27,10 +27,10 @@ import java.util.List;
 public class DestinationCardsFragment extends Fragment {
 
     private DestinationCardsPresenter presenter;
-//
-//    private RecyclerView myDestinations;
-//    private RecyclerView.Adapter myDestinationsAdapter;
-//    private RecyclerView.LayoutManager myDestinationsLayoutManager;
+
+    private RecyclerView myDestinations;
+    private RecyclerView.Adapter myDestinationsAdapter;
+    private RecyclerView.LayoutManager myDestinationsLayoutManager;
 
     private TextView myDestLabel;
     private TextView option0Text;
@@ -43,7 +43,7 @@ public class DestinationCardsFragment extends Fragment {
 
     private Button selectDestinationsButton;
 
-    private TextView hackText;
+//    private TextView hackText;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -56,12 +56,13 @@ public class DestinationCardsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_destination_cards, container, false);
-//
-//        myDestinations = (RecyclerView) v.findViewById(R.id.your_destinations_recyclerView);
-//        myDestinationsLayoutManager = new LinearLayoutManager(getContext());
-//        ((LinearLayoutManager) myDestinationsLayoutManager).setOrientation(LinearLayoutManager.VERTICAL);
-//        myDestinations.setLayoutManager(myDestinationsLayoutManager);
-//        myDestinationsAdapter = new DestinationAdapter(getActivity(), presenter.getMyDestinations());
+
+        myDestinations = (RecyclerView) v.findViewById(R.id.your_destinations_recyclerView);
+        myDestinationsLayoutManager = new LinearLayoutManager(getContext());
+        ((LinearLayoutManager) myDestinationsLayoutManager).setOrientation(LinearLayoutManager.VERTICAL);
+        myDestinations.setLayoutManager(myDestinationsLayoutManager);
+        myDestinationsAdapter = new DestinationAdapter(getActivity(), presenter.getMyDestinations());
+        myDestinations.setAdapter(myDestinationsAdapter);
 
         option0Text = (TextView) v.findViewById(R.id.destination_option_textView0);
         option1Text = (TextView) v.findViewById(R.id.destination_option_textView1);
@@ -87,21 +88,21 @@ public class DestinationCardsFragment extends Fragment {
         presenter.checkForDestinations();
         myDestLabel.setText("Your Destinations: (" + presenter.getMyDestinations().size() + ")");
 
-        hackText = (TextView) v.findViewById(R.id.destination_hack);
-        setHackText(presenter.getMyDestinations());
+//        hackText = (TextView) v.findViewById(R.id.destination_hack);
+//        setHackText(presenter.getMyDestinations());
 
         return v;
     }
 
-    private void setHackText(List<DestinationCard> myDestinations) {
-        StringBuilder sb = new StringBuilder();
-        for (DestinationCard dest :
-                myDestinations) {
-            sb.append(dest.toString());
-            sb.append(" ");
-        }
-        hackText.setText(sb.toString());
-    }
+//    private void setHackText(List<DestinationCard> myDestinations) {
+//        StringBuilder sb = new StringBuilder();
+//        for (DestinationCard dest :
+//                myDestinations) {
+//            sb.append(dest.toString());
+//            sb.append(" ");
+//        }
+//        hackText.setText(sb.toString());
+//    }
 
     private void setCheckboxListeners() {
         option0CheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -158,9 +159,9 @@ public class DestinationCardsFragment extends Fragment {
     }
 
     public void updateAdapter() {
-//        myDestinationsAdapter = new DestinationAdapter(getActivity(), presenter.getMyDestinations());
-//        myDestLabel.setText("Your Destinations: (" + myDestinationsAdapter.getItemCount() + ")");
-        myDestLabel.setText("Your Destinations: (" + presenter.getMyDestinations().size() + ")");
-        setHackText(presenter.getMyDestinations());
+        myDestinationsAdapter = new DestinationAdapter(getActivity(), presenter.getMyDestinations());
+        myDestLabel.setText("Your Destinations: (" + myDestinationsAdapter.getItemCount() + ")");
+//        myDestLabel.setText("Your Destinations: (" + presenter.getMyDestinations().size() + ")");
+//        setHackText(presenter.getMyDestinations());
     }
 }

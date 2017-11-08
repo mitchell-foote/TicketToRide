@@ -11,7 +11,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="Select Destination Cards to Keep: " />
+        android:layout_marginStart="10dp"
+        android:text="Select Destination Cards to Keep: "
+        android:textSize="10sp" />
 
     <LinearLayout
         android:id="@+id/destination_card_options"
@@ -26,35 +28,41 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
+            <CheckBox
+                android:id="@+id/destination_option_checkBox0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
             <TextView
                 android:id="@+id/destination_option_textView0"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="CityA CityB Points" />
+                android:layout_gravity="center_vertical"
+                android:text="CityA CityB Points"
+                android:textSize="8sp" />
 
-            <CheckBox
-                android:id="@+id/destination_option_checkBox0"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
+
+            <CheckBox
+                android:id="@+id/destination_option_checkBox1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
 
             <TextView
                 android:id="@+id/destination_option_textView1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="CityA CityB Points" />
+                android:layout_gravity="center_vertical"
+                android:text="CityA CityB Points"
+                android:textSize="8sp" />
 
-            <CheckBox
-                android:id="@+id/destination_option_checkBox1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
         </LinearLayout>
 
         <LinearLayout
@@ -62,17 +70,20 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
+            <CheckBox
+                android:id="@+id/destination_option_checkBox2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
             <TextView
                 android:id="@+id/destination_option_textView2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="CityA CityB Points" />
+                android:layout_gravity="center_vertical"
+                android:text="CityA CityB Points"
+                android:textSize="8sp" />
 
-            <CheckBox
-                android:id="@+id/destination_option_checkBox2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
         </LinearLayout>
 
     </LinearLayout>
@@ -82,24 +93,28 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:text="Keep Selected Destinations" />
+        android:text="Keep Selected Destinations"
+        android:textSize="10sp" />
 
     <TextView
         android:id="@+id/your_destinations_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Your Destinations: " />
+        android:text="Your Destinations: "
+        android:layout_marginStart="10dp"
+        android:textSize="10sp" />
 
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/destination_hack"/>
-    <!--<android.support.v7.widget.RecyclerView-->
-        <!--android:id="@+id/your_destinations_recyclerView"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent">-->
+    <!--<TextView-->
+        <!--android:id="@+id/destination_hack"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        android:textSize="8sp" />
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/your_destinations_recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <!--</android.support.v7.widget.RecyclerView>-->
+    </android.support.v7.widget.RecyclerView>
 
 </LinearLayout>
