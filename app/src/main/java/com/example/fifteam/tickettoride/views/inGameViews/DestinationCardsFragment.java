@@ -43,8 +43,6 @@ public class DestinationCardsFragment extends Fragment {
 
     private Button selectDestinationsButton;
 
-//    private TextView hackText;
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,21 +86,8 @@ public class DestinationCardsFragment extends Fragment {
         presenter.checkForDestinations();
         myDestLabel.setText("Your Destinations: (" + presenter.getMyDestinations().size() + ")");
 
-//        hackText = (TextView) v.findViewById(R.id.destination_hack);
-//        setHackText(presenter.getMyDestinations());
-
         return v;
     }
-
-//    private void setHackText(List<DestinationCard> myDestinations) {
-//        StringBuilder sb = new StringBuilder();
-//        for (DestinationCard dest :
-//                myDestinations) {
-//            sb.append(dest.toString());
-//            sb.append(" ");
-//        }
-//        hackText.setText(sb.toString());
-//    }
 
     private void setCheckboxListeners() {
         option0CheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -161,7 +146,5 @@ public class DestinationCardsFragment extends Fragment {
     public void updateAdapter() {
         myDestinationsAdapter = new DestinationAdapter(getActivity(), presenter.getMyDestinations());
         myDestLabel.setText("Your Destinations: (" + myDestinationsAdapter.getItemCount() + ")");
-//        myDestLabel.setText("Your Destinations: (" + presenter.getMyDestinations().size() + ")");
-//        setHackText(presenter.getMyDestinations());
     }
 }

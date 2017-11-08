@@ -62,12 +62,13 @@ public class DestinationCardsPresenter implements Observer{
             destinations.remove(0);
         }
 
-        ClientGamePresenterFacade.getInstance().addDestinations(destinations);
-
-        for (DestinationCard destination : toDiscard) {
-            ClientGamePresenterFacade.getInstance().discardDestCard(destination.getReferenceId());
+        if (toDiscard.size() == 0) {
+            ClientGamePresenterFacade.getInstance().discardDestCard(null);
+        } else {
+            for (DestinationCard destination : toDiscard) {
+                ClientGamePresenterFacade.getInstance().discardDestCard(destination.getReferenceId());
+            }
         }
-
         view.setIsSelectingDestinations(false);
         view.updateAdapter();
     }
