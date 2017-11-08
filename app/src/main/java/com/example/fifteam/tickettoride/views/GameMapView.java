@@ -57,9 +57,9 @@ public class GameMapView extends SupportMapFragment implements OnMapReadyCallbac
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        routeList = ClientGamePresenterFacade.getInstance().getRouteList();
         polygonList = new ArrayList<>();
         presenter = new GameMapPresenter(this);
+        routeList = presenter.getRouteList();
     }
 
     @Override
@@ -350,10 +350,12 @@ public class GameMapView extends SupportMapFragment implements OnMapReadyCallbac
         for (Polygon p : polygonList) {
             Route r = (Route) p.getTag();
             if (r.getRouteId().equals(claimedRoute.getRouteId())) {
-                p.setFillColor(getColorInt(claimedRoute.getOwnerColor()));
-                p.setClickable(false);
-                presenter.addToPlayerScore(claimedRoute.getPoints());
-                presenter.subtractPlayerTrains(claimedRoute.getLength());
+                if (p.isClickable()) {
+                    p.setFillColor(getColorInt(claimedRoute.getOwnerColor()));
+                    p.setClickable(false);
+                    presenter.addToPlayerScore(claimedRoute.getPoints());
+                    presenter.subtractPlayerTrains(claimedRoute.getLength());
+                }
             }
         }
     }

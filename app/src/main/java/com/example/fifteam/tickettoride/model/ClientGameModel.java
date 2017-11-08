@@ -549,6 +549,8 @@ public class ClientGameModel extends Observable {
                 r.setClaimed(ownerColor);
             }
         }
+        setChanged();
+        notifyObservers();
     }
 
     public List<Route> getClaimedRoutes() {

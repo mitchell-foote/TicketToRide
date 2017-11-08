@@ -146,6 +146,5 @@ public class ClientGamePresenterFacade {
 
     public void passToaster(Toaster toaster){
         model.setToaster(toaster);
-
     }
 }
