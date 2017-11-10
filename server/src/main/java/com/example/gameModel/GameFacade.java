@@ -81,6 +81,20 @@ public class GameFacade implements IGameAccessor {
         return replacementCard;
     }
 
+    @Override
+    public String swapTrainCard(String authId, String gameId, String oldCardId)
+    {
+        //TODO Britton: this function
+        return null;
+    }
+
+    @Override
+    public String claimRoute(String authId, String gameId, String routeId)
+    {
+        //TODO Britton: this function
+        return null;
+    }
+
     public boolean returnDestinationCard(String authId, String cardId, String gameId) {
         GameModel game = model.findFullGameById(gameId);
         Player player = model.findPlayerFromToken(authId);

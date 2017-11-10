@@ -5,6 +5,7 @@ import com.example.gameModel.PlayerGameSummaries.UserGameSummary;
 import com.example.gameModel.classes.ChatEntry;
 import com.example.gameModel.classes.DestinationCard;
 import com.example.gameModel.classes.DestinationLookupTable;
+import com.example.gameModel.classes.PlayerScoreContainer;
 import com.example.gameModel.classes.TrainCard;
 import com.example.gameModel.classes.TrainLookupTable;
 import com.example.gameModel.interfaces.IClientCommandAccessor;
@@ -133,6 +134,42 @@ public class ClientGameCommandFacade implements IClientCommandAccessor{
 
     public void setCommandHash(String toSet){
         model.setLastExecutedHash(toSet);
+    }
+
+    @Override
+    public void setupTrainCards(String[] cards)
+    {
+        //TODO SAM: this function
+    }
+
+    @Override
+    public void swapTrainCards(String username, String oldTrainCard, String newTrainCard)
+    {
+        //TODO SAM: this function
+    }
+
+    @Override
+    public void claimRoute(String username, String routeId)
+    {
+        //TODO SAM: this function
+    }
+
+    @Override
+    public void endGame(PlayerScoreContainer[] scores)
+    {
+        //TODO SAM: this function
+    }
+
+    @Override
+    public void longestTrainRouteSwitch(String username, String longestLength)
+    {
+        // TODO SAM: this function
+    }
+
+    @Override
+    public void lastRound(String username)
+    {
+        //TODO SAM: this function
     }
 
     public void addFaceUpTrainCard(String username, String cardId, String newCardId){

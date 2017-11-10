@@ -12,5 +12,11 @@ public enum CommandTypesEnum
     NextOrEndTurn,
     PostMessage,
     ReturnDestinationCard,
-    GetCommands
+    GetCommands,
+    SetupTrainCards,
+    SwapTrainCards,
+    ClaimRoute,
+    EndGame,
+    LongestTrainSwitch,
+    LastRound
 }

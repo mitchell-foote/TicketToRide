@@ -3,10 +3,16 @@ package com.example.gameCommunication.commands.classes.commandBuilders;
 import com.example.gameCommunication.commands.classes.commandData.client.AddDestinationCardClientCommandData;
 import com.example.gameCommunication.commands.classes.commandData.client.AddFaceUpTrainCardClientCommandData;
 import com.example.gameCommunication.commands.classes.commandData.client.AddTrainCardClientCommandData;
+import com.example.gameCommunication.commands.classes.commandData.client.EndGameClientCommandData;
+import com.example.gameCommunication.commands.classes.commandData.client.LastRoundClientCommandData;
+import com.example.gameCommunication.commands.classes.commandData.client.LongestTrainRouteSwitchClientCommandData;
 import com.example.gameCommunication.commands.classes.commandData.client.NextTurnClientCommandData;
 import com.example.gameCommunication.commands.classes.commandData.client.PostMessageClientCommandData;
 import com.example.gameCommunication.commands.classes.commandData.client.ReturnDestinationCardClientCommandData;
+import com.example.gameCommunication.commands.classes.commandData.client.SetupTrainCardsClientCommandData;
+import com.example.gameCommunication.commands.classes.commandData.client.SwapTrainCardClientCommandData;
 import com.example.gameCommunication.commands.interfaces.IClientCommandData;
+import com.example.gameModel.classes.PlayerScoreContainer;
 import com.example.gameModel.interfaces.IClientCommandDataBuilder;
 import com.example.gameModel.interfaces.IGameAccessor;
 
@@ -54,6 +60,36 @@ public class ClientCommandDataBuilder implements IClientCommandDataBuilder
     public IClientCommandData addFaceUpTrainCard(String username, String cardId, String newCardId)
     {
         return new AddFaceUpTrainCardClientCommandData(username, cardId, newCardId);
+    }
+
+    @Override
+    public IClientCommandData setupTrainCards(String[] cards)
+    {
+        return new SetupTrainCardsClientCommandData(cards);
+    }
+
+    @Override
+    public IClientCommandData swapTrainCards(String username, String oldTrainCar, String newTrainCard)
+    {
+        return new SwapTrainCardClientCommandData(username, oldTrainCar, newTrainCard);
+    }
+
+    @Override
+    public IClientCommandData endGame(PlayerScoreContainer[] finalScores)
+    {
+        return new EndGameClientCommandData(finalScores);
+    }
+
+    @Override
+    public IClientCommandData longestTrainSwitch(String username, String longestLength)
+    {
+        return new LongestTrainRouteSwitchClientCommandData(username,longestLength);
+    }
+
+    @Override
+    public IClientCommandData lastRound(String username)
+    {
+        return new LastRoundClientCommandData(username);
     }
 
 

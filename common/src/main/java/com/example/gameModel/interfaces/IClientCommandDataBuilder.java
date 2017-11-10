@@ -1,6 +1,7 @@
 package com.example.gameModel.interfaces;
 
 import com.example.gameCommunication.commands.interfaces.IClientCommandData;
+import com.example.gameModel.classes.PlayerScoreContainer;
 
 import java.util.List;
 
@@ -16,4 +17,9 @@ public interface IClientCommandDataBuilder
     IClientCommandData returnDestinationCard(String username, String cardId);
     IClientCommandData nextTurn(String username);
     IClientCommandData addFaceUpTrainCard(String username, String cardId, String newCardId);
+    IClientCommandData setupTrainCards(String[] cards);
+    IClientCommandData swapTrainCards(String username, String oldTrainCar, String newTrainCard);
+    IClientCommandData endGame(PlayerScoreContainer[] finalScores);
+    IClientCommandData longestTrainSwitch(String username, String longestLength);
+    IClientCommandData lastRound(String username);
 }

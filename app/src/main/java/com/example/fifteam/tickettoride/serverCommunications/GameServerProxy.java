@@ -1,5 +1,7 @@
 package com.example.fifteam.tickettoride.serverCommunications;
 
+import android.graphics.Path;
+
 import com.example.communication.BaseRequest;
 import com.example.communication.BaseResponse;
 import com.example.communication.PathHolder;
@@ -9,13 +11,16 @@ import com.example.gameCommunication.commands.classes.commandData.client.AddTrai
 import com.example.gameCommunication.commands.classes.commandData.client.NextTurnClientCommandData;
 import com.example.gameCommunication.commands.classes.commandData.client.PostMessageClientCommandData;
 import com.example.gameCommunication.commands.classes.commandData.client.ReturnDestinationCardClientCommandData;
+import com.example.gameCommunication.commands.classes.commandData.client.SwapTrainCardClientCommandData;
 import com.example.gameCommunication.commands.classes.commandData.server.AddDestinationCardCommandData;
 import com.example.gameCommunication.commands.classes.commandData.server.AddFaceUpTrainCardCommandData;
 import com.example.gameCommunication.commands.classes.commandData.server.AddTrainCarCommandData;
+import com.example.gameCommunication.commands.classes.commandData.server.ClaimRouteCommandData;
 import com.example.gameCommunication.commands.classes.commandData.server.EndTurnCommandData;
 import com.example.gameCommunication.commands.classes.commandData.server.GetCommandListCommandData;
 import com.example.gameCommunication.commands.classes.commandData.server.PostMessageCommandData;
 import com.example.gameCommunication.commands.classes.commandData.server.ReturnDestinationCardCommandData;
+import com.example.gameCommunication.commands.classes.commandData.server.SwapTrainCardCommandData;
 import com.example.gameCommunication.commands.classes.containers.CommandContainer;
 import com.example.gameCommunication.commands.enums.CommandTypesEnum;
 import com.example.gameModel.interfaces.IGameAccessor;
@@ -158,6 +163,32 @@ public class GameServerProxy implements IGameAccessor
             e.printStackTrace();
         }
 
+        return null;
+    }
+
+    @Override
+    public String swapTrainCard(String authId, String gameId, String oldCardId)
+    {
+        try{
+            BaseResponse response = connection.post(PathHolder.getHost(), PathHolder.getPort(), PathHolder.getInGameCommandsURL(), authId, new BaseRequest("swapTrainCard", new CommandContainer(CommandTypesEnum.SwapTrainCards, new SwapTrainCardCommandData(authId,gameId,oldCardId))));
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+            return e.toString();
+        }
+        return null;
+    }
+
+    @Override
+    public String claimRoute(String authId, String gameId, String routeId)
+    {
+        try {
+            BaseResponse response = connection.post(PathHolder.getHost(), PathHolder.getPort(), PathHolder.getInGameCommandsURL(), authId, new BaseRequest("claimRoute", new CommandContainer(CommandTypesEnum.ClaimRoute, new ClaimRouteCommandData(authId, gameId, routeId))));
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+            return e.toString();
+        }
         return null;
     }
 }
