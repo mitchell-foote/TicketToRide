@@ -3,7 +3,9 @@ package com.example.testers;
 import com.example.Exceptions.FailedAuthException;
 import com.example.Exceptions.FailedJoinException;
 import com.example.Exceptions.FailedLoginException;
+import com.example.gameCommunication.commands.classes.commandData.client.SetupTrainCardsClientCommandData;
 import com.example.gameCommunication.commands.classes.containers.CommandContainer;
+import com.example.gameCommunication.commands.enums.CommandTypesEnum;
 import com.example.gameCommunication.commands.interfaces.IClientCommandData;
 import com.example.gameModel.GameFacade;
 import com.example.gameModel.GameModel;
@@ -42,36 +44,18 @@ public class GameFacadeTester {
 
             List<CommandContainer> commands = gfacade.getClientCommands("ALL", authToken, fullGameId);
 
-            gfacade.drawTrainCard(authToken, fullGameId);
-            gfacade.drawTrainCard(authToken, fullGameId);
-            gfacade.drawTrainCard(authToken, fullGameId);
-            gfacade.drawTrainCard(authToken, fullGameId);
-
-
-            commands = gfacade.getClientCommands("ALL", authToken, fullGameId);
-
-            List<String> hashes = new ArrayList<>();
 
             for (int i = 0; i < commands.size(); i++) {
-                hashes.add(((IClientCommandData) commands.get(i).Data).getCommandHash());
+                System.out.println(commands.get(i).getType());
+                if (commands.get(i).getType().equals(CommandTypesEnum.SetupTrainCards)) {
+                    SetupTrainCardsClientCommandData trainCardData = (SetupTrainCardsClientCommandData) commands.get(i).Data;
+                    System.out.println("The Initial Face-Up Train cards are: ");
+                    for (int j = 0; j < trainCardData.TrainCards.length; j++) {
+                        System.out.println(trainCardData.TrainCards[j]);
+                    }
+                    System.out.println();
+                }
             }
-
-            for (int i = 0; i < hashes.size(); i++) {
-                System.out.println(hashes.get(i));
-            }
-
-
-            commands = gfacade.getClientCommands(hashes.get(4), authToken, fullGameId);
-
-            List<String> secondHashes = new ArrayList<>();
-            for (int i = 0; i < commands.size(); i++) {
-                secondHashes.add(((IClientCommandData) commands.get(i).Data).getCommandHash());
-            }
-
-            for (int i = 0; i < secondHashes.size(); i++) {
-                System.out.println(secondHashes.get(i));
-            }
-
 
         } catch (FailedLoginException e)
         {

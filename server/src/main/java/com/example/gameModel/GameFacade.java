@@ -7,10 +7,12 @@ import com.example.gameCommunication.commands.interfaces.IClientCommandData;
 import com.example.gameCommunication.commands.interfaces.ICommandContainer;
 import com.example.gameModel.interfaces.IGameAccessor;
 import com.example.model.ServerModel;
+import com.example.model.classes.login.BaseGameSummary;
 import com.example.model.classes.users.Player;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by ninjup on 10/22/17.
@@ -37,13 +39,6 @@ public class GameFacade implements IGameAccessor {
 
         return game.getCommandsFromHash(lastCommandHash);
     }
-
-    //I don't know if we need this, but I made it just in case
-/*    public List<IClientCommandData> getClientCommandsData(String lastCommandHash, String authId, String gameId) {
-        GameModel game = model.findFullGameById(gameId);
-
-        return game.getCommandDataFromHash(lastCommandHash);
-    } */
 
     public void postMessage(String message, String authId, String gameId) {
         GameModel game = model.findFullGameById(gameId);
@@ -93,6 +88,30 @@ public class GameFacade implements IGameAccessor {
     {
         //TODO Britton: this function
         return null;
+    }
+
+    public void initializeGame(String authId, String baseGameId, String fullGameId) {
+
+        BaseGameSummary gameSummary = model.findGameById(baseGameId);
+        Set<String> playerNames = gameSummary.getPlayers().keySet();
+        List<String> playerTokens = new ArrayList<>();
+        for (String s : playerNames) {
+            playerTokens.add(model.findPlayerFromName(s).getAuthToken());
+        }
+
+        for (String s : playerTokens) {
+            drawDestinationCard(s, fullGameId);
+
+            drawTrainCard(s, fullGameId);
+            drawTrainCard(s, fullGameId);
+            drawTrainCard(s, fullGameId);
+            drawTrainCard(s, fullGameId);
+        }
+
+        GameModel game = model.findFullGameById(fullGameId);
+        String[] faceUpPile = game.getFaceUpTrainCards();
+        game.addCommand(commandBuilder.setupTrainCards(faceUpPile), CommandTypesEnum.SetupTrainCards);
+        endTurn(authId, fullGameId);
     }
 
     public boolean returnDestinationCard(String authId, String cardId, String gameId) {

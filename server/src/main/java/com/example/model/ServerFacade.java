@@ -94,31 +94,13 @@ public class ServerFacade implements IServerAccessor
         return model.addGame(owner, gameName, color);
     }
 
-    public boolean startGame(String gameId, String authToken) throws FailedAuthException {
+    public boolean startGame(String baseGameId, String authToken) throws FailedAuthException {
         if (model.findPlayerFromToken(authToken) != null) {
-            boolean success = model.startGame(gameId);
+            boolean success = model.startGame(baseGameId);
             if (success) {
-                String fullGameId = model.findGameById(gameId).getFullGameId();
+                String fullGameId = model.findGameById(baseGameId).getFullGameId();
                 GameFacade accessor = new GameFacade();
-                accessor.endTurn(authToken, fullGameId);
-
-                BaseGameSummary game = model.findGameById(gameId);
-                Set<String> playerNames = game.getPlayers().keySet();
-                List<String> playerTokens = new ArrayList<>();
-                for (String s : playerNames) {
-                    playerTokens.add(model.findPlayerFromName(s).getAuthToken());
-                }
-
-                for (String s : playerTokens) {
-                    accessor.drawDestinationCard(s, fullGameId);
-
-                    accessor.drawTrainCard(s, fullGameId);
-                    accessor.drawTrainCard(s, fullGameId);
-                    accessor.drawTrainCard(s, fullGameId);
-                    accessor.drawTrainCard(s, fullGameId);
-                }
-
-
+                accessor.initializeGame(authToken, baseGameId, fullGameId);
             }
             return success;
         } else {

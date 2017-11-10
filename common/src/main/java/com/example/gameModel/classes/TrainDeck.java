@@ -13,9 +13,8 @@ public class TrainDeck
     private Set<String> DrawPile;
     private Set<String> FaceUpPile;
     private Set<String> DiscardPile;
-    public TrainDeck(){initDeck();}
 
-    public void initDeck() {
+    public TrainDeck(){
         DrawPile = TrainLookupTable.getIdStringSet();
         DiscardPile = new HashSet<>();
         FaceUpPile = new HashSet<>();
@@ -47,15 +46,18 @@ public class TrainDeck
 
     public void removeCardById(String cardId) {
         DrawPile.remove(cardId);
+
+        if (DrawPile.size() == 0) {
+            DrawPile = DiscardPile;
+            DiscardPile = new HashSet<>();
+        }
+    }
+
+    public void addCardToDiscardPile(String cardId) {
         DiscardPile.add(cardId);
     }
 
-    public Class<?> getICardClassType()
-    {
-        return TrainCard.class;
-    }
-
-    private String getRandomCardId() {
+    public String getRandomCardId() {
         int index = new Random().nextInt(DrawPile.size());
         int i = 0;
         for (String s : DrawPile) {
@@ -65,5 +67,9 @@ public class TrainDeck
             i++;
         }
         return null;
+    }
+
+    public Set<String> getFaceUpPile() {
+        return FaceUpPile;
     }
 }

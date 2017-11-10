@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by ninjup on 10/22/17.
@@ -77,24 +78,6 @@ public class GameModel {
         return recentCommands;
     }
 
-/*    public List<IClientCommandData> getCommandDataFromHash(String lastHash) {
-        List<IClientCommandData> recentCommands = new ArrayList<>();
-
-        if (lastHash.equals("ALL")) {
-            lastHash = commands.get(commands.size() - 1).getCommandHash();
-        }
-
-        for (int i = 0; i < commands.size(); i++) {
-            if (lastHash.equals(commands.get(i).getCommandHash())) {
-                for (int j = i + 1; j < commands.size(); j++) {
-                    recentCommands.add(commands.get(j));
-                }
-                break;
-            }
-        }
-        return recentCommands;
-    } */
-
     public String incrementTurn() {
         nextTurn++;
         if (nextTurn >= orderedPlayers.size()) {
@@ -139,6 +122,11 @@ public class GameModel {
         desDeck.returnCard(cardId);
 
         return true;
+    }
+
+    public String[] getFaceUpTrainCards() {
+        Set<String> faceUpPile = trainDeck.getFaceUpPile();
+        return faceUpPile.toArray(new String[0]);
     }
 
 }

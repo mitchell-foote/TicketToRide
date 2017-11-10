@@ -4,9 +4,6 @@ import com.example.gameCommunication.commands.interfaces.IClientCommandData;
 import com.example.gameModel.classes.PlayerScoreContainer;
 
 import java.util.List;
-
-import javafx.util.Pair;
-
 /**
  * Created by Mitchell Foote on 10/28/2017.
  */
