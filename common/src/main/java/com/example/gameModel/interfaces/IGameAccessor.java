@@ -18,4 +18,6 @@ public interface IGameAccessor
     boolean returnDestinationCard(String authId, String cardId, String gameId);
     String endTurn(String authId, String gameId);
     String addFaceUpTrainCard(String authId, String cardId, String gameId);
+    String swapTrainCard(String authId, String gameId, String oldCardId);
+    String claimRoute(String authId, String gameId, String routeId);
 }
