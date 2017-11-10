@@ -104,7 +104,7 @@ public class GameModel {
     public String selectFaceUpTrainCard(Player player, String cardId) {
         PlayerInfo hand = playerInfo.get(player);
         String replacementCard = trainDeck.drawFaceUpCard(cardId);
-        hand.addTrainCard(replacementCard);
+        hand.addTrainCard(cardId);
         return replacementCard;
     }
 

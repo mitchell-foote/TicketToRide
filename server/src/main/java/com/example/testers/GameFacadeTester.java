@@ -5,11 +5,13 @@ import com.example.Exceptions.FailedJoinException;
 import com.example.Exceptions.FailedLoginException;
 import com.example.gameCommunication.commands.classes.commandData.client.SetupTrainCardsClientCommandData;
 import com.example.gameCommunication.commands.classes.containers.CommandContainer;
+import com.example.gameCommunication.commands.classes.fullCommands.client.SetupTrainCardsClientCommand;
 import com.example.gameCommunication.commands.enums.CommandTypesEnum;
 import com.example.gameCommunication.commands.interfaces.IClientCommandData;
 import com.example.gameModel.GameFacade;
 import com.example.gameModel.GameModel;
 import com.example.model.ServerFacade;
+import com.example.model.ServerModel;
 import com.example.model.classes.login.BaseGameSummary;
 import com.example.model.enums.SharedColor;
 
@@ -27,6 +29,7 @@ public class GameFacadeTester {
 
         ServerFacade facade = new ServerFacade();
         GameFacade gfacade = new GameFacade();
+        ServerModel model = ServerModel.instance();
 
         try
         {
@@ -44,7 +47,7 @@ public class GameFacadeTester {
 
             List<CommandContainer> commands = gfacade.getClientCommands("ALL", authToken, fullGameId);
 
-
+            String initialCard = null;
             for (int i = 0; i < commands.size(); i++) {
                 System.out.println(commands.get(i).getType());
                 if (commands.get(i).getType().equals(CommandTypesEnum.SetupTrainCards)) {
@@ -52,10 +55,25 @@ public class GameFacadeTester {
                     System.out.println("The Initial Face-Up Train cards are: ");
                     for (int j = 0; j < trainCardData.TrainCards.length; j++) {
                         System.out.println(trainCardData.TrainCards[j]);
+                        if (j == 2) {
+                            initialCard = trainCardData.TrainCards[j];
+                        }
                     }
                     System.out.println();
                 }
             }
+
+            gfacade.addFaceUpTrainCard(authToken, initialCard, fullGameId);
+
+            GameModel game = model.findFullGameById(fullGameId);
+            String[] faceUpPile = game.getFaceUpTrainCards();
+
+            System.out.println("The New Face-Up Train cards are: ");
+            for (int i = 0; i < faceUpPile.length; i++) {
+                System.out.println(faceUpPile[i]);
+            }
+            System.out.println();
+
 
         } catch (FailedLoginException e)
         {
