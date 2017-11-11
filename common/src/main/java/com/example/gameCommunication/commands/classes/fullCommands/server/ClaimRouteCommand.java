@@ -19,6 +19,6 @@ public class ClaimRouteCommand implements IGameCommand
     @Override
     public void execute()
     {
-        this.mAccessor.claimRoute(data.AuthId, data.GameId, data.RouteId);
+        this.mAccessor.claimRoute(data.AuthId, data.GameId, data.RouteId, data.Color);
     }
 }

@@ -4,6 +4,7 @@ import com.example.gameCommunication.commands.classes.fullCommands.client.ClaimR
 import com.example.gameCommunication.commands.interfaces.IClientCommandData;
 import com.example.gameCommunication.commands.interfaces.IGameCommand;
 import com.example.gameModel.interfaces.IClientCommandAccessor;
+import com.example.model.enums.SharedColor;
 
 import java.util.UUID;
 
@@ -16,10 +17,12 @@ public class ClaimRouteClientCommandData implements IClientCommandData
     public String RouteId;
     public String Username;
     public String DateString;
-    public ClaimRouteClientCommandData(String routeId, String username){
+    public SharedColor Color;
+    public ClaimRouteClientCommandData(String routeId, String username, SharedColor color){
         this.RouteId = routeId;
         this.Username = username;
         this.DateString = UUID.randomUUID().toString();
+        this.Color = color;
     }
     @Override
     public String getCommandHash()

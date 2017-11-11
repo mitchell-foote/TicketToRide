@@ -3,6 +3,7 @@ package com.example.gameCommunication.commands.classes.commandBuilders;
 import com.example.gameCommunication.commands.classes.commandData.client.AddDestinationCardClientCommandData;
 import com.example.gameCommunication.commands.classes.commandData.client.AddFaceUpTrainCardClientCommandData;
 import com.example.gameCommunication.commands.classes.commandData.client.AddTrainCardClientCommandData;
+import com.example.gameCommunication.commands.classes.commandData.client.ClaimRouteClientCommandData;
 import com.example.gameCommunication.commands.classes.commandData.client.EndGameClientCommandData;
 import com.example.gameCommunication.commands.classes.commandData.client.LastRoundClientCommandData;
 import com.example.gameCommunication.commands.classes.commandData.client.LongestTrainRouteSwitchClientCommandData;
@@ -15,6 +16,7 @@ import com.example.gameCommunication.commands.interfaces.IClientCommandData;
 import com.example.gameModel.classes.PlayerScoreContainer;
 import com.example.gameModel.interfaces.IClientCommandDataBuilder;
 import com.example.gameModel.interfaces.IGameAccessor;
+import com.example.model.enums.SharedColor;
 
 import java.util.List;
 
@@ -90,6 +92,12 @@ public class ClientCommandDataBuilder implements IClientCommandDataBuilder
     public IClientCommandData lastRound(String username)
     {
         return new LastRoundClientCommandData(username);
+    }
+
+    @Override
+    public IClientCommandData claimRoute(String username, String routeId, SharedColor color)
+    {
+        return new ClaimRouteClientCommandData(routeId, username, color);
     }
 
 

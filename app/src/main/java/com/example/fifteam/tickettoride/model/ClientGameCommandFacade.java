@@ -9,6 +9,7 @@ import com.example.gameModel.classes.PlayerScoreContainer;
 import com.example.gameModel.classes.TrainCard;
 import com.example.gameModel.classes.TrainLookupTable;
 import com.example.gameModel.interfaces.IClientCommandAccessor;
+import com.example.model.enums.SharedColor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -149,7 +150,7 @@ public class ClientGameCommandFacade implements IClientCommandAccessor{
     }
 
     @Override
-    public void claimRoute(String username, String routeId)
+    public void claimRoute(String username, String routeId, SharedColor color)
     {
         //TODO SAM: this function
     }

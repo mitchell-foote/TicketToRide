@@ -2,6 +2,7 @@ package com.example.gameModel.interfaces;
 
 import com.example.gameCommunication.commands.interfaces.IClientCommandData;
 import com.example.gameModel.classes.PlayerScoreContainer;
+import com.example.model.enums.SharedColor;
 
 import java.util.List;
 
@@ -22,4 +23,5 @@ public interface IClientCommandDataBuilder
     IClientCommandData endGame(PlayerScoreContainer[] finalScores);
     IClientCommandData longestTrainSwitch(String username, String longestLength);
     IClientCommandData lastRound(String username);
+    IClientCommandData claimRoute(String username, String routeId, SharedColor color);
 }

@@ -4,6 +4,7 @@ import com.example.gameCommunication.commands.classes.fullCommands.server.ClaimR
 import com.example.gameCommunication.commands.interfaces.ICommandData;
 import com.example.gameCommunication.commands.interfaces.IGameCommand;
 import com.example.gameModel.interfaces.IGameAccessor;
+import com.example.model.enums.SharedColor;
 
 /**
  * Created by Mitchell Foote on 11/9/2017.
@@ -14,10 +15,12 @@ public class ClaimRouteCommandData implements ICommandData
     public String AuthId;
     public String GameId;
     public String RouteId;
-    public ClaimRouteCommandData(String authId, String gameId, String routeId){
+    public SharedColor Color;
+    public ClaimRouteCommandData(String authId, String gameId, String routeId, SharedColor color){
         this.AuthId = authId;
         this.GameId = gameId;
         this.RouteId = routeId;
+        this.Color = color;
     }
     @Override
     public String getCommandHash()

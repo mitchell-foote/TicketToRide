@@ -87,7 +87,7 @@ public class GameFacade implements IGameAccessor {
     }
 
     @Override
-    public String claimRoute(String authId, String gameId, String routeId) {
+    public String claimRoute(String authId, String gameId, String routeId, SharedColor trainColor) {
         GameModel game = model.findFullGameById(gameId);
         Player player = model.findPlayerFromToken(authId);
         Route route = RouteLookupTable.getRouteById(routeId);

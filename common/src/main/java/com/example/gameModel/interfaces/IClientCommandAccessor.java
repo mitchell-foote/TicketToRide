@@ -2,6 +2,7 @@ package com.example.gameModel.interfaces;
 
 import com.example.gameCommunication.commands.interfaces.IClientCommandData;
 import com.example.gameModel.classes.PlayerScoreContainer;
+import com.example.model.enums.SharedColor;
 
 import java.util.List;
 /**
@@ -19,7 +20,7 @@ public interface IClientCommandAccessor
     void setCommandHash(String newHash);
     void setupTrainCards(String[] cards);
     void swapTrainCards(String username, String oldTrainCard, String newTrainCard);
-    void claimRoute(String username, String routeId);
+    void claimRoute(String username, String routeId, SharedColor color);
     void endGame(PlayerScoreContainer[] scores);
     void longestTrainRouteSwitch(String username, String longestLength);
     void lastRound(String username);

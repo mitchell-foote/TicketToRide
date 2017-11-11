@@ -2,6 +2,7 @@ package com.example.gameModel.interfaces;
 
 import com.example.gameCommunication.commands.classes.containers.CommandContainer;
 import com.example.gameCommunication.commands.interfaces.ICommandContainer;
+import com.example.model.enums.SharedColor;
 
 import java.util.List;
 
@@ -19,5 +20,5 @@ public interface IGameAccessor
     String endTurn(String authId, String gameId);
     String addFaceUpTrainCard(String authId, String cardId, String gameId);
     String swapTrainCard(String authId, String gameId, String oldCardId);
-    String claimRoute(String authId, String gameId, String routeId);
+    String claimRoute(String authId, String gameId, String routeId, SharedColor color);
 }

@@ -24,6 +24,7 @@ import com.example.gameCommunication.commands.classes.commandData.server.SwapTra
 import com.example.gameCommunication.commands.classes.containers.CommandContainer;
 import com.example.gameCommunication.commands.enums.CommandTypesEnum;
 import com.example.gameModel.interfaces.IGameAccessor;
+import com.example.model.enums.SharedColor;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -180,10 +181,10 @@ public class GameServerProxy implements IGameAccessor
     }
 
     @Override
-    public String claimRoute(String authId, String gameId, String routeId)
+    public String claimRoute(String authId, String gameId, String routeId, SharedColor color)
     {
         try {
-            BaseResponse response = connection.post(PathHolder.getHost(), PathHolder.getPort(), PathHolder.getInGameCommandsURL(), authId, new BaseRequest("claimRoute", new CommandContainer(CommandTypesEnum.ClaimRoute, new ClaimRouteCommandData(authId, gameId, routeId))));
+            BaseResponse response = connection.post(PathHolder.getHost(), PathHolder.getPort(), PathHolder.getInGameCommandsURL(), authId, new BaseRequest("claimRoute", new CommandContainer(CommandTypesEnum.ClaimRoute, new ClaimRouteCommandData(authId, gameId, routeId, color))));
         } catch (Exception e)
         {
             e.printStackTrace();
