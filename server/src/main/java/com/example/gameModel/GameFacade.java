@@ -5,10 +5,13 @@ import com.example.gameCommunication.commands.classes.containers.CommandContaine
 import com.example.gameCommunication.commands.enums.CommandTypesEnum;
 import com.example.gameCommunication.commands.interfaces.IClientCommandData;
 import com.example.gameCommunication.commands.interfaces.ICommandContainer;
+import com.example.gameModel.classes.Route;
+import com.example.gameModel.classes.RouteLookupTable;
 import com.example.gameModel.interfaces.IGameAccessor;
 import com.example.model.ServerModel;
 import com.example.model.classes.login.BaseGameSummary;
 import com.example.model.classes.users.Player;
+import com.example.model.enums.SharedColor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -84,8 +87,12 @@ public class GameFacade implements IGameAccessor {
     }
 
     @Override
-    public String claimRoute(String authId, String gameId, String routeId)
-    {
+    public String claimRoute(String authId, String gameId, String routeId) {
+        GameModel game = model.findFullGameById(gameId);
+        Player player = model.findPlayerFromToken(authId);
+        Route route = RouteLookupTable.getRouteById(routeId);
+
+        
         //TODO Britton: this function
         return null;
     }

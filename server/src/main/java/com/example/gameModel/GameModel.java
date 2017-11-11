@@ -6,7 +6,9 @@ import com.example.gameCommunication.commands.enums.CommandTypesEnum;
 import com.example.gameCommunication.commands.interfaces.IClientCommandData;
 import com.example.gameCommunication.commands.interfaces.IGameCommand;
 import com.example.gameModel.classes.DestinationDeck;
+import com.example.gameModel.classes.Route;
 import com.example.gameModel.classes.TrainDeck;
+import com.example.model.RouteManager;
 import com.example.model.ServerModel;
 import com.example.model.classes.users.Player;
 import com.example.model.enums.SharedColor;
@@ -31,6 +33,7 @@ public class GameModel {
     private TrainDeck trainDeck;
     private List<IClientCommandData> commands;
     private List<CommandTypesEnum> correspondingCommTypes;
+    private RouteManager routeManager;
 
     public GameModel(String gameId, Map<String, SharedColor> players) {
         this.gameId = gameId;
@@ -48,6 +51,7 @@ public class GameModel {
         trainDeck = new TrainDeck();
         commands = new ArrayList<>();
         correspondingCommTypes = new ArrayList<>();
+        routeManager = new RouteManager(orderedPlayers);
     }
 
 
@@ -76,6 +80,12 @@ public class GameModel {
         }
 
         return recentCommands;
+    }
+
+    public void claimRoute(Player player, Route route) {
+        PlayerInfo playerHand = playerInfo.get(player);
+
+
     }
 
     public String incrementTurn() {

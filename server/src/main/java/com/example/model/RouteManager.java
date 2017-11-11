@@ -1,11 +1,15 @@
 package com.example.model;
 
+import com.example.gameModel.classes.DestinationCard;
+import com.example.gameModel.classes.DestinationLookupTable;
 import com.example.gameModel.classes.Route;
 import com.example.gameModel.classes.RouteLookupTable;
 import com.example.gameModel.enums.City;
+import com.example.model.classes.users.Player;
 
 import org.jgrapht.DirectedGraph;
 import org.jgrapht.UndirectedGraph;
+import org.jgrapht.alg.ConnectivityInspector;
 import org.jgrapht.graph.DefaultDirectedGraph;
 import org.jgrapht.graph.DefaultDirectedWeightedGraph;
 import org.jgrapht.graph.DefaultEdge;
@@ -21,18 +25,18 @@ import java.util.Map;
 
 public class RouteManager {
 
-    List<String> players = null;
-    Map<String, DefaultDirectedWeightedGraph<City, DefaultEdge>> graphs;
+    List<Player> players = null;
+    Map<Player, DefaultDirectedWeightedGraph<City, DefaultEdge>> graphs;
 
-    public RouteManager(List<String> players) {
+    public RouteManager(List<Player> players) {
         this.players = players;
-        for (String s : players) {
-            graphs.put(s, makeGraph());
+        for (int i = 0; i < players.size(); i++) {
+            graphs.put(players.get(i), makeGraph());
         }
     }
 
-    public void claimRoute(String playerId, String routeId){
-        DefaultDirectedWeightedGraph<City, DefaultEdge> playerGraph = graphs.get(playerId);
+    public void claimRoute(Player player, String routeId){
+        DefaultDirectedWeightedGraph<City, DefaultEdge> playerGraph = graphs.get(player);
         Route routeToClaim = RouteLookupTable.getRouteById(routeId);
         City firstCity = routeToClaim.getEndpoint1();
         City secondCity = routeToClaim.getEndpoint2();
@@ -51,9 +55,31 @@ public class RouteManager {
 
 
     public DefaultDirectedWeightedGraph<City, DefaultEdge> makeGraph() {
-        DefaultDirectedWeightedGraph<City, DefaultEdge> playerGraph = new DefaultDirectedWeightedGraph<City, DefaultEdge>(DefaultEdge.class);
+        return new DefaultDirectedWeightedGraph<City, DefaultEdge>(DefaultEdge.class);
+    }
 
-        return playerGraph;
+    public int calculateDestinationCardBonus(Player player, List<String> desCardIds) {
+        DefaultDirectedWeightedGraph<City, DefaultEdge> playerGraph = graphs.get(player);
+        ConnectivityInspector<City, DefaultEdge> inspector = new ConnectivityInspector<>(playerGraph);
+        int scoreBonus = 0;
+
+        for (int i = 0; i < desCardIds.size(); i++) {
+            DestinationCard card = DestinationLookupTable.getCardById(desCardIds.get(i));
+            City firstCity = card.getFirstCity();
+            City secondCity = card.getSecondCity();
+            int cardValue = card.getValue();
+            if (!playerGraph.containsVertex(firstCity) || !playerGraph.containsVertex(secondCity)) {
+                scoreBonus -= cardValue;
+                continue;
+            }
+            if (inspector.pathExists(firstCity, secondCity)) {
+                scoreBonus += cardValue;
+            } else {
+                scoreBonus -= cardValue;
+            }
+        }
+
+        return scoreBonus;
     }
 
 
