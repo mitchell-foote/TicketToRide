@@ -7,6 +7,7 @@ import com.example.gameCommunication.commands.interfaces.IClientCommandData;
 import com.example.gameCommunication.commands.interfaces.IGameCommand;
 import com.example.gameModel.classes.DestinationDeck;
 import com.example.gameModel.classes.Route;
+import com.example.gameModel.classes.TrainCard;
 import com.example.gameModel.classes.TrainDeck;
 import com.example.model.RouteManager;
 import com.example.model.ServerModel;
@@ -82,9 +83,32 @@ public class GameModel {
         return recentCommands;
     }
 
-    public void claimRoute(Player player, Route route) {
+    public boolean claimRoute(Player player, Route route, SharedColor color) {
         PlayerInfo playerHand = playerInfo.get(player);
+        if (route.getLength() > playerHand.getRemainingTrains()) {
+            return false;
+        }
 
+        SharedColor routeColor;
+        if (route.getColor().equals(SharedColor.RAINBOW)) {
+            routeColor = color;
+        } else {
+            routeColor = route.getColor();
+        }
+
+        boolean success = playerHand.playCardsForRouteClaim(route.getLength(), routeColor);
+        if (success) {
+            playerHand.playTrains(route.getLength());
+            if (playerHand.getRemainingTrains() <= 2) {
+                //last turn warning
+            }
+
+            routeManager.claimRoute(player, route.getRouteId());
+            playerHand.addPoints(route.getPoints());
+            return true;
+        } else {
+            return false;
+        }
 
     }
 

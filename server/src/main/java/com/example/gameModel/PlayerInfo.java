@@ -1,5 +1,8 @@
 package com.example.gameModel;
 
+import com.example.gameModel.classes.Route;
+import com.example.gameModel.classes.TrainCard;
+import com.example.gameModel.classes.TrainLookupTable;
 import com.example.model.enums.SharedColor;
 
 import java.util.ArrayList;
@@ -68,4 +71,40 @@ public class PlayerInfo {
     }
 
 
+    public int getRemainingTrains() {
+        return remainingTrains;
+    }
+
+    public void playTrains(int trains) {
+        remainingTrains -= trains;
+    }
+
+    public boolean playCardsForRouteClaim(int routeLength, SharedColor cardsColor) {
+        List<String> cardsToBeUsed = new ArrayList<>();
+        List<String> rainbowReserve = new ArrayList<>();
+
+        for (int i = 0; i < trainCards.size(); i++) {
+            TrainCard card = TrainLookupTable.getCardById(trainCards.get(i));
+            if (card.getColor().equals(cardsColor)) {
+                cardsToBeUsed.add(trainCards.get(i));
+            } else if (card.getColor().equals(SharedColor.RAINBOW)) {
+                rainbowReserve.add(trainCards.get(i));
+            }
+        }
+        cardsToBeUsed.addAll(rainbowReserve);
+
+        if (cardsToBeUsed.size() < routeLength) {
+            return false;
+        } else {
+            for (int i = 0; i < routeLength; i++) {
+                trainCards.remove(0);
+            }
+            return true;
+        }
+
+    }
+
+    public void addPoints(int newPoints) {
+        points += newPoints;
+    }
 }
