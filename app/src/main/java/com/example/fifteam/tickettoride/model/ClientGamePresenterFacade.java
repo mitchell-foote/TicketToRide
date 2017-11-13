@@ -3,6 +3,10 @@ package com.example.fifteam.tickettoride.model;
 import com.example.fifteam.tickettoride.ClientFacadeAsyncTasks.ChatAsyncTask;
 import com.example.fifteam.tickettoride.ClientFacadeAsyncTasks.EndTurnAsyncTask;
 import com.example.fifteam.tickettoride.interfaces.Toaster;
+import com.example.fifteam.tickettoride.model.facadeEnums.TurnType;
+import com.example.fifteam.tickettoride.model.facadeStates.ClaimRouteState;
+import com.example.fifteam.tickettoride.model.facadeStates.DrawDestCardState;
+import com.example.fifteam.tickettoride.model.facadeStates.DrawTrainCardState;
 import com.example.fifteam.tickettoride.model.facadeStates.FacadeState;
 import com.example.fifteam.tickettoride.model.facadeStates.NotYourTurnState;
 import com.example.gameModel.PlayerGameSummaries.PlayerGameSummary;
@@ -17,7 +21,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Observer;
 
-/**
+/** not default
  * Created by samks on 10/30/2017.
  */
 
@@ -178,5 +182,24 @@ public class ClientGamePresenterFacade {
 
     public boolean canClaimRoute(){
         return state.canClaimRoute();
+    }
+
+    public void setTurnChoice(TurnType turnChoice){
+        switch (turnChoice){
+            case ClaimRoute:
+                this.state = new ClaimRouteState(this);
+                break;
+            case NotYourTurn:
+                this.state = new NotYourTurnState();
+                break;
+            case DrawDestCard:
+                this.state = new DrawDestCardState(this);
+                break;
+            case DrawTrainCard:
+                this.state = new DrawTrainCardState(this);
+                break;
+            default:
+                break;
+        }
     }
 }
