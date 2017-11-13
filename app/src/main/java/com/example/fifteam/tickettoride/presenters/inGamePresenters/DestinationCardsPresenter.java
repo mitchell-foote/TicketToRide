@@ -15,6 +15,7 @@ import java.util.Observer;
 
 public class DestinationCardsPresenter implements Observer{
 
+    //todo kc, change the way destination cards works for non initial turns in some way, I am open to suggestion
     private DestinationCardsFragment view;
 
     public DestinationCardsPresenter(DestinationCardsFragment view) {
@@ -63,10 +64,10 @@ public class DestinationCardsPresenter implements Observer{
         }
 
         if (toDiscard.size() == 0) {
-            ClientGamePresenterFacade.getInstance().discardDestCard(null);
+            ClientGamePresenterFacade.getInstance().discardDestCard(null, null);
         } else {
             for (DestinationCard destination : toDiscard) {
-                ClientGamePresenterFacade.getInstance().discardDestCard(destination.getReferenceId());
+                ClientGamePresenterFacade.getInstance().discardDestCard(destination.getReferenceId(), null);
             }
         }
         view.setIsSelectingDestinations(false);

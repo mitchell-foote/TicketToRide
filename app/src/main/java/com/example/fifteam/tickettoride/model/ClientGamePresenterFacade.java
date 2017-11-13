@@ -6,6 +6,8 @@ import com.example.fifteam.tickettoride.ClientFacadeAsyncTasks.ChatAsyncTask;
 import com.example.fifteam.tickettoride.ClientFacadeAsyncTasks.EndTurnAsyncTask;
 import com.example.fifteam.tickettoride.ClientFacadeAsyncTasks.ReturnDestinationCardAsyncTask;
 import com.example.fifteam.tickettoride.interfaces.Toaster;
+import com.example.fifteam.tickettoride.model.FacadeStates.FacadeState;
+import com.example.fifteam.tickettoride.model.FacadeStates.NotYourTurnState;
 import com.example.gameModel.PlayerGameSummaries.PlayerGameSummary;
 import com.example.gameModel.PlayerGameSummaries.UserGameSummary;
 import com.example.gameModel.classes.ChatEntry;
@@ -26,11 +28,15 @@ public class ClientGamePresenterFacade {
     private static final ClientGamePresenterFacade ourInstance = new ClientGamePresenterFacade();
 
     private ClientGameModel model = ClientGameModel.getInstance();
+
+    private FacadeState state;
+
     public static ClientGamePresenterFacade getInstance() {
         return ourInstance;
     }
 
     private ClientGamePresenterFacade() {
+        this.state = new NotYourTurnState();
     }
 
     public void addObserver(Observer toAdd){
@@ -77,18 +83,8 @@ public class ClientGamePresenterFacade {
         new ChatAsyncTask().execute(message);
     }
 
-    public void discardDestCard(String cardId){
-        String authId = model.getAuthToken();
-        String gameId = model.getGameID();
-        if(cardId != null) {
-            try {
-                new ReturnDestinationCardAsyncTask().execute(authId, cardId, gameId).get();
-            }
-            catch (Exception e){
-                Log.d("error",e.getLocalizedMessage());
-            }
-        }
-        new EndTurnAsyncTask().execute(authId,gameId);
+    public void discardDestCard(String cardId, Toaster toaster){
+        state.returnDestCard(cardId,toaster);
     }
 
     public Map<SharedColor, Integer> getUserHand() {
@@ -146,5 +142,24 @@ public class ClientGamePresenterFacade {
 
     public void passToaster(Toaster toaster){
         model.setToaster(toaster);
+    }
+
+    public void endTurn(){
+        String authId = model.getAuthToken();
+        String gameId = model.getGameID();
+        new EndTurnAsyncTask().execute(authId,gameId);
+        this.state = new NotYourTurnState();
+    }
+
+    public boolean isEndGame(){
+        return  model.isGameOver();
+    }
+
+    public String getLongestRouteOwner(){
+        return model.getLongestRouteOwner();
+    }
+
+    public int getLongestRouteLength(){
+        return model.getLongestRouteLength();
     }
 }
