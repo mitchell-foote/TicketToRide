@@ -1,9 +1,6 @@
-package com.example.fifteam.tickettoride.model.FacadeStates;
-
-import android.util.Log;
+package com.example.fifteam.tickettoride.model.facadeStates;
 
 import com.example.fifteam.tickettoride.ClientFacadeAsyncTasks.DrawDestCardAsynTask;
-import com.example.fifteam.tickettoride.ClientFacadeAsyncTasks.EndTurnAsyncTask;
 import com.example.fifteam.tickettoride.ClientFacadeAsyncTasks.ReturnDestinationCardAsyncTask;
 import com.example.fifteam.tickettoride.interfaces.Toaster;
 import com.example.fifteam.tickettoride.model.ClientGameModel;

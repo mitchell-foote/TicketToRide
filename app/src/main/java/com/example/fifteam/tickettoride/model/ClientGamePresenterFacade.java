@@ -1,13 +1,10 @@
 package com.example.fifteam.tickettoride.model;
 
-import android.util.Log;
-
 import com.example.fifteam.tickettoride.ClientFacadeAsyncTasks.ChatAsyncTask;
 import com.example.fifteam.tickettoride.ClientFacadeAsyncTasks.EndTurnAsyncTask;
-import com.example.fifteam.tickettoride.ClientFacadeAsyncTasks.ReturnDestinationCardAsyncTask;
 import com.example.fifteam.tickettoride.interfaces.Toaster;
-import com.example.fifteam.tickettoride.model.FacadeStates.FacadeState;
-import com.example.fifteam.tickettoride.model.FacadeStates.NotYourTurnState;
+import com.example.fifteam.tickettoride.model.facadeStates.FacadeState;
+import com.example.fifteam.tickettoride.model.facadeStates.NotYourTurnState;
 import com.example.gameModel.PlayerGameSummaries.PlayerGameSummary;
 import com.example.gameModel.PlayerGameSummaries.UserGameSummary;
 import com.example.gameModel.classes.ChatEntry;
@@ -161,5 +158,25 @@ public class ClientGamePresenterFacade {
 
     public int getLongestRouteLength(){
         return model.getLongestRouteLength();
+    }
+
+    public void claimRoute(String routeid, SharedColor color, Toaster toaster){
+        state.claimRoute(routeid,color,toaster);
+    }
+
+    public void drawTrainCard(String cardId, Toaster toaster){
+        state.drawTrainCard(cardId,toaster);
+    }
+
+    public boolean canDrawTrainCard(){
+        return state.canDrawTrainCard();
+    }
+
+    public boolean canDrawDestCard(){
+        return state.canDrawDestCard();
+    }
+
+    public boolean canClaimRoute(){
+        return state.canClaimRoute();
     }
 }

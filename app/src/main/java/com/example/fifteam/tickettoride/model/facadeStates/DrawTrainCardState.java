@@ -1,4 +1,4 @@
-package com.example.fifteam.tickettoride.model.FacadeStates;
+package com.example.fifteam.tickettoride.model.facadeStates;
 
 import com.example.fifteam.tickettoride.ClientFacadeAsyncTasks.DrawCardAsyncTask;
 import com.example.fifteam.tickettoride.ClientFacadeAsyncTasks.SwapCardAsyncTask;
