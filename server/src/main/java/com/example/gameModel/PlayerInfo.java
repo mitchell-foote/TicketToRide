@@ -19,7 +19,7 @@ public class PlayerInfo {
 
     private int remainingTrains = 45;
     private int points = 0;
-    private boolean hasLongestRoad = false;
+    private int longestRoad = 0;
     private SharedColor color;
 
     public PlayerInfo(SharedColor color) {
@@ -104,7 +104,23 @@ public class PlayerInfo {
 
     }
 
+    public int getScoreFromRoutes() {
+        return points;
+    }
+
     public void addPoints(int newPoints) {
         points += newPoints;
+    }
+
+    public int getLongestRoad() {
+        return longestRoad;
+    }
+
+    public void setLongestRoad(int routeLength) {
+        longestRoad = routeLength;
+    }
+
+    public List<String> getDestinationCardIds() {
+        return destinationCards;
     }
 }

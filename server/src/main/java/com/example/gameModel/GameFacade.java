@@ -139,6 +139,21 @@ public class GameFacade implements IGameAccessor {
         String nextPlayerName = null;
 
         if (game != null) {
+
+            if (game.isLongestTrainSwitched()) {
+                commandBuilder.longestTrainSwitch(game.getPlayerWithLongestTrain()[0], Integer.toString(game.getLongestRouteLength()));
+            }
+
+            if (game.isFinalTurnStarted()) {
+                if (game.getPlayerWhoGoesLast() == null) {
+                    game.setCurrentPlayerAsLast();
+                    commandBuilder.lastRound(game.getPlayerWhoGoesLast());
+                } else if (game.getPlayerWhoGoesLast().equals(game.getCurrentPlayer())) {
+                    commandBuilder.endGame(game.calculateScore());
+                    return null;
+                }
+            }
+
             nextPlayerName = game.incrementTurn();
             game.addCommand(commandBuilder.nextTurn(nextPlayerName), CommandTypesEnum.NextOrEndTurn);
         }

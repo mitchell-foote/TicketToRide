@@ -6,6 +6,7 @@ import com.example.gameCommunication.commands.enums.CommandTypesEnum;
 import com.example.gameCommunication.commands.interfaces.IClientCommandData;
 import com.example.gameCommunication.commands.interfaces.IGameCommand;
 import com.example.gameModel.classes.DestinationDeck;
+import com.example.gameModel.classes.PlayerScoreContainer;
 import com.example.gameModel.classes.Route;
 import com.example.gameModel.classes.TrainCard;
 import com.example.gameModel.classes.TrainDeck;
@@ -30,11 +31,19 @@ public class GameModel {
     private List<Player> orderedPlayers;
     private Map<Player, PlayerInfo> playerInfo;
     private int nextTurn;
+
     private DestinationDeck desDeck;
     private TrainDeck trainDeck;
+
     private List<IClientCommandData> commands;
     private List<CommandTypesEnum> correspondingCommTypes;
     private RouteManager routeManager;
+
+    private boolean longestTrainSwitched = false;
+    private List<Player> playersWithLongestTrain = null;
+
+    private boolean finalTurnStarted = false;
+    private String playerWhoGoesLast = null;
 
     public GameModel(String gameId, Map<String, SharedColor> players) {
         this.gameId = gameId;
@@ -53,6 +62,21 @@ public class GameModel {
         commands = new ArrayList<>();
         correspondingCommTypes = new ArrayList<>();
         routeManager = new RouteManager(orderedPlayers);
+    }
+
+    public PlayerScoreContainer[] calculateScore() {
+        PlayerScoreContainer[] scores = new PlayerScoreContainer[orderedPlayers.size()];
+
+        for (int i = 0; i < scores.length; i++) {
+            Player nextPlayer = orderedPlayers.get(i);
+            PlayerInfo playerHand = playerInfo.get(nextPlayer);
+            int totalPoints = playerHand.getScoreFromRoutes();
+            totalPoints += routeManager.calculateDestinationCardBonus(nextPlayer, playerHand.getDestinationCardIds());
+            totalPoints += routeManager.addLongestRoadBonus(nextPlayer);
+            scores[i] = new PlayerScoreContainer(nextPlayer.getName(), Integer.toString(totalPoints));
+        }
+
+        return scores;
     }
 
 
@@ -99,12 +123,18 @@ public class GameModel {
         boolean success = playerHand.playCardsForRouteClaim(route.getLength(), routeColor);
         if (success) {
             playerHand.playTrains(route.getLength());
-            if (playerHand.getRemainingTrains() <= 2) {
-                //last turn warning
+            if (!finalTurnStarted && playerHand.getRemainingTrains() <= 2) {
+                finalTurnStarted = true; //last turn warning
             }
 
             routeManager.claimRoute(player, route.getRouteId());
             playerHand.addPoints(route.getPoints());
+            playerHand.setLongestRoad(routeManager.getLongestRoadLength(player));
+            if (routeManager.isLongestRouteChanged()) {
+                longestTrainSwitched = true;
+                playersWithLongestTrain = routeManager.getPlayersWithLongestRoute();
+            }
+
             return true;
         } else {
             return false;
@@ -161,6 +191,42 @@ public class GameModel {
     public String[] getFaceUpTrainCards() {
         Set<String> faceUpPile = trainDeck.getFaceUpPile();
         return faceUpPile.toArray(new String[0]);
+    }
+
+    public boolean isLongestTrainSwitched() {
+        return longestTrainSwitched;
+    }
+
+    public boolean isFinalTurnStarted() {
+        return finalTurnStarted;
+    }
+
+    public String[] getPlayerWithLongestTrain() {
+        longestTrainSwitched = false;
+
+        String[] players = new String[playersWithLongestTrain.size()];
+        for (int i = 0; i < playersWithLongestTrain.size(); i++) {
+            players[i] = playersWithLongestTrain.get(i).getName();
+        }
+
+        return players;
+    }
+
+    public String getPlayerWhoGoesLast() {
+        return playerWhoGoesLast;
+    }
+
+    public void setCurrentPlayerAsLast() {
+        playerWhoGoesLast = orderedPlayers.get(nextTurn).getName();
+    }
+
+    public int getLongestRouteLength() {
+        PlayerInfo playerHand = playerInfo.get(playersWithLongestTrain.get(0));
+        return playerHand.getLongestRoad();
+    }
+
+    public String getCurrentPlayer() {
+        return orderedPlayers.get(nextTurn).getName();
     }
 
 }
