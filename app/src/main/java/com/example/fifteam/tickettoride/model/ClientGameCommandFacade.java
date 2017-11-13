@@ -140,7 +140,13 @@ public class ClientGameCommandFacade implements IClientCommandAccessor{
     @Override
     public void setupTrainCards(String[] cards)
     {
-        //TODO SAM: this function
+        model.clearFaceUpTrainCards();
+        for(String s : cards){
+            TrainCard currCard = TrainLookupTable.getCardById(s);
+            model.addToFaceUpTrainCards(currCard);
+        }
+        String historyEntry = cards.length + " Train Cards added to the list of face up cards";
+        model.addHistoryEntry(historyEntry);
     }
 
     @Override
@@ -152,25 +158,30 @@ public class ClientGameCommandFacade implements IClientCommandAccessor{
     @Override
     public void claimRoute(String username, String routeId, SharedColor color)
     {
-        //TODO SAM: this function
+        model.claimRoute(username,routeId,color);
     }
 
     @Override
     public void endGame(PlayerScoreContainer[] scores)
     {
-        //TODO SAM: this function
+        for(PlayerScoreContainer p : scores){
+            PlayerGameSummary currSummary = model.getPlayerById(p.Username);
+            currSummary.setPoints(Integer.parseInt(p.Score));
+        }
+        model.endGame();
     }
 
     @Override
     public void longestTrainRouteSwitch(String username, String longestLength)
     {
-        // TODO SAM: this function
+        model.setLongestRouteOwner(username);
+        model.setLongestRouteLength(Integer.parseInt(longestLength));
     }
 
     @Override
     public void lastRound(String username)
     {
-        //TODO SAM: this function
+        model.lastTurn(username);
     }
 
     public void addFaceUpTrainCard(String username, String cardId, String newCardId){
@@ -232,10 +243,13 @@ public class ClientGameCommandFacade implements IClientCommandAccessor{
 
                 endTurnEntry = currTurn + " ended their turn.";
                 if(currPlayer.getFaceUpDestCards() > 0){
+                    currPlayer.incrementNumDestCards();
+                    currPlayer.clearFaceUpDestCards();
                     String destEntry = currTurn + " picked up " + currPlayer.getFaceUpDestCards() +
                             " destination cards.";
                     model.addHistoryEntry(destEntry);
-                    model.setNumOpponentsDestCards(0);
+
+
                 }
             }
             model.addHistoryEntry(endTurnEntry);

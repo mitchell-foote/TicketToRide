@@ -41,17 +41,25 @@ public class ClientGameModel extends Observable {
     private UserGameSummary userSummary;
     private MapSummary mapSummary;
     private String gameID;
+
     private List<ChatEntry> chatHistory;
-    private List<DestinationCard> destinationCardsToChoose;
+
     private List<String> gameHistory;
-    private String nextTurn;
-    private String lastExecutedHash;
+
+    private List<DestinationCard> destinationCardsToChoose;
     private List<TrainCard> faceUpTrainCards;
     private List<Route> routeList;
-    private boolean isUserTurn;
     private int numOpponentsDestCardsUp;
+
+    private String longestRouteOwner;
+    private int longestRouteLength;
+
+    private String nextTurn;
+    private String lastExecutedHash;
+    private boolean isUserTurn;
     private boolean runningAsync;
     private Toaster toaster;
+    private boolean gameOver;
 
     private ClientGameModel(){
         this.nextTurn = null;
@@ -67,6 +75,9 @@ public class ClientGameModel extends Observable {
         this.isUserTurn = false;
         this.setNumOpponentsDestCards(0);
         this.runningAsync = false;
+        this.gameOver = false;
+        longestRouteOwner = null;
+        longestRouteLength = 0;
     }
 
     public boolean isRunningAsync() {
@@ -191,6 +202,12 @@ public class ClientGameModel extends Observable {
 
     public List<TrainCard> getFaceUpTrainCards() {
         return faceUpTrainCards;
+    }
+
+    public void clearFaceUpTrainCards(){
+        this.faceUpTrainCards = new ArrayList<>();
+        setChanged();
+        notifyObservers();
     }
 
     public void addToFaceUpTrainCards(TrainCard toAdd) {
@@ -543,12 +560,31 @@ public class ClientGameModel extends Observable {
         return routeList;
     }
 
-    public void claimRouteLocally(String routeID, SharedColor ownerColor) {
+    public Route claimRouteLocally(String routeID, SharedColor ownerColor) {
         for (Route r : routeList) {
             if (r.getRouteId().equals(routeID)) {
                 r.setClaimed(ownerColor);
+                setChanged();
+                notifyObservers();
+                return r;
             }
         }
+        return null;
+    }
+
+    public void claimRoute(String username, String routeId, SharedColor ownerColor){
+        Route claimed = claimRouteLocally(routeId,ownerColor);
+        if(claimed == null){
+            this.toast("This should not be happening, route does not exist");
+            return;
+        }
+        PlayerGameSummary claimer = this.getPlayerById(username);
+        if(claimer == null){
+            this.toast("This should also not be happening username not found");
+            return;
+        }
+        int routePoints = claimed.getPoints();
+        claimer.incrementPoints(routePoints);
         setChanged();
         notifyObservers();
     }
@@ -606,5 +642,40 @@ public class ClientGameModel extends Observable {
 
     private void toast(String toToast){
         this.toaster.displayMessage(toToast);
+    }
+
+    public void endGame(){
+        this.gameOver = true;
+        setChanged();
+        notifyObservers();
+    }
+
+    public boolean isGameOver(){
+        return gameOver;
+    }
+
+    public void setLongestRouteOwner(String newOwner){
+        this.longestRouteOwner = newOwner;
+        setChanged();
+        notifyObservers();
+    }
+
+    public String getLongestRouteOwner(){
+        return this.longestRouteOwner;
+    }
+
+    public void setLongestRouteLength(int newLength){
+        this.longestRouteLength = newLength;
+        setChanged();
+        notifyObservers();
+    }
+
+    public int getLongestRouteLength(){
+        return this.longestRouteLength;
+    }
+
+    public void lastTurn(String username){
+        String lastTurnMessage = username + " has initiated the last round of the game! Beware!";
+        this.toast(lastTurnMessage);
     }
 }

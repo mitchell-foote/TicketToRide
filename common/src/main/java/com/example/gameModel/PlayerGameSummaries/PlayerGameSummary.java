@@ -68,6 +68,10 @@ public class PlayerGameSummary {
         return points;
     }
 
+    public void setPoints(int points){
+        this.points = points;
+    }
+
     public void incrementPoints(int points) {
         this.points += points;
     }
@@ -84,8 +88,9 @@ public class PlayerGameSummary {
         return this.numDestinationCards;
     }
 
-    public void incrementNumDestCards(int toInc){
-        this.numDestinationCards += toInc;
+    public void incrementNumDestCards(){
+
+        this.numDestinationCards += this.faceUpDestCards;
     }
 
     public void incFaceUpDestCards(){
@@ -98,6 +103,10 @@ public class PlayerGameSummary {
 
     public int getFaceUpDestCards(){
         return this.faceUpDestCards;
+    }
+
+    public void clearFaceUpDestCards(){
+        this.faceUpDestCards = 0;
     }
     @Override
     public boolean equals(Object o) {
