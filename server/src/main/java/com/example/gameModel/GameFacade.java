@@ -92,8 +92,7 @@ public class GameFacade implements IGameAccessor {
         Player player = model.findPlayerFromToken(authId);
         Route route = RouteLookupTable.getRouteById(routeId);
 
-        SharedColor color = SharedColor.BLACK; //hardcoded until it is passed into the function
-        game.claimRoute(player, route, color);
+        game.claimRoute(player, route, trainColor);
 
 
         //TODO Britton: this function
