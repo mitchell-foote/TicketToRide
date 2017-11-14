@@ -139,8 +139,10 @@ public class RouteManager {
 
         for (City vertex : vertices) {
             traverseGraph(edges, vertex, 0, totalWeights, playerGraph);
+            //System.out.println("end section\n");
         }
 
+        //System.out.println("end traversal\n\n");
         return Collections.max(totalWeights);
     }
 
@@ -156,18 +158,21 @@ public class RouteManager {
             }
         }
 
+        //System.out.println(currentVertex + ": " + currentTotalWeight + ", usable neighbors: " + usableNeighbors.size());
+
         if(usableNeighbors.isEmpty()) {
             totalWeights.add(currentTotalWeight);
+            //System.out.println("end of path");
             return;
         } else for (DefaultWeightedEdge edge : usableNeighbors) {
-            currentTotalWeight += (int) playerGraph.getEdgeWeight(edge);
-            Set<DefaultWeightedEdge> newRemainingEdges = new HashSet<DefaultWeightedEdge>(remainingEdges);
+            int nextWeight = currentTotalWeight + (int) playerGraph.getEdgeWeight(edge);
+            Set<DefaultWeightedEdge> newRemainingEdges = new HashSet<>(remainingEdges);
             newRemainingEdges.remove(edge);
             City nextCity = playerGraph.getEdgeSource(edge);
             if (nextCity == currentVertex) {
                 nextCity = playerGraph.getEdgeTarget(edge);
             }
-            traverseGraph(newRemainingEdges, nextCity, currentTotalWeight, totalWeights, playerGraph);
+            traverseGraph(newRemainingEdges, nextCity, nextWeight, totalWeights, playerGraph);
         }
 
     }

@@ -98,7 +98,56 @@ public class GameFacadeTester {
             System.out.println(game.getPlayerInfo(model.findPlayerFromName("batman")));
             System.out.println(game.getPlayerInfo(model.findPlayerFromName("robin")));
 
+            ///////////////////////////////////////////////////////////////////////////////////////
 
+            String firstDude = facade.register("bacon", "123456");
+            String secondDude = facade.register("macon", "123456");
+            String thirdDude = facade.register("racon", "123456");
+            String fourthDude = facade.register("lacon", "123456");
+            String fifthDude = facade.register("shacon", "123456");
+
+            String otherGame = facade.createGame("bacon's game", SharedColor.BLUE, firstDude);
+
+            facade.joinGame(otherGame, SharedColor.GREEN, secondDude);
+            facade.joinGame(otherGame, SharedColor.RED, thirdDude);
+            facade.joinGame(otherGame, SharedColor.YELLOW, fourthDude);
+            facade.joinGame(otherGame, SharedColor.BLACK, fifthDude);
+
+            List<BaseGameSummary> newGameList = facade.getGames(firstDude);
+            facade.startGame(otherGame, firstDude);
+
+            BaseGameSummary newBaseGame = null;
+            for (int i = 0; i < newGameList.size(); i++) {
+                if (newGameList.get(i).getGameName().equals("bacon's game")) {
+                    newBaseGame = newGameList.get(i);
+                }
+            }
+
+            String newGameId = newBaseGame.getFullGameId();
+
+            System.out.println("base game id: " + newBaseGame.getId());
+            System.out.println("full game id: " + newGameId);
+
+            GameModel newGame = model.findFullGameById(newGameId);
+
+            for (int i = 0; i < 85; i++) {
+                gfacade.drawTrainCard(secondDude, newGameId);
+            }
+
+            gfacade.claimRoute(secondDude, newGameId, "83", SharedColor.PURPLE);
+            gfacade.claimRoute(secondDude, newGameId, "48", SharedColor.BLACK);
+            gfacade.claimRoute(secondDude, newGameId, "47", SharedColor.YELLOW);
+            gfacade.claimRoute(secondDude, newGameId, "82", SharedColor.BLUE);
+            gfacade.claimRoute(secondDude, newGameId, "77", SharedColor.ORANGE);
+            gfacade.claimRoute(secondDude, newGameId, "97", SharedColor.WHITE);
+            gfacade.claimRoute(secondDude, newGameId, "34", SharedColor.GREEN);
+            gfacade.claimRoute(secondDude, newGameId, "39", SharedColor.RED);
+            gfacade.claimRoute(secondDude, newGameId, "43", SharedColor.PURPLE);
+            gfacade.claimRoute(secondDude, newGameId, "38", SharedColor.BLACK);
+            gfacade.claimRoute(secondDude, newGameId, "66", SharedColor.ORANGE);
+
+            gfacade.endTurn(secondDude, newGameId);
+            System.out.println(newGame.getPlayerInfo(model.findPlayerFromName("macon")));
 
         } catch (FailedLoginException e)
         {
