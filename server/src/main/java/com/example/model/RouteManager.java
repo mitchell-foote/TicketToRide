@@ -24,6 +24,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -68,7 +69,7 @@ public class RouteManager {
         DefaultWeightedEdge edge = playerGraph.addEdge(firstCity, secondCity);
         playerGraph.setEdgeWeight(edge, routeToClaim.getLength());
 
-        int longestPathForPlayer = calculateLongestRoadForPlayer(player);
+        int longestPathForPlayer = calculateLongestRoadForPlayerNew(player);
         longestRouteLengthsByPlayer.put(player, longestPathForPlayer);
         recalculatePlayersWithLongestRoad();
     }
@@ -127,6 +128,48 @@ public class RouteManager {
         }
 
         return largestDiameter;
+    }
+
+    private int calculateLongestRoadForPlayerNew(Player player) {
+        ListenableUndirectedWeightedGraph<City, DefaultWeightedEdge> playerGraph = graphs.get(player);
+
+        List<Integer> totalWeights = new ArrayList<>();
+        Set<City> vertices = playerGraph.vertexSet();
+        Set<DefaultWeightedEdge> edges = playerGraph.edgeSet();
+
+        for (City vertex : vertices) {
+            traverseGraph(edges, vertex, 0, totalWeights, playerGraph);
+        }
+
+        return Collections.max(totalWeights);
+    }
+
+    private void traverseGraph(Set<DefaultWeightedEdge> remainingEdges, City currentVertex, int currentTotalWeight, List<Integer> totalWeights, ListenableUndirectedWeightedGraph<City, DefaultWeightedEdge> playerGraph) {
+
+        Set<DefaultWeightedEdge> neighbors = playerGraph.edgesOf(currentVertex);
+
+        Set<DefaultWeightedEdge> usableNeighbors = new HashSet<>();
+
+        for (DefaultWeightedEdge edge : neighbors) {
+            if (remainingEdges.contains(edge)) {
+                usableNeighbors.add(edge);
+            }
+        }
+
+        if(usableNeighbors.isEmpty()) {
+            totalWeights.add(currentTotalWeight);
+            return;
+        } else for (DefaultWeightedEdge edge : usableNeighbors) {
+            currentTotalWeight += (int) playerGraph.getEdgeWeight(edge);
+            Set<DefaultWeightedEdge> newRemainingEdges = new HashSet<DefaultWeightedEdge>(remainingEdges);
+            newRemainingEdges.remove(edge);
+            City nextCity = playerGraph.getEdgeSource(edge);
+            if (nextCity == currentVertex) {
+                nextCity = playerGraph.getEdgeTarget(edge);
+            }
+            traverseGraph(newRemainingEdges, nextCity, currentTotalWeight, totalWeights, playerGraph);
+        }
+
     }
 
     private void recalculatePlayersWithLongestRoad() {
