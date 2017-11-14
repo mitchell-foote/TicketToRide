@@ -11,4 +11,5 @@ dependencies {
     compile files('libs/gson-2.8.1.jar')
     compile project(':common')
     compile files('libs/jgrapht-core-1.0.1.jar')
+    compile files('libs/jgraphx-2.0.0.1.jar')
 }

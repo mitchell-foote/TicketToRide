@@ -74,8 +74,14 @@ public class GameFacadeTester {
             }
             System.out.println();
 
-            gfacade.claimRoute(authToken, fullGameId, "5", SharedColor.YELLOW);
+            for (int i = 0; i < 20; i++) {
+                gfacade.drawTrainCard(authToken, fullGameId);
+            }
 
+            gfacade.claimRoute(authToken, fullGameId, "5", SharedColor.YELLOW); //reefer
+            gfacade.claimRoute(authToken, fullGameId, "1", SharedColor.BLUE); //tanker
+
+            gfacade.drawTrainCard(authToken, fullGameId);
 
         } catch (FailedLoginException e)
         {

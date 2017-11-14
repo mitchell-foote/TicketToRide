@@ -92,8 +92,9 @@ public class GameFacade implements IGameAccessor {
         Player player = model.findPlayerFromToken(authId);
         Route route = RouteLookupTable.getRouteById(routeId);
 
-        game.claimRoute(player, route, trainColor);
-
+        if (game.claimRoute(player, route, trainColor)) {
+            commandBuilder.claimRoute(player.getName(), routeId, trainColor);
+        }
 
         //TODO Britton: this function
         return null;

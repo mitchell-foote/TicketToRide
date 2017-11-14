@@ -93,15 +93,19 @@ public class PlayerInfo {
         }
         cardsToBeUsed.addAll(rainbowReserve);
 
+        while (cardsToBeUsed.size() > routeLength) {
+            cardsToBeUsed.remove(cardsToBeUsed.size() - 1);
+        }
+
         if (cardsToBeUsed.size() < routeLength) {
             return false;
         } else {
-            for (int i = 0; i < routeLength; i++) {
-                trainCards.remove(0);
+            for (int i = 0; i < cardsToBeUsed.size(); i++) {
+                trainCards.remove(cardsToBeUsed.get(i));
             }
+
             return true;
         }
-
     }
 
     public int getScoreFromRoutes() {

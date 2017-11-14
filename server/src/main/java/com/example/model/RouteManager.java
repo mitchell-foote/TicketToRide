@@ -14,10 +14,12 @@ import org.jgrapht.alg.shortestpath.FloydWarshallShortestPaths;
 import org.jgrapht.graph.DefaultDirectedGraph;
 import org.jgrapht.graph.DefaultDirectedWeightedGraph;
 import org.jgrapht.graph.DefaultEdge;
+import org.jgrapht.graph.DefaultWeightedEdge;
 import org.jgrapht.graph.ListenableUndirectedWeightedGraph;
 import org.jgrapht.graph.SimpleGraph;
 import org.jgrapht.graph.builder.UndirectedWeightedGraphBuilder;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -31,7 +33,7 @@ import java.util.Map;
 public class RouteManager {
 
     private List<Player> players = null;
-    private Map<Player, ListenableUndirectedWeightedGraph<City, DefaultEdge>> graphs = new HashMap<Player, ListenableUndirectedWeightedGraph<City, DefaultEdge>>();
+    private Map<Player, ListenableUndirectedWeightedGraph<City, DefaultWeightedEdge>> graphs = new HashMap<Player, ListenableUndirectedWeightedGraph<City, DefaultWeightedEdge>>();
     private List<Player> playersWithLongestRoutes = new ArrayList<>();
     private Map<Player, Integer> longestRouteLengthsByPlayer = new HashMap<>();
 
@@ -47,7 +49,7 @@ public class RouteManager {
     }
 
     public void claimRoute(Player player, String routeId){
-        ListenableUndirectedWeightedGraph<City, DefaultEdge> playerGraph = graphs.get(player);
+        ListenableUndirectedWeightedGraph<City, DefaultWeightedEdge> playerGraph = graphs.get(player);
         Route routeToClaim = RouteLookupTable.getRouteById(routeId);
         City firstCity = routeToClaim.getEndpoint1();
         City secondCity = routeToClaim.getEndpoint2();
@@ -60,22 +62,24 @@ public class RouteManager {
             playerGraph.addVertex(secondCity);
         }
 
-        DefaultEdge edge = playerGraph.addEdge(firstCity, secondCity);
+        DefaultWeightedEdge edge = playerGraph.addEdge(firstCity, secondCity);
         playerGraph.setEdgeWeight(edge, routeToClaim.getLength());
 
         int longestPathForPlayer = calculateLongestRoadForPlayer(player);
         longestRouteLengthsByPlayer.put(player, longestPathForPlayer);
         recalculatePlayersWithLongestRoad();
+
+        System.out.println(playerGraph.toString());
     }
 
 
-    private ListenableUndirectedWeightedGraph<City, DefaultEdge> makeGraph() {
-        return new ListenableUndirectedWeightedGraph<>(DefaultEdge.class);
+    private ListenableUndirectedWeightedGraph<City, DefaultWeightedEdge> makeGraph() {
+        return new ListenableUndirectedWeightedGraph<>(DefaultWeightedEdge.class);
     }
 
     public int calculateDestinationCardBonus(Player player, List<String> desCardIds) {
-        ListenableUndirectedWeightedGraph<City, DefaultEdge> playerGraph = graphs.get(player);
-        ConnectivityInspector<City, DefaultEdge> inspector = new ConnectivityInspector<>(playerGraph);
+        ListenableUndirectedWeightedGraph<City, DefaultWeightedEdge> playerGraph = graphs.get(player);
+        ConnectivityInspector<City, DefaultWeightedEdge> inspector = new ConnectivityInspector<>(playerGraph);
         int scoreBonus = 0;
 
         for (int i = 0; i < desCardIds.size(); i++) {
@@ -106,8 +110,8 @@ public class RouteManager {
     }
 
     private int calculateLongestRoadForPlayer(Player player) {
-        ListenableUndirectedWeightedGraph<City, DefaultEdge> playerGraph = graphs.get(player);
-        FloydWarshallShortestPaths<City, DefaultEdge> algoPath = new FloydWarshallShortestPaths<>(playerGraph);
+        ListenableUndirectedWeightedGraph<City, DefaultWeightedEdge> playerGraph = graphs.get(player);
+        FloydWarshallShortestPaths<City, DefaultWeightedEdge> algoPath = new FloydWarshallShortestPaths<>(playerGraph);
         return (int) algoPath.getDiameter();
     }
 
