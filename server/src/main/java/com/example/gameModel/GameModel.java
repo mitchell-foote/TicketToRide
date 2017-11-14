@@ -229,4 +229,11 @@ public class GameModel {
         return orderedPlayers.get(nextTurn).getName();
     }
 
+    public String getPlayerInfo(Player player) {
+        String playerSummaryInfo = playerInfo.get(player).toString() + '\n';
+        playerSummaryInfo += routeManager.getGraphString(player);
+
+        return playerSummaryInfo;
+    }
+
 }

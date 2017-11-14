@@ -68,8 +68,6 @@ public class RouteManager {
         int longestPathForPlayer = calculateLongestRoadForPlayer(player);
         longestRouteLengthsByPlayer.put(player, longestPathForPlayer);
         recalculatePlayersWithLongestRoad();
-
-        System.out.println(playerGraph.toString());
     }
 
 
@@ -136,5 +134,9 @@ public class RouteManager {
 
     public int getLongestRoadLength(Player player) {
         return longestRouteLengthsByPlayer.get(player);
+    }
+
+    public String getGraphString(Player player) {
+        return graphs.get(player).toString() + '\n';
     }
 }

@@ -78,10 +78,12 @@ public class GameFacadeTester {
                 gfacade.drawTrainCard(authToken, fullGameId);
             }
 
+            System.out.println(game.getPlayerInfo(model.findPlayerFromName("batman")));
+
             gfacade.claimRoute(authToken, fullGameId, "5", SharedColor.YELLOW); //reefer
             gfacade.claimRoute(authToken, fullGameId, "1", SharedColor.BLUE); //tanker
 
-            gfacade.drawTrainCard(authToken, fullGameId);
+            System.out.println(game.getPlayerInfo(model.findPlayerFromName("batman")));
 
         } catch (FailedLoginException e)
         {
