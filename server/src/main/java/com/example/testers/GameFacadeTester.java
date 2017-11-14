@@ -74,6 +74,8 @@ public class GameFacadeTester {
             }
             System.out.println();
 
+            gfacade.claimRoute(authToken, fullGameId, "5", SharedColor.YELLOW);
+
 
         } catch (FailedLoginException e)
         {

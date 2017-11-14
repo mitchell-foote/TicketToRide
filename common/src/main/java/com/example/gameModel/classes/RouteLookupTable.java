@@ -4,6 +4,7 @@ import com.example.gameModel.enums.City;
 import com.example.model.enums.SharedColor;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -13,7 +14,7 @@ import java.util.Map;
 
 public class RouteLookupTable {
 
-    private static Map<String, Route> routeTable;
+    private static Map<String, Route> routeTable = new HashMap<>();
     private RouteLookupTable(){};
 
     static {
