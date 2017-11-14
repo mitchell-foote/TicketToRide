@@ -142,6 +142,11 @@ public class GameFacade implements IGameAccessor {
         if (game != null) {
 
             if (game.isLongestTrainSwitched()) {
+                System.out.print("The following players have claimed the longest road: ");
+                for (int i = 0; i < game.getPlayerWithLongestTrain().length; i++) {
+                    System.out.print(game.getPlayerWithLongestTrain()[i] + ", ");
+                }
+                System.out.println();
                 commandBuilder.longestTrainSwitch(game.getPlayerWithLongestTrain()[0], Integer.toString(game.getLongestRouteLength()));
             }
 

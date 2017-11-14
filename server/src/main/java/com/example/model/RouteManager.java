@@ -17,6 +17,7 @@ import org.jgrapht.graph.DefaultEdge;
 import org.jgrapht.graph.DefaultWeightedEdge;
 import org.jgrapht.graph.ListenableUndirectedWeightedGraph;
 import org.jgrapht.graph.SimpleGraph;
+import org.jgrapht.graph.UndirectedSubgraph;
 import org.jgrapht.graph.builder.UndirectedWeightedGraphBuilder;
 
 import java.io.File;
@@ -25,6 +26,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by ninjup on 11/10/17.
@@ -37,6 +39,7 @@ public class RouteManager {
     private List<Player> playersWithLongestRoutes = new ArrayList<>();
     private Map<Player, Integer> longestRouteLengthsByPlayer = new HashMap<>();
 
+    private int currentLongestRoute = 0;
     private boolean hasChanged = false;
 
 
@@ -109,17 +112,34 @@ public class RouteManager {
 
     private int calculateLongestRoadForPlayer(Player player) {
         ListenableUndirectedWeightedGraph<City, DefaultWeightedEdge> playerGraph = graphs.get(player);
-        FloydWarshallShortestPaths<City, DefaultWeightedEdge> algoPath = new FloydWarshallShortestPaths<>(playerGraph);
-        return (int) algoPath.getDiameter();
+
+        ConnectivityInspector<City, DefaultWeightedEdge> inspector = new ConnectivityInspector<City, DefaultWeightedEdge>(playerGraph);
+        List<Set<City>> connectedSets = inspector.connectedSets();
+
+        int largestDiameter = 0;
+        for (int i = 0; i < connectedSets.size(); i++) {
+            UndirectedSubgraph<City, DefaultWeightedEdge> subgraph = new UndirectedSubgraph<City, DefaultWeightedEdge>(playerGraph, connectedSets.get(i), null);
+            FloydWarshallShortestPaths<City, DefaultWeightedEdge> algoPath = new FloydWarshallShortestPaths<>(subgraph);
+            int diameter = (int) algoPath.getDiameter();
+            if (diameter > largestDiameter) {
+                largestDiameter = diameter;
+            }
+        }
+
+        return largestDiameter;
     }
 
     private void recalculatePlayersWithLongestRoad() {
         int longestRoute = Collections.max(longestRouteLengthsByPlayer.values());
-        playersWithLongestRoutes.clear();
-        for (Player p : players) {
-            if (longestRouteLengthsByPlayer.get(p) == longestRoute) {
-                playersWithLongestRoutes.add(p);
+        if (longestRoute != currentLongestRoute) {
+            playersWithLongestRoutes.clear();
+            for (Player p : players) {
+                if (longestRouteLengthsByPlayer.get(p) == longestRoute) {
+                    playersWithLongestRoutes.add(p);
+                }
             }
+            currentLongestRoute = longestRoute;
+            hasChanged = true;
         }
     }
 

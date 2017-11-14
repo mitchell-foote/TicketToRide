@@ -78,12 +78,27 @@ public class GameFacadeTester {
                 gfacade.drawTrainCard(authToken, fullGameId);
             }
 
+            for (int i = 0; i < 20; i++) {
+                gfacade.drawTrainCard(secondUser, fullGameId);
+            }
             System.out.println(game.getPlayerInfo(model.findPlayerFromName("batman")));
+            System.out.println(game.getPlayerInfo(model.findPlayerFromName("robin")));
 
             gfacade.claimRoute(authToken, fullGameId, "5", SharedColor.YELLOW); //reefer
             gfacade.claimRoute(authToken, fullGameId, "1", SharedColor.BLUE); //tanker
+            gfacade.claimRoute(authToken, fullGameId, "18", SharedColor.ORANGE); //freight
+
+            gfacade.endTurn(authToken, fullGameId);
+
+            gfacade.claimRoute(secondUser, fullGameId, "13", SharedColor.WHITE); //passenger
+            gfacade.claimRoute(secondUser, fullGameId, "12", SharedColor.BLACK); //hopper
+
+            gfacade.endTurn(authToken, fullGameId);
 
             System.out.println(game.getPlayerInfo(model.findPlayerFromName("batman")));
+            System.out.println(game.getPlayerInfo(model.findPlayerFromName("robin")));
+
+
 
         } catch (FailedLoginException e)
         {
