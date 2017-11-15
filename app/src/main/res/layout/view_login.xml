@@ -44,6 +44,16 @@
             android:padding="5dp"
             android:inputType="textPassword"/>
 
+        <EditText
+            android:id="@+id/login_host"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rect_text_edit"
+            android:textSize="20sp"
+            android:hint="Host"
+            android:padding="5dp"
+            android:layout_marginTop="5dp"/>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -18,6 +18,7 @@ public class LoginView extends Fragment {
 
     EditText usernameField;
     EditText passwordField;
+    EditText hostField;
     Button loginButton;
     Button registerButton;
     LoginPresenter presenter;
@@ -35,6 +36,7 @@ public class LoginView extends Fragment {
 
         usernameField = (EditText) v.findViewById(R.id.username_field);
         passwordField = (EditText) v.findViewById(R.id.password_field);
+        hostField = (EditText) v.findViewById(R.id.login_host);
 
         loginButton = (Button) v.findViewById(R.id.login_button);
         loginButton.setOnClickListener(new View.OnClickListener() {
@@ -42,8 +44,9 @@ public class LoginView extends Fragment {
             public void onClick(View v) {
                 String username = usernameField.getText().toString();
                 String password = passwordField.getText().toString();
+                String host = hostField.getText().toString();
 
-                presenter.login(username, password);
+                presenter.login(username, password, host);
             }
         });
 
@@ -53,8 +56,9 @@ public class LoginView extends Fragment {
             public void onClick(View v) {
                 String username = usernameField.getText().toString();
                 String password = passwordField.getText().toString();
+                String host = hostField.getText().toString();
 
-                presenter.register(username, password);
+                presenter.register(username, password, host);
             }
         });
 

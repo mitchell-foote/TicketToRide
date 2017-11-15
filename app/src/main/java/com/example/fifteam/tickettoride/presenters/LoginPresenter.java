@@ -2,6 +2,7 @@ package com.example.fifteam.tickettoride.presenters;
 
 import android.content.Context;
 
+import com.example.communication.PathHolder;
 import com.example.fifteam.tickettoride.interfaces.Toaster;
 import com.example.fifteam.tickettoride.model.ClientFacade;
 import com.example.fifteam.tickettoride.model.ClientModel;
@@ -23,17 +24,19 @@ public class LoginPresenter implements Observer, Toaster {
         ClientFacade.getInstance().addObserver(this);
     }
 
-    public void login(String username, String password) {
-        if (username.equals("") || password.equals("")) {
+    public void login(String username, String password, String host) {
+        if (username.equals("") || password.equals("") || host.equals("")) {
             return;
         }
+        PathHolder.getInstance().setHost(host);
         ClientFacade.getInstance().login(username, password, this);
     }
 
-    public void register(String username, String password) {
-        if (username.equals("") || password.equals("")) {
+    public void register(String username, String password, String host) {
+        if (username.equals("") || password.equals("") || host.equals("")) {
             return;
         }
+        PathHolder.getInstance().setHost(host);
         ClientFacade.getInstance().register(username, password, this);
     }
 
