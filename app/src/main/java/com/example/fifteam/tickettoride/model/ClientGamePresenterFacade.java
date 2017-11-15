@@ -202,4 +202,8 @@ public class ClientGamePresenterFacade {
                 break;
         }
     }
+
+    public boolean isFirstTurn(){
+        return model.isFirstTurn();
+    }
 }

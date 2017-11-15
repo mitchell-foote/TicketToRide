@@ -3,6 +3,7 @@ package com.example.fifteam.tickettoride.model.facadeStates;
 import com.example.fifteam.tickettoride.ClientFacadeAsyncTasks.ClaimRouteAsycTask;
 import com.example.fifteam.tickettoride.interfaces.Toaster;
 import com.example.fifteam.tickettoride.model.ClaimRouteParamObj;
+import com.example.fifteam.tickettoride.model.ClientGameModel;
 import com.example.fifteam.tickettoride.model.ClientGamePresenterFacade;
 import com.example.model.enums.SharedColor;
 
@@ -29,6 +30,11 @@ public class ClaimRouteState implements FacadeState {
 
     }
     public void claimRoute(String routeId, SharedColor color,Toaster toaster){
+        ClientGameModel model = ClientGameModel.getInstance();
+        if(!model.canClaimRoute(routeId,color)){
+            toaster.displayMessage("The Route cannot be claimed, insufficient Train Cards");
+            return;
+        }
         ClaimRouteParamObj params = new ClaimRouteParamObj(routeId,color);
         new ClaimRouteAsycTask().execute(params);
         facade.endTurn();

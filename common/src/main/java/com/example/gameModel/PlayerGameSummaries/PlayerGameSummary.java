@@ -60,6 +60,10 @@ public class PlayerGameSummary {
         return trainHandSize;
     }
 
+    public void decTrainHandSize(int toDecBy){
+        this.trainHandSize -= toDecBy;
+    }
+
     public void incrementTrainHandSize() {
         this.trainHandSize++;
     }

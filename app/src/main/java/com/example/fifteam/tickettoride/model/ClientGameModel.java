@@ -60,6 +60,7 @@ public class ClientGameModel extends Observable {
     private boolean runningAsync;
     private Toaster toaster;
     private boolean gameOver;
+    private boolean firstTurn;
 
     private ClientGameModel(){
         this.nextTurn = null;
@@ -78,6 +79,7 @@ public class ClientGameModel extends Observable {
         this.gameOver = false;
         longestRouteOwner = null;
         longestRouteLength = 0;
+        firstTurn = true;
     }
 
     public boolean isRunningAsync() {
@@ -583,10 +585,58 @@ public class ClientGameModel extends Observable {
             this.toast("This should also not be happening username not found");
             return;
         }
+        if(claimer instanceof UserGameSummary){
+            subtractRouteCards(claimed,ownerColor,(UserGameSummary)claimer);
+        }
+        else{
+            int length = claimed.getLength();
+            claimer.decTrainHandSize(length);
+        }
         int routePoints = claimed.getPoints();
         claimer.incrementPoints(routePoints);
         setChanged();
         notifyObservers();
+    }
+
+    private void subtractRouteCards(Route route, SharedColor color, UserGameSummary user){
+        int length = route.getLength();
+        Map<SharedColor,Integer> hand = user.getHand();
+        int routeColorCount = hand.get(color);
+        if(routeColorCount >= length){
+            routeColorCount -= length;
+            hand.put(color,routeColorCount);
+        }
+        else{
+            hand.put(color,0);
+            length -= routeColorCount;
+            int rainbowCount = hand.get(SharedColor.RAINBOW);
+            rainbowCount -= length;
+            hand.put(SharedColor.RAINBOW,rainbowCount);
+        }
+    }
+
+    public boolean canClaimRoute(String routeId, SharedColor color){
+        UserGameSummary user = this.getUserSummary();
+        Route route = null;
+        for(Route r : this.routeList){
+            if(r.getRouteId().equals(routeId)){
+                route = r;
+                break;
+            }
+        }
+        if(route == null){
+            return false;
+        }
+        Map<SharedColor,Integer> hand = user.getHand();
+        if(hand.get(color) >= route.getLength()){
+            return true;
+        }
+        if(color != SharedColor.RAINBOW) {
+         if((hand.get(color) + hand.get(SharedColor.RAINBOW)) >= route.getLength()) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public List<Route> getClaimedRoutes() {
@@ -678,4 +728,13 @@ public class ClientGameModel extends Observable {
         String lastTurnMessage = username + " has initiated the last round of the game! Beware!";
         this.toast(lastTurnMessage);
     }
+
+    public boolean isFirstTurn(){
+        return this.firstTurn;
+    }
+
+    public void setFirstTurn(boolean firstTurn){
+        this.firstTurn = firstTurn;
+    }
+
 }

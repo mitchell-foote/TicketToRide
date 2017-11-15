@@ -237,6 +237,9 @@ public class ClientGameCommandFacade implements IClientCommandAccessor{
                 if(!model.getDestinationCardsToChoose().isEmpty()){
                     this.returnDestinationCard(currUserName,null);
                 }
+                if(model.isFirstTurn()){
+                    model.setFirstTurn(false);
+                }
                 endTurnEntry = "You ended your turn.";
             } else {
                 PlayerGameSummary currPlayer = model.getPlayerById(currTurn);
