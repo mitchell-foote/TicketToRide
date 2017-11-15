@@ -8,6 +8,8 @@ import com.example.gameModel.classes.TrainCard;
 import com.example.gameModel.classes.TrainLookupTable;
 import com.example.model.enums.SharedColor;
 
+import java.util.List;
+
 /**
  * Created by samks on 11/12/2017.
  */
@@ -38,7 +40,7 @@ public class DrawTrainCardState implements FacadeState {
             facade.endTurn();
         }
     }
-    public void returnDestCard(String cardId, Toaster toaster){
+    public void returnDestCard(List<String> cardId, Toaster toaster){
         if(toaster != null) {
             toaster.displayMessage("Invalid choice, Train Card Turn");
         }

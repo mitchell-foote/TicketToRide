@@ -7,6 +7,8 @@ import com.example.fifteam.tickettoride.model.ClientGameModel;
 import com.example.fifteam.tickettoride.model.ClientGamePresenterFacade;
 import com.example.model.enums.SharedColor;
 
+import java.util.List;
+
 /**
  * Created by samks on 11/12/2017.
  */
@@ -23,16 +25,20 @@ public class DrawDestCardState implements FacadeState {
             toaster.displayMessage("You chose draw TrainCard, action invalid");
         }
     }
-    public void returnDestCard(String cardId, Toaster toaster){
+    public void returnDestCard(List<String> cardIds, Toaster toaster){
         ClientGameModel model = ClientGameModel.getInstance();
         String authId = model.getAuthToken();
         String gameId = model.getGameID();
-        if(cardId != null) {
-            new ReturnDestinationCardAsyncTask().execute(authId, cardId, gameId);
+        for(String s: cardIds){
+            try {
+                new ReturnDestinationCardAsyncTask().execute(authId, s, gameId).get();
+            }
+            catch (Exception e){
+                toaster.displayMessage(e.getMessage());
+            }
         }
-        else{
-            facade.endTurn();
-        }
+        facade.endTurn();
+
     }
     public void claimRoute(String routeId,SharedColor color,Toaster toaster){
         if(toaster != null) {

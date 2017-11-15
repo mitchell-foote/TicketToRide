@@ -3,6 +3,8 @@ package com.example.fifteam.tickettoride.model.facadeStates;
 import com.example.fifteam.tickettoride.interfaces.Toaster;
 import com.example.model.enums.SharedColor;
 
+import java.util.List;
+
 /**
  * Created by samks on 11/12/2017.
  */
@@ -17,7 +19,7 @@ public class NotYourTurnState implements FacadeState {
             toaster.displayMessage("Not your turn, action invalid");
         }
     }
-    public void returnDestCard(String cardId, Toaster toaster){
+    public void returnDestCard(List<String> cardId, Toaster toaster){
         if(toaster != null) {
             toaster.displayMessage("Not your turn, action invalid");
         }

@@ -63,6 +63,7 @@ public class DestinationCardsPresenter implements Observer{
             destinations.remove(0);
         }
 
+        /*
         if (toDiscard.size() == 0) {
             ClientGamePresenterFacade.getInstance().discardDestCard(null, null);
         } else {
@@ -70,6 +71,15 @@ public class DestinationCardsPresenter implements Observer{
                 ClientGamePresenterFacade.getInstance().discardDestCard(destination.getReferenceId(), null);
             }
         }
+        */
+        //todo kc i commented out your code and put a temporary implementation to accomodate the changes,
+        // feel free to change whatever, I also as you can see didnt get rid of you old code, so feel free to do whatever
+        List<String> listToDiscard = new ArrayList<>();
+        for(DestinationCard card : toDiscard){
+            listToDiscard.add(card.getReferenceId());
+        }
+        ClientGamePresenterFacade.getInstance().discardDestCard(listToDiscard,null);
+
         view.setIsSelectingDestinations(false);
         view.updateAdapter();
     }

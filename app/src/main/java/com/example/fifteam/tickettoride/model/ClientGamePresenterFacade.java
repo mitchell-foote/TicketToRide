@@ -84,7 +84,7 @@ public class ClientGamePresenterFacade {
         new ChatAsyncTask().execute(message);
     }
 
-    public void discardDestCard(String cardId, Toaster toaster){
+    public void discardDestCard(List<String> cardId, Toaster toaster){
         state.returnDestCard(cardId,toaster);
     }
 
