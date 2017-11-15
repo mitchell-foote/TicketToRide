@@ -41,8 +41,7 @@ public class GameView extends FragmentActivity implements OnMapReadyCallback {
     private TextView cardCountRainbow;
     private TextView trainCount;
     private TextView pointsCount;
-
-    private GamePresenter presenter;
+    private LinearLayout toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,11 +60,13 @@ public class GameView extends FragmentActivity implements OnMapReadyCallback {
 
         initializeButtons();
         initializeTextViews();
+        toolbar = (LinearLayout) findViewById(R.id.game_top_toolbar);
 
-        presenter = new GamePresenter(this);
+        GamePresenter presenter = new GamePresenter(this);
+        presenter.updateInfo();
+    }
 
-        LinearLayout toolbar = (LinearLayout) findViewById(R.id.game_top_toolbar);
-        int userColor = presenter.getUserColor();
+    public void setToolbarColor(int userColor) {
         toolbar.setBackgroundColor(userColor);
     }
 
@@ -160,10 +161,6 @@ public class GameView extends FragmentActivity implements OnMapReadyCallback {
         pointsCount = (TextView)  findViewById(R.id.toolBar_points);
     }
 
-    public void setUsername(String username) {
-        usernameTextView.setText(username);
-    }
-
     public void setHand(int black, int blue, int green, int orange, int purple, int red, int white, int yellow, int rainbow) {
         cardCountBlack.setText(String.valueOf(black));
         cardCountBlue.setText(String.valueOf(blue));
@@ -174,6 +171,10 @@ public class GameView extends FragmentActivity implements OnMapReadyCallback {
         cardCountWhite.setText(String.valueOf(white));
         cardCountYellow.setText(String.valueOf(yellow));
         cardCountRainbow.setText(String.valueOf(rainbow));
+    }
+
+    public void setUsername(String username) {
+        usernameTextView.setText(username);
     }
 
     public void setTrainCount(int trains) {

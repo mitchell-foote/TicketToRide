@@ -17,21 +17,21 @@ public enum SharedColor {
     public static int sharedColorToHex(SharedColor color) {
         switch (color) {
             case RED:
-                return 0xFFFF0000;
+                return 0xffe94d4d;
             case ORANGE:
-                return 0xFFFFA500;
+                return 0xffe94d4d;
             case YELLOW:
-                return 0xFFFFFF00;
+                return 0xffe8e94d;
             case GREEN:
-                return 0xFF00FF00;
+                return 0xff7add7a;
             case BLUE:
-                return 0xFF0000FF;
+                return 0xff5959ff;
             case PURPLE:
-                return 0xFFFF00FF;
+                return 0xffe36ae3;
             case BLACK:
-                return 0xFF505050;
+                return 0xff505050;
             case WHITE:
-                return 0xFFFFFFFF;
+                return 0xfff8f8f8;
             default:
                 return 0xFF000000;
         }

@@ -19,18 +19,28 @@ public class GamePresenter implements Observer{
 
     public GamePresenter(GameView view) {
         this.view = view;
+
         ClientGamePresenterFacade.getInstance().addObserver(this);
+
         view.setUsername(ClientFacade.getInstance().getUser().getName());
+        view.setToolbarColor(getUserColor());
+
+        updateInfo();
     }
 
 
     @Override
     public void update(Observable o, Object arg) {
+        updateInfo();
+    }
+
+    public void updateInfo() {
         int trains = ClientGamePresenterFacade.getInstance().getUserTrainCount();
         view.setTrainCount(trains);
 
         int points = ClientGamePresenterFacade.getInstance().getUserPoints();
         view.setPoints(points);
+
         setHand(ClientGamePresenterFacade.getInstance().getUserHand());
     }
 
