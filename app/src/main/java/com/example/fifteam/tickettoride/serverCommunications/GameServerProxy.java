@@ -5,6 +5,7 @@ import android.graphics.Path;
 import com.example.communication.BaseRequest;
 import com.example.communication.BaseResponse;
 import com.example.communication.PathHolder;
+import com.example.gameCommunication.commands.classes.CommandSerializationHelper.CommandSerializationHelper;
 import com.example.gameCommunication.commands.classes.commandData.client.AddDestinationCardClientCommandData;
 import com.example.gameCommunication.commands.classes.commandData.client.AddFaceUpTrainCardClientCommandData;
 import com.example.gameCommunication.commands.classes.commandData.client.AddTrainCardClientCommandData;
@@ -42,7 +43,7 @@ public class GameServerProxy implements IGameAccessor
     public String drawTrainCard(String authId, String gameId)
     {
         try{
-            BaseResponse response = connection.post(PathHolder.getHost(), PathHolder.getPort(), PathHolder.getInGameCommandsURL(),authId, new BaseRequest("drawTrain", new CommandContainer(CommandTypesEnum.AddTrainCard, new AddTrainCarCommandData(authId,gameId))));
+            BaseResponse response = connection.post(PathHolder.getInstance().getClientHost(), PathHolder.getPort(), PathHolder.getInGameCommandsURL(),authId, new BaseRequest("drawTrain", new CommandContainer(CommandTypesEnum.AddTrainCard, new AddTrainCarCommandData(authId,gameId))));
         }
         catch(Exception e){
 
@@ -55,40 +56,13 @@ public class GameServerProxy implements IGameAccessor
     {
         try
         {
-            BaseResponse response = connection.post(PathHolder.getHost(), PathHolder.getPort(), PathHolder.getGameCommandListURL(),authId, new BaseRequest("CommandListPlz", new CommandContainer(CommandTypesEnum.GetCommands, new GetCommandListCommandData(lastCommandHash, authId, gameId))));
+            BaseResponse response = connection.post(PathHolder.getInstance().getClientHost(), PathHolder.getPort(), PathHolder.getGameCommandListURL(),authId, new BaseRequest("CommandListPlz", new CommandContainer(CommandTypesEnum.GetCommands, new GetCommandListCommandData(lastCommandHash, authId, gameId))));
             String listJson = new Gson().toJson(response.response);
 
             List<CommandContainer> gameList = new ArrayList<>(Arrays.asList(new Gson().fromJson(listJson, CommandContainer[].class)));
+
             for(CommandContainer cc : gameList){
-                switch(cc.getType()){
-                    case AddDestination:{
-                        cc.Data = new Gson().fromJson(new Gson().toJson(cc.Data), AddDestinationCardClientCommandData.class);
-                        break;
-                    }
-                    case AddTrainCard:{
-                        cc.Data = new Gson().fromJson(new Gson().toJson(cc.Data), AddTrainCardClientCommandData.class);
-                        break;
-                    }
-                    case AddFaceUpTrain:{
-                        cc.Data = new Gson().fromJson(new Gson().toJson(cc.Data), AddFaceUpTrainCardClientCommandData.class);
-                        break;
-                    }
-                    case PostMessage:{
-                        cc.Data = new Gson().fromJson(new Gson().toJson(cc.Data), PostMessageClientCommandData.class);
-                        break;
-                    }
-                    case ReturnDestinationCard: {
-                        cc.Data = new Gson().fromJson(new Gson().toJson(cc.Data), ReturnDestinationCardClientCommandData.class);
-                        break;
-                    }
-                    case NextOrEndTurn:{
-                        cc.Data = new Gson().fromJson(new Gson().toJson(cc.Data), NextTurnClientCommandData.class);
-                        break;
-                    }
-                    default:{
-                        return null;
-                    }
-                }
+                CommandSerializationHelper.getInstance().DeSerializeClient(cc, true);
             }
             return gameList;
         } catch (Exception e)
@@ -104,7 +78,7 @@ public class GameServerProxy implements IGameAccessor
     {
         try
         {
-            BaseResponse response = connection.post(PathHolder.getHost(), PathHolder.getPort(), PathHolder.getInGameCommandsURL(),authId, new BaseRequest("message", new CommandContainer(CommandTypesEnum.PostMessage, new PostMessageCommandData(message,authId,gameId))));
+            BaseResponse response = connection.post(PathHolder.getInstance().getClientHost(), PathHolder.getPort(), PathHolder.getInGameCommandsURL(),authId, new BaseRequest("message", new CommandContainer(CommandTypesEnum.PostMessage, new PostMessageCommandData(message,authId,gameId))));
         } catch (Exception e)
         {
             e.printStackTrace();
@@ -117,7 +91,7 @@ public class GameServerProxy implements IGameAccessor
     {
         try
         {
-            BaseResponse response = connection.post(PathHolder.getHost(), PathHolder.getPort(), PathHolder.getInGameCommandsURL(),authId, new BaseRequest("drawDestination", new CommandContainer(CommandTypesEnum.AddDestination, new AddDestinationCardCommandData(authId,gameId))));
+            BaseResponse response = connection.post(PathHolder.getInstance().getClientHost(), PathHolder.getPort(), PathHolder.getInGameCommandsURL(),authId, new BaseRequest("drawDestination", new CommandContainer(CommandTypesEnum.AddDestination, new AddDestinationCardCommandData(authId,gameId))));
         } catch (Exception e)
         {
             e.printStackTrace();
@@ -130,7 +104,7 @@ public class GameServerProxy implements IGameAccessor
     {
         try
         {
-            BaseResponse response = connection.post(PathHolder.getHost(), PathHolder.getPort(), PathHolder.getInGameCommandsURL(),authId, new BaseRequest("returnDestination", new CommandContainer(CommandTypesEnum.ReturnDestinationCard, new ReturnDestinationCardCommandData(authId, cardId, gameId))));
+            BaseResponse response = connection.post(PathHolder.getInstance().getClientHost(), PathHolder.getPort(), PathHolder.getInGameCommandsURL(),authId, new BaseRequest("returnDestination", new CommandContainer(CommandTypesEnum.ReturnDestinationCard, new ReturnDestinationCardCommandData(authId, cardId, gameId))));
         } catch (Exception e)
         {
             e.printStackTrace();
@@ -144,7 +118,7 @@ public class GameServerProxy implements IGameAccessor
     {
         try
         {
-            BaseResponse response = connection.post(PathHolder.getHost(), PathHolder.getPort(), PathHolder.getInGameCommandsURL(),authId, new BaseRequest("endTurn", new CommandContainer(CommandTypesEnum.NextOrEndTurn, new EndTurnCommandData(authId, gameId))));
+            BaseResponse response = connection.post(PathHolder.getInstance().getClientHost(), PathHolder.getPort(), PathHolder.getInGameCommandsURL(),authId, new BaseRequest("endTurn", new CommandContainer(CommandTypesEnum.NextOrEndTurn, new EndTurnCommandData(authId, gameId))));
         } catch (Exception e)
         {
             e.printStackTrace();
@@ -158,7 +132,7 @@ public class GameServerProxy implements IGameAccessor
     {
         try
         {
-            BaseResponse response = connection.post(PathHolder.getHost(), PathHolder.getPort(), PathHolder.getInGameCommandsURL(),authId, new BaseRequest("addFaceUpTrain", new CommandContainer(CommandTypesEnum.AddFaceUpTrain, new AddFaceUpTrainCardCommandData(authId, cardId, gameId))));
+            BaseResponse response = connection.post(PathHolder.getInstance().getClientHost(), PathHolder.getPort(), PathHolder.getInGameCommandsURL(),authId, new BaseRequest("addFaceUpTrain", new CommandContainer(CommandTypesEnum.AddFaceUpTrain, new AddFaceUpTrainCardCommandData(authId, cardId, gameId))));
         } catch (Exception e)
         {
             e.printStackTrace();
@@ -171,7 +145,7 @@ public class GameServerProxy implements IGameAccessor
     public String swapTrainCard(String authId, String gameId, String oldCardId)
     {
         try{
-            BaseResponse response = connection.post(PathHolder.getHost(), PathHolder.getPort(), PathHolder.getInGameCommandsURL(), authId, new BaseRequest("swapTrainCard", new CommandContainer(CommandTypesEnum.SwapTrainCards, new SwapTrainCardCommandData(authId,gameId,oldCardId))));
+            BaseResponse response = connection.post(PathHolder.getInstance().getClientHost(), PathHolder.getPort(), PathHolder.getInGameCommandsURL(), authId, new BaseRequest("swapTrainCard", new CommandContainer(CommandTypesEnum.SwapTrainCards, new SwapTrainCardCommandData(authId,gameId,oldCardId))));
         } catch (Exception e)
         {
             e.printStackTrace();
@@ -184,7 +158,7 @@ public class GameServerProxy implements IGameAccessor
     public String claimRoute(String authId, String gameId, String routeId, SharedColor color)
     {
         try {
-            BaseResponse response = connection.post(PathHolder.getHost(), PathHolder.getPort(), PathHolder.getInGameCommandsURL(), authId, new BaseRequest("claimRoute", new CommandContainer(CommandTypesEnum.ClaimRoute, new ClaimRouteCommandData(authId, gameId, routeId, color))));
+            BaseResponse response = connection.post(PathHolder.getInstance().getClientHost(), PathHolder.getPort(), PathHolder.getInGameCommandsURL(), authId, new BaseRequest("claimRoute", new CommandContainer(CommandTypesEnum.ClaimRoute, new ClaimRouteCommandData(authId, gameId, routeId, color))));
         } catch (Exception e)
         {
             e.printStackTrace();

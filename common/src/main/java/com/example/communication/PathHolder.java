@@ -7,6 +7,13 @@ import java.nio.file.Path;
  */
 public class PathHolder
 {
+    private static PathHolder instance = new PathHolder();
+    public static PathHolder getInstance(){
+        if(instance == null){
+            instance = new PathHolder();
+        }
+        return instance;
+    }
     // Makes it static
     private PathHolder(){}
     public static String getLoginURL()
@@ -39,5 +46,12 @@ public class PathHolder
     public static String getHost(){ return "10.0.2.2";}
     //public static String getHost() {return "localhost";}
     public static String getPort() {return "30001";}
+    private String host = "10.0.2.2";
+    public void setHost(String host){
+        this.host = host;
+    }
+    public String getClientHost(){
+        return this.host;
+    }
 
 }
