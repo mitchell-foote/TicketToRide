@@ -39,12 +39,10 @@ public class TrainCardsPresenter implements Observer, Toaster {
         }
 
         return colors;
-        //return new SharedColor[]{SharedColor.GREEN, SharedColor.BLACK, SharedColor.ORANGE, SharedColor.PURPLE, SharedColor.WHITE};
     }
 
     public void drawCardFromDeck() {
-        //TODO: get a way to draw the face-down card from the deck
-        return;
+        ClientGamePresenterFacade.getInstance().drawTrainCard(null, this);
     }
 
     public void drawFaceUpCard(int pos) {
