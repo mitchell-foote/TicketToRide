@@ -1,15 +1,44 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#70B77E"
     tools:context="com.example.fifteam.tickettoride.views.inGameViews.PlayerInfoFragment">
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="10dp">
+
+        <ImageView
+            android:id="@+id/playerInfo_longestRouteStar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:adjustViewBounds="true"
+            android:maxHeight="20dp"
+            android:src="@drawable/ic_star_rate_white_18dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Longest Route: "
+            android:id="@+id/playerInfo_longestRouteLabel" />
+
+        <TextView
+            android:id="@+id/playerInfo_longestRoutePlayer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="playername" />
+
+    </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/player_info_recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_margin="20dp"
         />
-</FrameLayout>
+</LinearLayout>

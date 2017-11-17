@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -29,6 +30,7 @@ public class GameView extends FragmentActivity implements OnMapReadyCallback {
     private ImageButton chatButton;
     private ImageButton historyButton;
 
+    private ImageView longestRouteStar;
     private TextView usernameTextView;
     private TextView cardCountBlack;
     private TextView cardCountBlue;
@@ -61,6 +63,7 @@ public class GameView extends FragmentActivity implements OnMapReadyCallback {
         initializeButtons();
         initializeTextViews();
         toolbar = (LinearLayout) findViewById(R.id.game_top_toolbar);
+        longestRouteStar = (ImageView) findViewById(R.id.toolBar_longestRouteStar);
 
         GamePresenter presenter = new GamePresenter(this);
         presenter.updateInfo();
@@ -183,5 +186,13 @@ public class GameView extends FragmentActivity implements OnMapReadyCallback {
 
     public void setPoints(int points) {
         pointsCount.setText(String.valueOf(points));
+    }
+
+    public void setHasLongestRoute(boolean hasLongestRoute) {
+        if (hasLongestRoute) {
+            longestRouteStar.setVisibility(View.VISIBLE);
+        } else {
+            longestRouteStar.setVisibility(View.INVISIBLE);
+        }
     }
 }
