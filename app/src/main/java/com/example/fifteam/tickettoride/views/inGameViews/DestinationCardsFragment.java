@@ -82,7 +82,6 @@ public class DestinationCardsFragment extends Fragment {
             }
         });
 
-        setIsSelectingDestinations(false);
         presenter.checkForDestinations();
         myDestLabel.setText("Your Destinations: (" + presenter.getMyDestinations().size() + ")");
 

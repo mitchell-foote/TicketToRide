@@ -13,7 +13,7 @@ import java.util.Observer;
  * Created by kcwillmore on 10/31/17.
  */
 
-public class DestinationCardsPresenter implements Observer{
+public class DestinationCardsPresenter implements Observer {
 
     private DestinationCardsFragment view;
 
@@ -29,14 +29,18 @@ public class DestinationCardsPresenter implements Observer{
     }
 
     public void checkForDestinations() {
-        List<DestinationCard> destinations = ClientGamePresenterFacade.getInstance().getFaceUpDestinationCards();
-        if (destinations.size() == 3) {
-            String destination0 = destinations.get(0).toString();
-            String destination1 = destinations.get(1).toString();
-            String destination2 = destinations.get(2).toString();
+        if (ClientGamePresenterFacade.getInstance().isUserTurn()) {
+            List<DestinationCard> destinations = ClientGamePresenterFacade.getInstance().getFaceUpDestinationCards();
+            if (destinations.size() == 3) {
+                String destination0 = destinations.get(0).toString();
+                String destination1 = destinations.get(1).toString();
+                String destination2 = destinations.get(2).toString();
 
-            view.setIsSelectingDestinations(true);
-            view.setDestinationText(destination0, destination1, destination2);
+                view.setIsSelectingDestinations(true);
+                view.setDestinationText(destination0, destination1, destination2);
+            }
+        } else {
+            view.setIsSelectingDestinations(false);
         }
     }
 
@@ -59,7 +63,7 @@ public class DestinationCardsPresenter implements Observer{
             toDiscard.add(destinations.get(2).getReferenceId());
         }
 
-        ClientGamePresenterFacade.getInstance().discardDestCard(toDiscard,null);
+        ClientGamePresenterFacade.getInstance().discardDestCard(toDiscard, null);
 
         view.setIsSelectingDestinations(false);
         view.updateAdapter();

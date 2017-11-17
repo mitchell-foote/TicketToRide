@@ -8,6 +8,7 @@ import com.example.fifteam.tickettoride.model.facadeStates.ClaimRouteState;
 import com.example.fifteam.tickettoride.model.facadeStates.DrawDestCardState;
 import com.example.fifteam.tickettoride.model.facadeStates.DrawTrainCardState;
 import com.example.fifteam.tickettoride.model.facadeStates.FacadeState;
+import com.example.fifteam.tickettoride.model.facadeStates.FirstTurnState;
 import com.example.fifteam.tickettoride.model.facadeStates.NotYourTurnState;
 import com.example.gameModel.PlayerGameSummaries.PlayerGameSummary;
 import com.example.gameModel.PlayerGameSummaries.UserGameSummary;
@@ -37,7 +38,7 @@ public class ClientGamePresenterFacade {
     }
 
     private ClientGamePresenterFacade() {
-        this.state = new NotYourTurnState();
+        this.state = new FirstTurnState(this);
     }
 
     public void addObserver(Observer toAdd){
