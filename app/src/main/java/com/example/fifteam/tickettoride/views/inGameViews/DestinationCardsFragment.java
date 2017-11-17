@@ -118,7 +118,7 @@ public class DestinationCardsFragment extends Fragment {
         option2CheckBox.setEnabled(enable);
 
         if (enable) {
-            selectDestinationsButton.setEnabled(numberDestinationsSelected() >= 2);
+            selectDestinationsButton.setEnabled(enoughDestinationsSelected());
         } else {
             setDestinationText("X", "X", "X");
             selectDestinationsButton.setEnabled(false);
@@ -134,7 +134,7 @@ public class DestinationCardsFragment extends Fragment {
     }
 
     public boolean enoughDestinationsSelected() {
-        return numberDestinationsSelected() >= 2;
+        return numberDestinationsSelected() >= presenter.minRequiredDestinations();
     }
 
     public void setDestinationText(String destination0, String destination1, String destination2) {

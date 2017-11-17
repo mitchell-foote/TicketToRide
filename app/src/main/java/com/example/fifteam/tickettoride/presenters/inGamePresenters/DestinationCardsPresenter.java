@@ -15,7 +15,6 @@ import java.util.Observer;
 
 public class DestinationCardsPresenter implements Observer{
 
-    //todo kc, change the way destination cards works for non initial turns in some way, I am open to suggestion
     private DestinationCardsFragment view;
 
     public DestinationCardsPresenter(DestinationCardsFragment view) {
@@ -47,40 +46,30 @@ public class DestinationCardsPresenter implements Observer{
 
     public void selectDestinations(boolean checked0, boolean checked1, boolean checked2) {
         List<DestinationCard> destinations = ClientGamePresenterFacade.getInstance().getFaceUpDestinationCards();
-        List<DestinationCard> toDiscard = new ArrayList<>();
+        List<String> toDiscard = new ArrayList<>();
 
-        //destinations becomes a list of the cards we will discard, to suit the facade
-        if (!checked2) {
-            toDiscard.add(destinations.get(2));
-            destinations.remove(2);
+        //construct a list of the cards we will discard, to suit the facade
+        if (!checked0) {
+            toDiscard.add(destinations.get(0).getReferenceId());
         }
         if (!checked1) {
-            toDiscard.add(destinations.get(1));
-            destinations.remove(1);
+            toDiscard.add(destinations.get(1).getReferenceId());
         }
-        if (!checked0) {
-            toDiscard.add(destinations.get(0));
-            destinations.remove(0);
+        if (!checked2) {
+            toDiscard.add(destinations.get(2).getReferenceId());
         }
 
-        /*
-        if (toDiscard.size() == 0) {
-            ClientGamePresenterFacade.getInstance().discardDestCard(null, null);
-        } else {
-            for (DestinationCard destination : toDiscard) {
-                ClientGamePresenterFacade.getInstance().discardDestCard(destination.getReferenceId(), null);
-            }
-        }
-        */
-        //todo kc i commented out your code and put a temporary implementation to accomodate the changes,
-        // feel free to change whatever, I also as you can see didnt get rid of you old code, so feel free to do whatever
-        List<String> listToDiscard = new ArrayList<>();
-        for(DestinationCard card : toDiscard){
-            listToDiscard.add(card.getReferenceId());
-        }
-        ClientGamePresenterFacade.getInstance().discardDestCard(listToDiscard,null);
+        ClientGamePresenterFacade.getInstance().discardDestCard(toDiscard,null);
 
         view.setIsSelectingDestinations(false);
         view.updateAdapter();
+    }
+
+    public int minRequiredDestinations() {
+        if (ClientGamePresenterFacade.getInstance().isFirstTurn()) {
+            return 2;
+        } else {
+            return 1;
+        }
     }
 }
