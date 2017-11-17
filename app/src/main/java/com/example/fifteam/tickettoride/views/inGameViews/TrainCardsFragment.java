@@ -98,10 +98,7 @@ public class TrainCardsFragment extends Fragment {
             faceUpTrainCards[i].setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
-                    //this is for demo purposes
-                    faceUpTrainCards[pos].setImageResource(colorToResource(SharedColor.RAINBOW));
-                    //Toast.makeText(getActivity(), toastText, Toast.LENGTH_SHORT).show();
+                    presenter.drawFaceUpCard(pos);
                 }
             });
         }
@@ -109,7 +106,7 @@ public class TrainCardsFragment extends Fragment {
         trainCardDeck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(), "Can't draw card from deck yet!", Toast.LENGTH_SHORT).show();
+                presenter.drawCardFromDeck();
             }
         });
     }
@@ -158,6 +155,12 @@ public class TrainCardsFragment extends Fragment {
                 return R.drawable.card_wagon_white;
             default:
                 return R.drawable.card_train_back;
+        }
+    }
+
+    public void displayMessage(String message) {
+        if (message != null) {
+            Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
         }
     }
 }
