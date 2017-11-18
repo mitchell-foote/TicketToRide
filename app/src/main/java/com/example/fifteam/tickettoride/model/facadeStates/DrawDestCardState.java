@@ -37,6 +37,7 @@ public class DrawDestCardState implements FacadeState {
             }
             catch (Exception e){
                 toaster.displayMessage(e.getMessage());
+                return;
             }
         }
         facade.endTurn();
