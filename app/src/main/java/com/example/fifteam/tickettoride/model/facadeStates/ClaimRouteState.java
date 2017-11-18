@@ -33,8 +33,9 @@ public class ClaimRouteState implements FacadeState {
     }
     public void claimRoute(String routeId, SharedColor color,Toaster toaster){
         ClientGameModel model = ClientGameModel.getInstance();
-        if(!model.canClaimRoute(routeId,color)){
-            toaster.displayMessage("The Route cannot be claimed, insufficient Train Cards");
+        String message = model.canClaimRoute(routeId,color);
+        if(message != null){
+            toaster.displayMessage(message);
             return;
         }
         ClaimRouteParamObj params = new ClaimRouteParamObj(routeId,color);

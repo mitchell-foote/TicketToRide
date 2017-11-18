@@ -615,7 +615,7 @@ public class ClientGameModel extends Observable {
         }
     }
 
-    public boolean canClaimRoute(String routeId, SharedColor color){
+    public String canClaimRoute(String routeId, SharedColor color){
         UserGameSummary user = this.getUserSummary();
         Route route = null;
         for(Route r : this.routeList){
@@ -625,18 +625,24 @@ public class ClientGameModel extends Observable {
             }
         }
         if(route == null){
-            return false;
+            return "route does not exist";
+        }
+        if(!route.isClaimable()){
+            return "route already claimed";
+        }
+        if(route.getColor() != color && (route.getColor() != SharedColor.RAINBOW)){
+            return "Train card color chosen does not match color of the Route";
         }
         Map<SharedColor,Integer> hand = user.getHand();
         if(hand.get(color) >= route.getLength()){
-            return true;
+            return null;
         }
         if(color != SharedColor.RAINBOW) {
          if((hand.get(color) + hand.get(SharedColor.RAINBOW)) >= route.getLength()) {
-                return true;
+                return null;
             }
         }
-        return false;
+        return "You do not have enough cards to claim route";
     }
 
     public List<Route> getClaimedRoutes() {
