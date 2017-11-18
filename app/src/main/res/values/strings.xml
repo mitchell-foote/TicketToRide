@@ -1,4 +1,16 @@
 <resources>
     <string name="app_name">TicketToRide</string>
     <string name="title_activity_game_view">Map</string>
+
+    <string-array name="colors">
+        <item>Rainbow</item>
+        <item>Red</item>
+        <item>Orange</item>
+        <item>Yellow</item>
+        <item>Green</item>
+        <item>Blue</item>
+        <item>Purple</item>
+        <item>Black</item>
+        <item>White</item>
+    </string-array>
 </resources>
