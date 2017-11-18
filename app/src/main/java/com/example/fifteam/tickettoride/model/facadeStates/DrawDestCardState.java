@@ -17,7 +17,9 @@ public class DrawDestCardState implements FacadeState {
     private ClientGamePresenterFacade facade;
     public DrawDestCardState(ClientGamePresenterFacade facade) {
         this.facade = facade;
-        new DrawDestCardAsynTask().execute();
+        if(!facade.isFirstTurn()) {
+            new DrawDestCardAsynTask().execute();
+        }
     }
 
     public void drawTrainCard(String cardId, Toaster toaster){

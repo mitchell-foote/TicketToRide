@@ -38,7 +38,7 @@ public class ClientGamePresenterFacade {
     }
 
     private ClientGamePresenterFacade() {
-        this.state = new FirstTurnState(this);
+        this.state = new NotYourTurnState();
     }
 
     public void addObserver(Observer toAdd){

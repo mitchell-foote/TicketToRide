@@ -1,5 +1,6 @@
 package com.example.fifteam.tickettoride.model;
 
+import com.example.fifteam.tickettoride.model.facadeEnums.TurnType;
 import com.example.gameModel.PlayerGameSummaries.PlayerGameSummary;
 import com.example.gameModel.PlayerGameSummaries.UserGameSummary;
 import com.example.gameModel.classes.ChatEntry;
@@ -224,6 +225,9 @@ public class ClientGameCommandFacade implements IClientCommandAccessor{
 
         if(nextUser.equals(currUserName)){
             model.setUserTurn(true);
+            if(model.isFirstTurn()){
+                ClientGamePresenterFacade.getInstance().setTurnChoice(TurnType.DrawDestCard);
+            }
         }
         else{
             model.setUserTurn(false);
