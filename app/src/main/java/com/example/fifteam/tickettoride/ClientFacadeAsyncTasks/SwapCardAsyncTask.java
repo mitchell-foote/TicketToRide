@@ -20,7 +20,7 @@ public class SwapCardAsyncTask extends AsyncTask<String, Void, Void> {
         String cardId = strings[0];
 
         GameServerProxy proxy = new GameServerProxy();
-        proxy.swapTrainCard(authId,gameId,cardId);
+        proxy.addFaceUpTrainCard(authId,cardId,gameId);
 
         return null;
     }
