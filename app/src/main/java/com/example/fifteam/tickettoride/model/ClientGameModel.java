@@ -63,6 +63,9 @@ public class ClientGameModel extends Observable {
     private boolean firstTurn;
     private boolean pickTurnChoice;
 
+    private Route currentlySelectedRoute;
+    private Toaster gameMapToaster;
+
     private ClientGameModel(){
         this.nextTurn = null;
         this.playerSummaryMap = new HashMap<>();
@@ -81,6 +84,7 @@ public class ClientGameModel extends Observable {
         longestRouteOwner = null;
         longestRouteLength = 0;
         firstTurn = true;
+        currentlySelectedRoute = null;
     }
 
     public boolean isRunningAsync() {
@@ -237,6 +241,21 @@ public class ClientGameModel extends Observable {
         notifyObservers();
     }
 
+    public Route getCurrentlySelectedRoute() {
+        return currentlySelectedRoute;
+    }
+
+    public void setCurrentlySelectedRoute(Route currentlySelectedRoute) {
+        this.currentlySelectedRoute = currentlySelectedRoute;
+    }
+
+    public Toaster getGameMapToaster() {
+        return gameMapToaster;
+    }
+
+    public void setGameMapToaster(Toaster gameMapToaster) {
+        this.gameMapToaster = gameMapToaster;
+    }
 
     public UserGameSummary getUserSummary() {
         return userSummary;

@@ -215,6 +215,21 @@ public class ClientGamePresenterFacade {
         model.setPickTurnChoice(false);
     }
 
+    public Route getCurrentlySelectedRoute() {
+        return model.getCurrentlySelectedRoute();
+    }
+
+    public void setCurrentlySelectedRoute(Route r) {
+        model.setCurrentlySelectedRoute(r);
+    }
+
+    public Toaster getGameMapToaster() {
+        return model.getGameMapToaster();
+    }
+
+    public void setGameMapToaster(Toaster t) {
+        model.setGameMapToaster(t);
+    }
 
     public boolean isFirstTurn(){
         return model.isFirstTurn();

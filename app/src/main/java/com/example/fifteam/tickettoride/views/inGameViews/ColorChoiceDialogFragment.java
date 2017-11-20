@@ -13,6 +13,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.fifteam.tickettoride.R;
+import com.example.fifteam.tickettoride.interfaces.Toaster;
+import com.example.fifteam.tickettoride.model.ClientGamePresenterFacade;
+import com.example.gameModel.classes.Route;
+import com.example.model.enums.SharedColor;
 
 import org.w3c.dom.Text;
 
@@ -44,33 +48,36 @@ public class ColorChoiceDialogFragment extends DialogFragment {
         builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 String color_name = (String) colorSelectionSpinner.getSelectedItem();
+                Route r = ClientGamePresenterFacade.getInstance().getCurrentlySelectedRoute();
+                Toaster t = ClientGamePresenterFacade.getInstance().getGameMapToaster();
+                ClientGamePresenterFacade instance = ClientGamePresenterFacade.getInstance();
                 switch(color_name) {
                     case "Rainbow":
-                        makeToast("You selected Rainbow.");
+                        instance.claimRoute(r.getRouteId(), SharedColor.RAINBOW, t);
                         break;
                     case "Red":
-                        makeToast("You selected Red.");
+                        instance.claimRoute(r.getRouteId(), SharedColor.RED, t);
                         break;
                     case "Orange":
-                        makeToast("You selected Orange.");
+                        instance.claimRoute(r.getRouteId(), SharedColor.ORANGE, t);
                         break;
                     case "Yellow":
-                        makeToast("You selected Yellow.");
+                        instance.claimRoute(r.getRouteId(), SharedColor.YELLOW, t);
                         break;
                     case "Green":
-                        makeToast("You selected Green.");
+                        instance.claimRoute(r.getRouteId(), SharedColor.GREEN, t);
                         break;
                     case "Blue":
-                        makeToast("You selected Blue.");
+                        instance.claimRoute(r.getRouteId(), SharedColor.BLUE, t);
                         break;
                     case "Purple":
-                        makeToast("You selected Purple.");
+                        instance.claimRoute(r.getRouteId(), SharedColor.PURPLE, t);
                         break;
                     case "Black":
-                        makeToast("You selected Black.");
+                        instance.claimRoute(r.getRouteId(), SharedColor.BLACK, t);
                         break;
                     case "White":
-                        makeToast("You selected White.");
+                        instance.claimRoute(r.getRouteId(), SharedColor.WHITE, t);
                         break;
                 }
                 ColorChoiceDialogFragment.this.getDialog().dismiss();

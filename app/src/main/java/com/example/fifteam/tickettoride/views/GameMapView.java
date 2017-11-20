@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.fifteam.tickettoride.ClientFacadeAsyncTasks.DemoAsyncTask;
 import com.example.fifteam.tickettoride.R;
@@ -77,12 +78,13 @@ public class GameMapView extends SupportMapFragment implements OnMapReadyCallbac
         lengthText = (TextView) v.findViewById(R.id.length_text);
         pointsText = (TextView) v.findViewById(R.id.points_text);
         claimButton = (Button) v.findViewById(R.id.demo_button);
-        //routeNameText = (TextView) v.findViewById(R.id.route_name_text);
+        routeNameText = (TextView) v.findViewById(R.id.route_name_text);
 
         claimButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
+                ClientGamePresenterFacade.getInstance().setGameMapToaster(presenter);
                 showColorChoiceDialog();
             }
         });
@@ -123,8 +125,13 @@ public class GameMapView extends SupportMapFragment implements OnMapReadyCallbac
             @Override
             public void onPolygonClick(Polygon polygon) {
                 Route r = (Route) polygon.getTag();
+                ClientGamePresenterFacade.getInstance().setCurrentlySelectedRoute(r);
                 Integer routeLength = r.getLength();
                 Integer pointValue = r.getPoints();
+                String cityName1 = r.getEndpoint1().toString();
+                String cityName2 = r.getEndpoint2().toString();
+
+                routeNameText.setText(cityName1+"-"+cityName2);
                 lengthText.setText(routeLength.toString());
                 pointsText.setText(pointValue.toString());
             }
@@ -411,5 +418,9 @@ public class GameMapView extends SupportMapFragment implements OnMapReadyCallbac
     public void showColorChoiceDialog() {
         DialogFragment newFragment = new ColorChoiceDialogFragment();
         newFragment.show(getActivity().getFragmentManager(), "colorchoice");
+    }
+
+    public void displayMessage(String message) {
+        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
     }
 }

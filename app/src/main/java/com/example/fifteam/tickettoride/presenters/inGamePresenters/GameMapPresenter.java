@@ -1,5 +1,6 @@
 package com.example.fifteam.tickettoride.presenters.inGamePresenters;
 
+import com.example.fifteam.tickettoride.interfaces.Toaster;
 import com.example.fifteam.tickettoride.model.ClientGamePresenterFacade;
 import com.example.fifteam.tickettoride.views.GameMapView;
 import com.example.gameModel.classes.Route;
@@ -17,7 +18,7 @@ import java.util.Observer;
  *
  */
 
-public class GameMapPresenter implements Observer {
+public class GameMapPresenter implements Observer, Toaster {
 
     private GameMapView view;
 
@@ -89,5 +90,10 @@ public class GameMapPresenter implements Observer {
         for (Route r : claimedList) {
             view.claimRoute(r);
         }
+    }
+
+    @Override
+    public void displayMessage(String message) {
+        view.displayMessage(message);
     }
 }

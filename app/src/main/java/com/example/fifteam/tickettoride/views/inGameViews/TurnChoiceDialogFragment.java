@@ -35,8 +35,6 @@ public class TurnChoiceDialogFragment extends DialogFragment {
         View dialogLayout = inflater.inflate(R.layout.dialog_turn_choice, null);
         builder.setView(dialogLayout);
 
-        TurnChoiceDialogFragment.this.getDialog().setCanceledOnTouchOutside(false);
-
         drawTrainCardsButton = (Button) dialogLayout.findViewById(R.id.draw_train_cards_button);
         drawTrainCardsButton.setOnClickListener(new View.OnClickListener() {
             @Override
