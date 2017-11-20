@@ -1,5 +1,6 @@
 package com.example.fifteam.tickettoride.views;
 
+import android.app.DialogFragment;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import com.example.fifteam.tickettoride.ClientFacadeAsyncTasks.DemoAsyncTask;
 import com.example.fifteam.tickettoride.R;
 import com.example.fifteam.tickettoride.model.ClientGamePresenterFacade;
 import com.example.fifteam.tickettoride.presenters.inGamePresenters.GameMapPresenter;
+import com.example.fifteam.tickettoride.views.inGameViews.ColorChoiceDialogFragment;
 import com.example.gameModel.classes.Route;
 import com.example.gameModel.enums.City;
 import com.example.model.enums.SharedColor;
@@ -50,7 +52,7 @@ public class GameMapView extends SupportMapFragment implements OnMapReadyCallbac
     TextView routeNameText;
     TextView lengthText;
     TextView pointsText;
-    Button demoButton;
+    Button claimButton;
     List<Polygon> polygonList;
     GameMapPresenter presenter;
 
@@ -74,14 +76,14 @@ public class GameMapView extends SupportMapFragment implements OnMapReadyCallbac
 
         lengthText = (TextView) v.findViewById(R.id.length_text);
         pointsText = (TextView) v.findViewById(R.id.points_text);
-        demoButton = (Button) v.findViewById(R.id.demo_button);
+        claimButton = (Button) v.findViewById(R.id.demo_button);
         //routeNameText = (TextView) v.findViewById(R.id.route_name_text);
 
-        demoButton.setOnClickListener(new View.OnClickListener() {
+        claimButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
-                new DemoAsyncTask().execute();
+                showColorChoiceDialog();
             }
         });
 
@@ -404,5 +406,10 @@ public class GameMapView extends SupportMapFragment implements OnMapReadyCallbac
             }
         }
         return color_int;
+    }
+
+    public void showColorChoiceDialog() {
+        DialogFragment newFragment = new ColorChoiceDialogFragment();
+        newFragment.show(getActivity().getFragmentManager(), "colorchoice");
     }
 }

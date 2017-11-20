@@ -13,7 +13,7 @@ import java.util.Observer;
  * Created by kcwillmore on 10/31/17.
  */
 
-public class GamePresenter implements Observer{
+public class GamePresenter implements Observer {
 
     private GameView view;
 
@@ -31,6 +31,11 @@ public class GamePresenter implements Observer{
 
     @Override
     public void update(Observable o, Object arg) {
+
+        //this being true indicates that the turn choice dialog should be displayed
+        if (ClientGamePresenterFacade.getInstance().getPickTurnChoice() == true) {
+            view.showTurnChoiceDialog();
+        }
         updateInfo();
     }
 

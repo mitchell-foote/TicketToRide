@@ -202,7 +202,19 @@ public class ClientGamePresenterFacade {
             default:
                 break;
         }
+        finishPickTurnChoice();
     }
+
+    //checks to see if the turn choice dialog should be displayed
+    public boolean getPickTurnChoice() {
+        return model.getPickTurnChoice();
+    }
+
+    //sets the boolean to false so that the turn choice dialog will no longer be displayed until the next turn
+    public void finishPickTurnChoice() {
+        model.setPickTurnChoice(false);
+    }
+
 
     public boolean isFirstTurn(){
         return model.isFirstTurn();

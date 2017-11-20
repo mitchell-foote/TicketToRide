@@ -12,6 +12,9 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.fifteam.tickettoride.R;
+import com.example.fifteam.tickettoride.model.ClientGamePresenterFacade;
+import com.example.fifteam.tickettoride.model.facadeEnums.TurnType;
+import com.example.fifteam.tickettoride.presenters.inGamePresenters.GamePresenter;
 
 /**
  * Created by USER on 11/15/2017.
@@ -38,7 +41,7 @@ public class TurnChoiceDialogFragment extends DialogFragment {
         drawTrainCardsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                ClientGamePresenterFacade.getInstance().setTurnChoice(TurnType.DrawTrainCard);
                 TurnChoiceDialogFragment.this.getDialog().dismiss();
             }
         });
@@ -47,7 +50,7 @@ public class TurnChoiceDialogFragment extends DialogFragment {
         drawDestinationCardsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                ClientGamePresenterFacade.getInstance().setTurnChoice(TurnType.DrawDestCard);
                 TurnChoiceDialogFragment.this.getDialog().dismiss();
             }
         });
@@ -56,7 +59,7 @@ public class TurnChoiceDialogFragment extends DialogFragment {
         claimRouteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                ClientGamePresenterFacade.getInstance().setTurnChoice(TurnType.ClaimRoute);
                 TurnChoiceDialogFragment.this.getDialog().dismiss();
             }
         });

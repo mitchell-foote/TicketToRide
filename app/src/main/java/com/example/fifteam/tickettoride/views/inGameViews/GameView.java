@@ -1,5 +1,6 @@
 package com.example.fifteam.tickettoride.views.inGameViews;
 
+import android.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
@@ -45,6 +46,8 @@ public class GameView extends FragmentActivity implements OnMapReadyCallback {
     private TextView pointsCount;
     private LinearLayout toolbar;
 
+    GamePresenter presenter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,7 +68,7 @@ public class GameView extends FragmentActivity implements OnMapReadyCallback {
         toolbar = (LinearLayout) findViewById(R.id.game_top_toolbar);
         longestRouteStar = (ImageView) findViewById(R.id.toolBar_longestRouteStar);
 
-        GamePresenter presenter = new GamePresenter(this);
+        presenter = new GamePresenter(this);
         presenter.updateInfo();
     }
 
@@ -194,5 +197,10 @@ public class GameView extends FragmentActivity implements OnMapReadyCallback {
         } else {
             longestRouteStar.setVisibility(View.INVISIBLE);
         }
+    }
+
+    public void showTurnChoiceDialog() {
+        DialogFragment newFragment = new TurnChoiceDialogFragment();
+        newFragment.show(getFragmentManager(), "turnchoice");
     }
 }

@@ -61,6 +61,7 @@ public class ClientGameModel extends Observable {
     private Toaster toaster;
     private boolean gameOver;
     private boolean firstTurn;
+    private boolean pickTurnChoice;
 
     private ClientGameModel(){
         this.nextTurn = null;
@@ -225,6 +226,17 @@ public class ClientGameModel extends Observable {
     public void setUserTurn(boolean userTurn) {
         isUserTurn = userTurn;
     }
+
+    public boolean getPickTurnChoice() {
+        return pickTurnChoice;
+    }
+
+    public void setPickTurnChoice(boolean pickTurnChoice) {
+        this.pickTurnChoice = pickTurnChoice;
+        setChanged();
+        notifyObservers();
+    }
+
 
     public UserGameSummary getUserSummary() {
         return userSummary;

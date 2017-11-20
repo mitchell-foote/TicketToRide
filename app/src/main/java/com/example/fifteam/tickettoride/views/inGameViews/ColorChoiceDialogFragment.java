@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.fifteam.tickettoride.R;
 
@@ -40,6 +41,42 @@ public class ColorChoiceDialogFragment extends DialogFragment {
         routeColorView = (TextView) dialogLayout.findViewById(R.id.route_color_view);
         colorSelectionSpinner = (Spinner) dialogLayout.findViewById(R.id.color_selection_spinner);
 
+        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                String color_name = (String) colorSelectionSpinner.getSelectedItem();
+                switch(color_name) {
+                    case "Rainbow":
+                        makeToast("You selected Rainbow.");
+                        break;
+                    case "Red":
+                        makeToast("You selected Red.");
+                        break;
+                    case "Orange":
+                        makeToast("You selected Orange.");
+                        break;
+                    case "Yellow":
+                        makeToast("You selected Yellow.");
+                        break;
+                    case "Green":
+                        makeToast("You selected Green.");
+                        break;
+                    case "Blue":
+                        makeToast("You selected Blue.");
+                        break;
+                    case "Purple":
+                        makeToast("You selected Purple.");
+                        break;
+                    case "Black":
+                        makeToast("You selected Black.");
+                        break;
+                    case "White":
+                        makeToast("You selected White.");
+                        break;
+                }
+                ColorChoiceDialogFragment.this.getDialog().dismiss();
+            }
+        });
+
         // Create the AlertDialog object and return it
         return builder.create();
     }
@@ -47,5 +84,9 @@ public class ColorChoiceDialogFragment extends DialogFragment {
     @Override
     public void onCancel(DialogInterface dialog) {
         super.onCancel(dialog);
+    }
+
+    public void makeToast(String message) {
+        Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
     }
 }

@@ -227,6 +227,8 @@ public class ClientGameCommandFacade implements IClientCommandAccessor{
             model.setUserTurn(true);
             if(model.isFirstTurn()){
                 ClientGamePresenterFacade.getInstance().setTurnChoice(TurnType.DrawDestCard);
+            } else {
+                model.setPickTurnChoice(true);
             }
         }
         else{
