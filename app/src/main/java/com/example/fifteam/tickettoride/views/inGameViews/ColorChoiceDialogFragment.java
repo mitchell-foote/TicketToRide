@@ -45,6 +45,16 @@ public class ColorChoiceDialogFragment extends DialogFragment {
         routeColorView = (TextView) dialogLayout.findViewById(R.id.route_color_view);
         colorSelectionSpinner = (Spinner) dialogLayout.findViewById(R.id.color_selection_spinner);
 
+        Route r1 = ClientGamePresenterFacade.getInstance().getCurrentlySelectedRoute();
+        String cityName1 = r1.getEndpoint1().toString();
+        String cityName2 = r1.getEndpoint2().toString();
+        String color = r1.getColor().toString();
+        Integer length = r1.getLength();
+
+        routeDetailView.setText(cityName1+"-"+cityName2);
+        routeLengthView.setText("Length: "+length.toString());
+        routeColorView.setText("Color: "+color);
+
         builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 String color_name = (String) colorSelectionSpinner.getSelectedItem();
