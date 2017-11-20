@@ -25,7 +25,7 @@ public class DrawTrainCardState implements FacadeState {
     public void drawTrainCard(String cardId, Toaster toaster){
         TrainCard toDraw = TrainLookupTable.getCardById(cardId);
         if(cardId == null){
-            this.remainingCards -= 2;
+            this.remainingCards -= 1;
             new DrawCardAsyncTask().execute();
         }
         else if(toDraw.getColor() == SharedColor.RAINBOW){

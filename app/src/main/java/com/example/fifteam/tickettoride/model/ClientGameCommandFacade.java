@@ -199,8 +199,7 @@ public class ClientGameCommandFacade implements IClientCommandAccessor{
         faceUpTrains.add(newCard);
 
         //creates and enters the history entry associated with the action taken
-        String historyEntry = this.generateFaceUpTrainHist(username,oldCard,newCard);
-        model.addHistoryEntry(historyEntry);
+        this.drawTrainCard(username,cardId);
 
     }
 
