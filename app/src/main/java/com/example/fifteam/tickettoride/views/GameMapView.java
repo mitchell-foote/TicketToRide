@@ -126,6 +126,7 @@ public class GameMapView extends SupportMapFragment implements OnMapReadyCallbac
             public void onPolygonClick(Polygon polygon) {
                 Route r = (Route) polygon.getTag();
                 ClientGamePresenterFacade.getInstance().setCurrentlySelectedRoute(r);
+                highlightCurrentlySelectedRoute();
                 Integer routeLength = r.getLength();
                 Integer pointValue = r.getPoints();
                 String cityName1 = r.getEndpoint1().toString();
@@ -184,6 +185,18 @@ public class GameMapView extends SupportMapFragment implements OnMapReadyCallbac
         drawDoubleRoutes(doubleRoutes);
 
         //Route newRoute = new Route("1", SharedColor.RED, 3, City.San_Francisco, City.Los_Angeles);
+    }
+
+    private void highlightCurrentlySelectedRoute() {
+        Route r = ClientGamePresenterFacade.getInstance().getCurrentlySelectedRoute();
+        for (Polygon p : polygonList) {
+            Route r2 = (Route) p.getTag();
+            if (r2.getRouteId() == r.getRouteId()) {
+                p.setStrokeWidth(6);
+            } else {
+                p.setStrokeWidth(2);
+            }
+        }
     }
 
     private void drawSingleRoutes(List<Route> singleRoutes) {

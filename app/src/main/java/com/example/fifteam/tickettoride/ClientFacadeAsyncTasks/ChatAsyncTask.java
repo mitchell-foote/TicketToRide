@@ -25,7 +25,7 @@ public class ChatAsyncTask extends AsyncTask<String,Void,Void> {
         String autId = model.getAuthToken();
         String gameId = model.getGameID();
         proxy.postMessage(message,autId,gameId);
-        SystemClock.sleep(4000);
+        //SystemClock.sleep(4000);
 
         model.setRunningAsync(false);
         return null;
