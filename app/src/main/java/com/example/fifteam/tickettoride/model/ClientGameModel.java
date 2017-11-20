@@ -272,6 +272,12 @@ public class ClientGameModel extends Observable {
         return toReturn;
     }
 
+    public List<PlayerGameSummary> getAllPlayerGameSummaryList(){
+        Collection<PlayerGameSummary> playerCollection = this.playerSummaryMap.values();
+        List<PlayerGameSummary> toReturn = new ArrayList<>(playerCollection);
+        return toReturn;
+    }
+
     public int getNumOpponentsDestCards() {
         return numOpponentsDestCardsUp;
     }

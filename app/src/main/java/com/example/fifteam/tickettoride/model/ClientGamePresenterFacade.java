@@ -65,6 +65,10 @@ public class ClientGamePresenterFacade {
         return model.getPlayerGameSummaryList();
     }
 
+    public List<PlayerGameSummary> getAllPlayersList(){
+        return model.getAllPlayerGameSummaryList();
+    }
+
     public List<TrainCard> getFaceUpTrainCards(){
         return model.getFaceUpTrainCards();
     }
@@ -153,7 +157,7 @@ public class ClientGamePresenterFacade {
         this.state = new NotYourTurnState();
     }
 
-    public boolean isEndGame(){
+    public boolean isGameEnd(){
         return  model.isGameOver();
     }
 
