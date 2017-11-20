@@ -93,7 +93,8 @@ public class GameFacade implements IGameAccessor {
         Route route = RouteLookupTable.getRouteById(routeId);
 
         if (game.claimRoute(player, route, trainColor)) {
-            commandBuilder.claimRoute(player.getName(), routeId, trainColor);
+            game.addCommand(commandBuilder.claimRoute(player.getName(), routeId, trainColor), CommandTypesEnum.ClaimRoute);
+            System.out.println("sent claim route command");
         }
 
         //TODO Britton: this function
@@ -147,15 +148,15 @@ public class GameFacade implements IGameAccessor {
                     System.out.print(game.getPlayerWithLongestTrain()[i] + ", ");
                 }
                 System.out.println();
-                commandBuilder.longestTrainSwitch(game.getPlayerWithLongestTrain()[0], Integer.toString(game.getLongestRouteLength()));
+                game.addCommand(commandBuilder.longestTrainSwitch(game.getPlayerWithLongestTrain()[0], Integer.toString(game.getLongestRouteLength())), CommandTypesEnum.LongestTrainSwitch);
             }
 
             if (game.isFinalTurnStarted()) {
                 if (game.getPlayerWhoGoesLast() == null) {
                     game.setCurrentPlayerAsLast();
-                    commandBuilder.lastRound(game.getPlayerWhoGoesLast());
+                    game.addCommand(commandBuilder.lastRound(game.getPlayerWhoGoesLast()), CommandTypesEnum.LastRound);
                 } else if (game.getPlayerWhoGoesLast().equals(game.getCurrentPlayer())) {
-                    commandBuilder.endGame(game.calculateScore());
+                    game.addCommand(commandBuilder.endGame(game.calculateScore()), CommandTypesEnum.EndGame);
                     return null;
                 }
             }

@@ -149,6 +149,18 @@ public class GameFacadeTester {
             gfacade.endTurn(secondDude, newGameId);
             System.out.println(newGame.getPlayerInfo(model.findPlayerFromName("macon")));
 
+            gfacade.claimRoute(secondDude, newGameId, "12", SharedColor.ORANGE);
+            gfacade.claimRoute(secondDude, newGameId, "15", SharedColor.BLUE);
+
+            System.out.println(newGame.getPlayerInfo(model.findPlayerFromName("macon")));
+
+
+            List<CommandContainer> finalCommands = gfacade.getClientCommands("ALL", secondDude, newGameId);
+
+            for (int i = 0; i < finalCommands.size(); i++) {
+                System.out.println(finalCommands.get(i).Type);
+            }
+
         } catch (FailedLoginException e)
         {
             e.printStackTrace();
