@@ -235,6 +235,14 @@ public class ClientGamePresenterFacade {
         model.setGameMapToaster(t);
     }
 
+    public boolean isTurnChoiceDialogCurrentlyDisplayed() {
+        return model.isTurnChoiceDialogCurrentlyDisplayed();
+    }
+
+    public void setTurnChoiceDialogCurrentlyDisplayed(boolean displayed) {
+        model.setTurnChoiceDialogCurrentlyDisplayed(displayed);
+    }
+
     public boolean isFirstTurn(){
         return model.isFirstTurn();
     }

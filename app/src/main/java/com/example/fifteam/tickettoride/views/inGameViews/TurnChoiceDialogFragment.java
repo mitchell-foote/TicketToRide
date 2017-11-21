@@ -40,6 +40,7 @@ public class TurnChoiceDialogFragment extends DialogFragment {
             @Override
             public void onClick(View view) {
                 ClientGamePresenterFacade.getInstance().setTurnChoice(TurnType.DrawTrainCard);
+                ClientGamePresenterFacade.getInstance().setTurnChoiceDialogCurrentlyDisplayed(false);
                 TurnChoiceDialogFragment.this.getDialog().dismiss();
             }
         });
@@ -49,6 +50,7 @@ public class TurnChoiceDialogFragment extends DialogFragment {
             @Override
             public void onClick(View view) {
                 ClientGamePresenterFacade.getInstance().setTurnChoice(TurnType.DrawDestCard);
+                ClientGamePresenterFacade.getInstance().setTurnChoiceDialogCurrentlyDisplayed(false);
                 TurnChoiceDialogFragment.this.getDialog().dismiss();
             }
         });
@@ -58,12 +60,15 @@ public class TurnChoiceDialogFragment extends DialogFragment {
             @Override
             public void onClick(View view) {
                 ClientGamePresenterFacade.getInstance().setTurnChoice(TurnType.ClaimRoute);
+                ClientGamePresenterFacade.getInstance().setTurnChoiceDialogCurrentlyDisplayed(false);
                 TurnChoiceDialogFragment.this.getDialog().dismiss();
             }
         });
 
         // Create the AlertDialog object and return it
-        return builder.create();
+        AlertDialog dialogToReturn = builder.create();
+        dialogToReturn.setCanceledOnTouchOutside(false);
+        return dialogToReturn;
     }
 
     @Override

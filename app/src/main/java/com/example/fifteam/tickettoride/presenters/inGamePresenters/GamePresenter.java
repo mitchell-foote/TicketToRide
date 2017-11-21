@@ -34,7 +34,10 @@ public class GamePresenter implements Observer {
 
         //this being true indicates that the turn choice dialog should be displayed
         if (ClientGamePresenterFacade.getInstance().getPickTurnChoice() == true) {
-            view.showTurnChoiceDialog();
+            if (!ClientGamePresenterFacade.getInstance().isTurnChoiceDialogCurrentlyDisplayed()) {
+                view.showTurnChoiceDialog();
+                ClientGamePresenterFacade.getInstance().setTurnChoiceDialogCurrentlyDisplayed(true);
+            }
         }
         updateInfo();
     }

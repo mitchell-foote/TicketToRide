@@ -65,6 +65,7 @@ public class ClientGameModel extends Observable {
 
     private Route currentlySelectedRoute;
     private Toaster gameMapToaster;
+    private boolean turnChoiceDialogCurrentlyDisplayed;
 
     private ClientGameModel(){
         this.nextTurn = null;
@@ -255,6 +256,14 @@ public class ClientGameModel extends Observable {
 
     public void setGameMapToaster(Toaster gameMapToaster) {
         this.gameMapToaster = gameMapToaster;
+    }
+
+    public boolean isTurnChoiceDialogCurrentlyDisplayed() {
+        return turnChoiceDialogCurrentlyDisplayed;
+    }
+
+    public void setTurnChoiceDialogCurrentlyDisplayed(boolean displayed) {
+        turnChoiceDialogCurrentlyDisplayed = displayed;
     }
 
     public UserGameSummary getUserSummary() {
