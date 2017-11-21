@@ -40,6 +40,9 @@ public class GamePresenter implements Observer {
             }
         }
         updateInfo();
+        if (ClientGamePresenterFacade.getInstance().isGameEnd()) {
+            view.showEndGameDialog();
+        }
     }
 
     public void updateInfo() {

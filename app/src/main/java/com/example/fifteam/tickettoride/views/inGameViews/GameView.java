@@ -201,6 +201,12 @@ public class GameView extends FragmentActivity implements OnMapReadyCallback {
 
     public void showTurnChoiceDialog() {
         DialogFragment newFragment = new TurnChoiceDialogFragment();
+        newFragment.setCancelable(false);
         newFragment.show(getFragmentManager(), "turnchoice");
+    }
+
+    public void showEndGameDialog() {
+        DialogFragment newFragment = new EndGameDialogFragment();
+        newFragment.show(getFragmentManager(), "endgame");
     }
 }

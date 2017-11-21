@@ -16,31 +16,31 @@
         android:id="@+id/endgame_1st"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="1st: " />
+        android:text="(no player)" />
 
     <TextView
         android:id="@+id/endgame_2nd"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="2nd: " />
+        android:text="(no player)" />
 
     <TextView
         android:id="@+id/endgame_3rd"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="3rd: " />
+        android:text="(no player)" />
 
     <TextView
         android:id="@+id/endgame_4th"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="4th: " />
+        android:text="(no player)" />
 
     <TextView
         android:id="@+id/endgame_5th"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="5th: " />
+        android:text="(no player)" />
 
     <Button
         android:id="@+id/endgame_button"
