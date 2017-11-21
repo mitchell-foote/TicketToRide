@@ -3,6 +3,7 @@ package com.example.testers;
 import com.example.Exceptions.FailedAuthException;
 import com.example.Exceptions.FailedJoinException;
 import com.example.Exceptions.FailedLoginException;
+import com.example.gameCommunication.commands.classes.commandData.client.EndGameClientCommandData;
 import com.example.gameCommunication.commands.classes.commandData.client.SetupTrainCardsClientCommandData;
 import com.example.gameCommunication.commands.classes.containers.CommandContainer;
 import com.example.gameCommunication.commands.classes.fullCommands.client.SetupTrainCardsClientCommand;
@@ -10,6 +11,7 @@ import com.example.gameCommunication.commands.enums.CommandTypesEnum;
 import com.example.gameCommunication.commands.interfaces.IClientCommandData;
 import com.example.gameModel.GameFacade;
 import com.example.gameModel.GameModel;
+import com.example.gameModel.classes.PlayerScoreContainer;
 import com.example.model.ServerFacade;
 import com.example.model.ServerModel;
 import com.example.model.classes.login.BaseGameSummary;
@@ -152,6 +154,13 @@ public class GameFacadeTester {
             gfacade.claimRoute(secondDude, newGameId, "12", SharedColor.ORANGE);
             gfacade.claimRoute(secondDude, newGameId, "15", SharedColor.BLUE);
 
+            gfacade.endTurn(secondDude, newGameId);
+            gfacade.endTurn(secondDude, newGameId);
+            gfacade.endTurn(secondDude, newGameId);
+            gfacade.endTurn(secondDude, newGameId);
+            gfacade.endTurn(secondDude, newGameId);
+            gfacade.endTurn(secondDude, newGameId);
+
             System.out.println(newGame.getPlayerInfo(model.findPlayerFromName("macon")));
 
 
@@ -159,6 +168,14 @@ public class GameFacadeTester {
 
             for (int i = 0; i < finalCommands.size(); i++) {
                 System.out.println(finalCommands.get(i).Type);
+            }
+
+            CommandContainer endGameCommand = finalCommands.get(finalCommands.size() - 1);
+            EndGameClientCommandData finalCommandData = (EndGameClientCommandData) finalCommands.get(finalCommands.size() - 1).getData();
+            PlayerScoreContainer[] finalScores = finalCommandData.FinalScores;
+
+            for (int i = 0; i < finalScores.length; i++) {
+                System.out.println(finalScores[i].Username + ": " + finalScores[i].Score);
             }
 
         } catch (FailedLoginException e)
