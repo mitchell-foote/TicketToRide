@@ -55,7 +55,10 @@ public class ChatFragment extends Fragment {
             public void onClick(View v) {
                 String chatValue = chatText.getText().toString();
 
-                presenter.sendChat(chatValue);
+                if (!chatValue.equals("")) {
+                    presenter.sendChat(chatValue);
+                }
+                chatText.setText("");
             }
         });
 
