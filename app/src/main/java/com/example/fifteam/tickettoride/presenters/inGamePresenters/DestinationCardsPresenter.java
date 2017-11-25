@@ -29,7 +29,7 @@ public class DestinationCardsPresenter implements Observer {
     }
 
     public void checkForDestinations() {
-        if (ClientGamePresenterFacade.getInstance().isUserTurn()) {
+        if (ClientGamePresenterFacade.getInstance().isUserTurn() && ClientGamePresenterFacade.getInstance().canDrawDestCard()) {
             List<DestinationCard> destinations = ClientGamePresenterFacade.getInstance().getFaceUpDestinationCards();
             if (destinations.size() == 3) {
                 String destination0 = destinations.get(0).toString();

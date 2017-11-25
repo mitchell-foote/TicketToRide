@@ -84,8 +84,12 @@ public class GameMapView extends SupportMapFragment implements OnMapReadyCallbac
 
             @Override
             public void onClick(View view) {
-                ClientGamePresenterFacade.getInstance().setGameMapToaster(presenter);
-                showColorChoiceDialog();
+                if (ClientGamePresenterFacade.getInstance().getCurrentlySelectedRoute() == null) {
+                    displayMessage("You haven't picked a route!");
+                } else {
+                    ClientGamePresenterFacade.getInstance().setGameMapToaster(presenter);
+                    showColorChoiceDialog();
+                }
             }
         });
 

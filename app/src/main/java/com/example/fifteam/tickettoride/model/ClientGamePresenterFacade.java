@@ -169,6 +169,12 @@ public class ClientGamePresenterFacade {
         return model.getLongestRouteLength();
     }
 
+    public boolean canClaimAnyRoutes() {
+        boolean canClaim = false;
+
+        return canClaim;
+    }
+
     public void claimRoute(String routeid, SharedColor color, Toaster toaster){
         state.claimRoute(routeid,color,toaster);
     }

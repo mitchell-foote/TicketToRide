@@ -79,6 +79,9 @@ public class DestinationCardsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 presenter.selectDestinations(option0CheckBox.isChecked(), option1CheckBox.isChecked(), option2CheckBox.isChecked());
+                //option0CheckBox.setChecked(false);
+                //option1CheckBox.setChecked(false);
+                //option2CheckBox.setChecked(false);
             }
         });
 
@@ -145,5 +148,11 @@ public class DestinationCardsFragment extends Fragment {
     public void updateAdapter() {
         myDestinationsAdapter = new DestinationAdapter(getActivity(), presenter.getMyDestinations());
         myDestLabel.setText("Your Destinations: (" + myDestinationsAdapter.getItemCount() + ")");
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        presenter.checkForDestinations();
     }
 }
