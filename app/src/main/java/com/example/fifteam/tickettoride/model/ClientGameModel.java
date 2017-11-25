@@ -66,6 +66,7 @@ public class ClientGameModel extends Observable {
     private Route currentlySelectedRoute;
     private Toaster gameMapToaster;
     private boolean turnChoiceDialogCurrentlyDisplayed;
+    private boolean waitingForCardUpdate;
 
     private ClientGameModel(){
         this.nextTurn = null;
@@ -86,6 +87,7 @@ public class ClientGameModel extends Observable {
         longestRouteLength = 0;
         firstTurn = true;
         currentlySelectedRoute = null;
+        waitingForCardUpdate = true;
     }
 
     public boolean isRunningAsync() {
@@ -264,6 +266,14 @@ public class ClientGameModel extends Observable {
 
     public void setTurnChoiceDialogCurrentlyDisplayed(boolean displayed) {
         turnChoiceDialogCurrentlyDisplayed = displayed;
+    }
+
+    public boolean isWaitingForCardUpdate() {
+        return waitingForCardUpdate;
+    }
+
+    public void setWaitingForCardUpdate(boolean cardUpdate) {
+        waitingForCardUpdate = cardUpdate;
     }
 
     public UserGameSummary getUserSummary() {

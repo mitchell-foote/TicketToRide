@@ -243,6 +243,14 @@ public class ClientGamePresenterFacade {
         model.setTurnChoiceDialogCurrentlyDisplayed(displayed);
     }
 
+    public boolean isWaitingForCardUpdate() {
+        return model.isWaitingForCardUpdate();
+    }
+
+    public void setWaitingForCardUpdate(boolean cardUpdate) {
+        model.setWaitingForCardUpdate(cardUpdate);
+    }
+
     public boolean isFirstTurn(){
         return model.isFirstTurn();
     }

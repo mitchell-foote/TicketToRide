@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.fifteam.tickettoride.R;
+import com.example.fifteam.tickettoride.model.ClientGamePresenterFacade;
 import com.example.fifteam.tickettoride.presenters.inGamePresenters.TrainCardsPresenter;
 import com.example.model.enums.SharedColor;
 
@@ -98,7 +99,10 @@ public class TrainCardsFragment extends Fragment {
             faceUpTrainCards[i].setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    presenter.drawFaceUpCard(pos);
+                    if (!ClientGamePresenterFacade.getInstance().isWaitingForCardUpdate()) {
+                        presenter.drawFaceUpCard(pos);
+                        ClientGamePresenterFacade.getInstance().setWaitingForCardUpdate(true);
+                    }
                 }
             });
         }
@@ -124,6 +128,7 @@ public class TrainCardsFragment extends Fragment {
             int cardResource = colorToResource(colors[i]);
             faceUpTrainCards[i].setImageResource(cardResource);
         }
+        ClientGamePresenterFacade.getInstance().setWaitingForCardUpdate(false);
     }
 
     /**
