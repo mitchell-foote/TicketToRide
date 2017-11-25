@@ -172,6 +172,18 @@ public class ClientGamePresenterFacade {
     public boolean canClaimAnyRoutes() {
         boolean canClaim = false;
 
+        List<Route> routeList = getRouteList();
+        for (Route r : routeList) {
+            if (r.isClaimable()) {
+                for (SharedColor c : SharedColor.values()) {
+                    String test = model.canClaimRoute(r.getRouteId(), c);
+                    if (test == null) {
+                        canClaim = true;
+                    }
+                }
+            }
+        }
+
         return canClaim;
     }
 

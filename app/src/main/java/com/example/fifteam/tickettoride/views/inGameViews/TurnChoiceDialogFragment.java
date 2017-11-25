@@ -16,6 +16,8 @@ import com.example.fifteam.tickettoride.model.ClientGamePresenterFacade;
 import com.example.fifteam.tickettoride.model.facadeEnums.TurnType;
 import com.example.fifteam.tickettoride.presenters.inGamePresenters.GamePresenter;
 
+import java.nio.channels.ClosedByInterruptException;
+
 /**
  * Created by USER on 11/15/2017.
  */
@@ -59,15 +61,20 @@ public class TurnChoiceDialogFragment extends DialogFragment {
         claimRouteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ClientGamePresenterFacade.getInstance().setTurnChoice(TurnType.ClaimRoute);
-                ClientGamePresenterFacade.getInstance().setTurnChoiceDialogCurrentlyDisplayed(false);
-                TurnChoiceDialogFragment.this.getDialog().dismiss();
+                if (!ClientGamePresenterFacade.getInstance().canClaimAnyRoutes()) {
+                    Toast.makeText(getActivity(), "You can't claim any routes!", Toast.LENGTH_SHORT).show();
+                    claimRouteButton.setEnabled(false);
+                } else {
+                    ClientGamePresenterFacade.getInstance().setTurnChoice(TurnType.ClaimRoute);
+                    ClientGamePresenterFacade.getInstance().setTurnChoiceDialogCurrentlyDisplayed(false);
+                    TurnChoiceDialogFragment.this.getDialog().dismiss();
+                }
             }
         });
 
         // Create the AlertDialog object and return it
         AlertDialog dialogToReturn = builder.create();
-        dialogToReturn.setCanceledOnTouchOutside(false);
+        dialogToReturn.setCancelable(false);
         return dialogToReturn;
     }
 
