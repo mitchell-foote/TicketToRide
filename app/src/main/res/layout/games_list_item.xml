@@ -15,8 +15,7 @@
         android:id="@+id/gameListItem_creator"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/gameListItem_name"
-        android:layout_alignBaseline="@id/gameListItem_name"
+        android:layout_below="@id/gameListItem_name"
         android:text="Creator"
         android:paddingLeft="5dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Caption"/>
@@ -25,7 +24,7 @@
         android:id="@+id/gameListItem_players"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
+        android:layout_below="@id/gameListItem_creator"
         android:text="0/0 Players"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
 </RelativeLayout>
