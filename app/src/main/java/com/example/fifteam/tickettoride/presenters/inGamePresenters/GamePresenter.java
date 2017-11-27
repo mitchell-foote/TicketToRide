@@ -53,9 +53,6 @@ public class GamePresenter implements Observer {
         view.setPoints(points);
 
         setHand(ClientGamePresenterFacade.getInstance().getUserHand());
-
-        //todo: once an easier way of figuring out if you have longest route is made, make this work
-        view.setHasLongestRoute(false);
     }
 
     private void setHand(Map<SharedColor, Integer> hand) {

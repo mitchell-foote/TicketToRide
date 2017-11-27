@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="10dp"
+    android:padding="20dp"
     android:orientation="vertical">
 
     <TextView
@@ -41,11 +41,5 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="(no player)" />
-
-    <Button
-        android:id="@+id/endgame_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Exit Game" />
 
 </LinearLayout>

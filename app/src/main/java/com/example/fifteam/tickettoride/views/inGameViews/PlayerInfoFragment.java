@@ -52,6 +52,8 @@ public class PlayerInfoFragment extends Fragment {
         longestRouteOwner = (TextView) v.findViewById(R.id.playerInfo_longestRoutePlayer);
         longestRouteOwner.setText("n/a");
 
+        presenter.setPlayerInfo();
+
         return v;
     }
 
