@@ -215,15 +215,12 @@ public class ClientGameModel extends Observable {
     }
 
     public void clearFaceUpTrainCards(){
-        this.faceUpTrainCards = new ArrayList<>();
-        setChanged();
-        notifyObservers();
+        //this.faceUpTrainCards = new ArrayList<>();
+        this.faceUpTrainCards.clear();
     }
 
     public void addToFaceUpTrainCards(TrainCard toAdd) {
         this.faceUpTrainCards.add(toAdd);
-        setChanged();
-        notifyObservers();
     }
 
     public boolean isUserTurn() {

@@ -3,7 +3,7 @@ package com.example.gameModel.PlayerGameSummaries;
 import com.example.model.classes.users.Player;
 import com.example.model.enums.SharedColor;
 
-/**
+/** playerInfo holds num trains on the server
  * Created by samks on 10/24/2017.
  */
 
@@ -26,7 +26,7 @@ public class PlayerGameSummary {
         this.trainHandSize = 0;
         this.points = 0;
         this.numDestinationCards = 0;
-        this.trainsRemaining = 15;
+        this.trainsRemaining = 45;
         faceUpDestCards = 0;
     }
 
