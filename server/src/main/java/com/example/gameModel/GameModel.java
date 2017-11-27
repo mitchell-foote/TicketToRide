@@ -240,4 +240,12 @@ public class GameModel {
         return playerInfo.get(player).getColor();
     }
 
+    public boolean hasThreeWilds() {
+        return trainDeck.hasThreeWilds();
+    }
+
+    public void shuffleFaceUpPile() {
+        trainDeck.shuffleFaceUpPile();
+    }
+
 }

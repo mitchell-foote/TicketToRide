@@ -76,6 +76,18 @@ public class GameFacade implements IGameAccessor {
 
         game.addCommand(commandBuilder.addFaceUpTrainCard(player.getName(), cardId, replacementCard), CommandTypesEnum.AddFaceUpTrain);
 
+        if (game.hasThreeWilds()) {
+
+            game.shuffleFaceUpPile();
+            String[] faceUpPile = game.getFaceUpTrainCards();
+
+            System.out.println("FaceUp Pile Shuffled. The new cards are: ");
+            for (int i = 0; i < faceUpPile.length; i++) {
+                System.out.println(faceUpPile[i]);
+            }
+            game.addCommand(commandBuilder.setupTrainCards(faceUpPile), CommandTypesEnum.SetupTrainCards);
+        }
+
         return replacementCard;
     }
 

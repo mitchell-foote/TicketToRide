@@ -23,6 +23,10 @@ public class TrainDeck
             FaceUpPile.add(cardId);
             removeCardById(cardId);
         }
+
+        if (hasThreeWilds()) {
+            shuffleFaceUpPile();
+        }
     }
 
     public String drawRandomCard() {
@@ -71,5 +75,35 @@ public class TrainDeck
 
     public Set<String> getFaceUpPile() {
         return FaceUpPile;
+    }
+
+    public void shuffleFaceUpPile() {
+        System.out.println("shuffling face up pile");
+        for (String s : FaceUpPile) {
+            DiscardPile.add(s);
+        }
+        FaceUpPile = new HashSet<>();
+        for (int i = 0; i < 5; i++) {
+            String cardId = getRandomCardId();
+            FaceUpPile.add(cardId);
+            removeCardById(cardId);
+        }
+
+        if (hasThreeWilds()) {
+            shuffleFaceUpPile();
+        }
+    }
+
+    public boolean hasThreeWilds() {
+        int wildCards = 0;
+        for (String s : FaceUpPile) {
+            if (s.contains("loc")) {
+                wildCards++;
+            }
+        }
+        if (wildCards >= 3) {
+            return true;
+        }
+        return false;
     }
 }
