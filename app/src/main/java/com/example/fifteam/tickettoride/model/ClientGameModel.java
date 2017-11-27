@@ -631,14 +631,15 @@ public class ClientGameModel extends Observable {
     }
 
     public void claimRoute(String username, String routeId, SharedColor ownerColor){
-        Route claimed = claimRouteLocally(routeId,ownerColor);
-        if(claimed == null){
-            this.toast("This should not be happening, route does not exist");
-            return;
-        }
+
         PlayerGameSummary claimer = this.getPlayerById(username);
         if(claimer == null){
             this.toast("This should also not be happening username not found");
+            return;
+        }
+        Route claimed = claimRouteLocally(routeId,claimer.getColor());
+        if(claimed == null){
+            this.toast("This should not be happening, route does not exist");
             return;
         }
         int length = claimed.getLength();
