@@ -26,7 +26,7 @@ public class PlayerGameSummary {
         this.trainHandSize = 0;
         this.points = 0;
         this.numDestinationCards = 0;
-        this.trainsRemaining = 45;
+        this.trainsRemaining = 15;
         faceUpDestCards = 0;
     }
 
