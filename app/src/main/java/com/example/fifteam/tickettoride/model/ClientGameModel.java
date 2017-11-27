@@ -641,15 +641,17 @@ public class ClientGameModel extends Observable {
             this.toast("This should also not be happening username not found");
             return;
         }
+        int length = claimed.getLength();
         if(claimer instanceof UserGameSummary){
             subtractRouteCards(claimed,ownerColor,(UserGameSummary)claimer);
         }
         else{
-            int length = claimed.getLength();
+
             claimer.decTrainHandSize(length);
         }
         int routePoints = claimed.getPoints();
         claimer.incrementPoints(routePoints);
+        claimer.subtractFromTrainsRemaining(length);
         setChanged();
         notifyObservers();
     }
@@ -685,6 +687,9 @@ public class ClientGameModel extends Observable {
         }
         if(!route.isClaimable()){
             return "route already claimed";
+        }
+        if(user.getTrainsRemaining() < route.getLength()){
+            return "Not enough Train Pieces! Cannot claim route!";
         }
         if(route.getColor() != color && (route.getColor() != SharedColor.RAINBOW)){
             return "Train card color chosen does not match color of the Route";
