@@ -693,7 +693,7 @@ public class ClientGameModel extends Observable {
             if (!route.getSisterRoute().isClaimable()) {
                 if (playerSummaryMap.keySet().size() < 4) {
                     return "You don't have enough players to use double routes.";
-                } else if (route.getSisterRoute().getOwnerColor().toString().equals(user.getColor())) {
+                } else if (route.getSisterRoute().getOwnerColor().toString().equals(user.getColor().toString())) {
                     return "You already have the other half of this route!";
                 }
             }
