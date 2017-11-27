@@ -236,4 +236,8 @@ public class GameModel {
         return playerSummaryInfo;
     }
 
+    public SharedColor getPlayerColor(Player player) {
+        return playerInfo.get(player).getColor();
+    }
+
 }

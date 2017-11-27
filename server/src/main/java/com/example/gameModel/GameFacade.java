@@ -93,7 +93,8 @@ public class GameFacade implements IGameAccessor {
         Route route = RouteLookupTable.getRouteById(routeId);
 
         if (game.claimRoute(player, route, trainColor)) {
-            game.addCommand(commandBuilder.claimRoute(player.getName(), routeId, trainColor), CommandTypesEnum.ClaimRoute);
+
+            game.addCommand(commandBuilder.claimRoute(player.getName(), routeId, game.getPlayerColor(player)), CommandTypesEnum.ClaimRoute);
             System.out.println("sent claim route command");
         }
 

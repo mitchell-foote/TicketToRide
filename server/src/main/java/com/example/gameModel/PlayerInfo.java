@@ -145,4 +145,8 @@ public class PlayerInfo {
 
         return str.toString();
     }
+
+    public SharedColor getColor() {
+        return color;
+    }
 }
