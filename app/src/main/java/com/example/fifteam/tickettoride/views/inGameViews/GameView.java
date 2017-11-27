@@ -31,7 +31,7 @@ public class GameView extends FragmentActivity implements OnMapReadyCallback {
     private ImageButton chatButton;
     private ImageButton historyButton;
 
-    private ImageView longestRouteStar;
+    private ImageView endGameDialogStar;
     private TextView usernameTextView;
     private TextView cardCountBlack;
     private TextView cardCountBlue;
@@ -66,7 +66,15 @@ public class GameView extends FragmentActivity implements OnMapReadyCallback {
         initializeButtons();
         initializeTextViews();
         toolbar = (LinearLayout) findViewById(R.id.game_top_toolbar);
-        longestRouteStar = (ImageView) findViewById(R.id.toolBar_longestRouteStar);
+        endGameDialogStar = (ImageView) findViewById(R.id.toolBar_longestRouteStar);
+
+        setEndgameTestingStar(true);
+        endGameDialogStar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showEndGameDialog();
+            }
+        });
 
         presenter = new GamePresenter(this);
         presenter.updateInfo();
@@ -191,11 +199,11 @@ public class GameView extends FragmentActivity implements OnMapReadyCallback {
         pointsCount.setText(String.valueOf(points));
     }
 
-    public void setHasLongestRoute(boolean hasLongestRoute) {
-        if (hasLongestRoute) {
-            longestRouteStar.setVisibility(View.VISIBLE);
+    public void setEndgameTestingStar(boolean val) {
+        if (val) {
+            endGameDialogStar.setVisibility(View.VISIBLE);
         } else {
-            longestRouteStar.setVisibility(View.INVISIBLE);
+            endGameDialogStar.setVisibility(View.INVISIBLE);
         }
     }
 
@@ -207,6 +215,7 @@ public class GameView extends FragmentActivity implements OnMapReadyCallback {
 
     public void showEndGameDialog() {
         DialogFragment newFragment = new EndGameDialogFragment();
+        newFragment.setCancelable(false);
         newFragment.show(getFragmentManager(), "endgame");
     }
 }

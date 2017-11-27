@@ -23,12 +23,16 @@ public class PlayerInfoPresenter implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-        view.updateAdapter();
-        String longestRoutePlayer = ClientGamePresenterFacade.getInstance().getLongestRouteOwner();
-        view.setLongestRouteOwner(longestRoutePlayer);
+        setPlayerInfo();
     }
 
     public List<PlayerGameSummary> getPlayerInfo() {
         return ClientGamePresenterFacade.getInstance().getOtherPlayerGameList();
+    }
+
+    public void setPlayerInfo() {
+        view.updateAdapter();
+        String longestRoutePlayer = ClientGamePresenterFacade.getInstance().getLongestRouteOwner();
+        view.setLongestRouteOwner(longestRoutePlayer);
     }
 }

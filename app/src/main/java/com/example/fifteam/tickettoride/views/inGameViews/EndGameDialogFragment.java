@@ -26,8 +26,6 @@ public class EndGameDialogFragment extends DialogFragment {
 
     private TextView[] playerScores;
 
-    Button endGameButton;
-
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -38,16 +36,6 @@ public class EndGameDialogFragment extends DialogFragment {
 
         initializeTextviews(dialogLayout);
         setPlayerScores();
-
-        endGameButton = (Button) dialogLayout.findViewById(R.id.endgame_button);
-        endGameButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(getActivity(), MainActivity.class);
-                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(i);
-            }
-        });
 
         return builder.create();
     }

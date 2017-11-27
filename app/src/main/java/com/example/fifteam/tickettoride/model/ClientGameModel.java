@@ -332,7 +332,7 @@ public class ClientGameModel extends Observable {
         route1.setDoubleRoute(true);
         route1.setSisterRoute(route2);
         route2.setDoubleRoute(true);
-        route2.setSisterRoute(route2);
+        route2.setSisterRoute(route1);
         routes.add(route1);
         routes.add(route2);
 
@@ -345,7 +345,7 @@ public class ClientGameModel extends Observable {
         route1.setDoubleRoute(true);
         route1.setSisterRoute(route2);
         route2.setDoubleRoute(true);
-        route2.setSisterRoute(route2);
+        route2.setSisterRoute(route1);
         routes.add(route1);
         routes.add(route2);
 
@@ -357,7 +357,7 @@ public class ClientGameModel extends Observable {
         route1.setDoubleRoute(true);
         route1.setSisterRoute(route2);
         route2.setDoubleRoute(true);
-        route2.setSisterRoute(route2);
+        route2.setSisterRoute(route1);
         routes.add(route1);
         routes.add(route2);
 
@@ -367,7 +367,7 @@ public class ClientGameModel extends Observable {
         route1.setDoubleRoute(true);
         route1.setSisterRoute(route2);
         route2.setDoubleRoute(true);
-        route2.setSisterRoute(route2);
+        route2.setSisterRoute(route1);
         routes.add(route1);
         routes.add(route2);
 
@@ -384,7 +384,7 @@ public class ClientGameModel extends Observable {
         route1.setDoubleRoute(true);
         route1.setSisterRoute(route2);
         route2.setDoubleRoute(true);
-        route2.setSisterRoute(route2);
+        route2.setSisterRoute(route1);
         routes.add(route1);
         routes.add(route2);
 
@@ -398,7 +398,7 @@ public class ClientGameModel extends Observable {
         route1.setDoubleRoute(true);
         route1.setSisterRoute(route2);
         route2.setDoubleRoute(true);
-        route2.setSisterRoute(route2);
+        route2.setSisterRoute(route1);
         routes.add(route1);
         routes.add(route2);
 
@@ -410,7 +410,7 @@ public class ClientGameModel extends Observable {
         route1.setDoubleRoute(true);
         route1.setSisterRoute(route2);
         route2.setDoubleRoute(true);
-        route2.setSisterRoute(route2);
+        route2.setSisterRoute(route1);
         routes.add(route1);
         routes.add(route2);
 
@@ -422,7 +422,7 @@ public class ClientGameModel extends Observable {
         route1.setDoubleRoute(true);
         route1.setSisterRoute(route2);
         route2.setDoubleRoute(true);
-        route2.setSisterRoute(route2);
+        route2.setSisterRoute(route1);
         routes.add(route1);
         routes.add(route2);
 
@@ -432,7 +432,7 @@ public class ClientGameModel extends Observable {
         route1.setDoubleRoute(true);
         route1.setSisterRoute(route2);
         route2.setDoubleRoute(true);
-        route2.setSisterRoute(route2);
+        route2.setSisterRoute(route1);
         routes.add(route1);
         routes.add(route2);
 
@@ -445,7 +445,7 @@ public class ClientGameModel extends Observable {
         route1.setDoubleRoute(true);
         route1.setSisterRoute(route2);
         route2.setDoubleRoute(true);
-        route2.setSisterRoute(route2);
+        route2.setSisterRoute(route1);
         routes.add(route1);
         routes.add(route2);
 
@@ -459,7 +459,7 @@ public class ClientGameModel extends Observable {
         route1.setDoubleRoute(true);
         route1.setSisterRoute(route2);
         route2.setDoubleRoute(true);
-        route2.setSisterRoute(route2);
+        route2.setSisterRoute(route1);
         routes.add(route1);
         routes.add(route2);
 
@@ -484,7 +484,7 @@ public class ClientGameModel extends Observable {
         route1.setDoubleRoute(true);
         route1.setSisterRoute(route2);
         route2.setDoubleRoute(true);
-        route2.setSisterRoute(route2);
+        route2.setSisterRoute(route1);
         routes.add(route1);
         routes.add(route2);
 
@@ -494,7 +494,7 @@ public class ClientGameModel extends Observable {
         route1.setDoubleRoute(true);
         route1.setSisterRoute(route2);
         route2.setDoubleRoute(true);
-        route2.setSisterRoute(route2);
+        route2.setSisterRoute(route1);
         routes.add(route1);
         routes.add(route2);
 
@@ -504,7 +504,7 @@ public class ClientGameModel extends Observable {
         route1.setDoubleRoute(true);
         route1.setSisterRoute(route2);
         route2.setDoubleRoute(true);
-        route2.setSisterRoute(route2);
+        route2.setSisterRoute(route1);
         routes.add(route1);
         routes.add(route2);
 
@@ -521,7 +521,7 @@ public class ClientGameModel extends Observable {
         route1.setDoubleRoute(true);
         route1.setSisterRoute(route2);
         route2.setDoubleRoute(true);
-        route2.setSisterRoute(route2);
+        route2.setSisterRoute(route1);
         routes.add(route1);
         routes.add(route2);
 
@@ -540,7 +540,7 @@ public class ClientGameModel extends Observable {
         route1.setDoubleRoute(true);
         route1.setSisterRoute(route2);
         route2.setDoubleRoute(true);
-        route2.setSisterRoute(route2);
+        route2.setSisterRoute(route1);
         routes.add(route1);
         routes.add(route2);
 
@@ -559,7 +559,7 @@ public class ClientGameModel extends Observable {
         route1.setDoubleRoute(true);
         route1.setSisterRoute(route2);
         route2.setDoubleRoute(true);
-        route2.setSisterRoute(route2);
+        route2.setSisterRoute(route1);
         routes.add(route1);
         routes.add(route2);
 
@@ -571,7 +571,7 @@ public class ClientGameModel extends Observable {
         route1.setDoubleRoute(true);
         route1.setSisterRoute(route2);
         route2.setDoubleRoute(true);
-        route2.setSisterRoute(route2);
+        route2.setSisterRoute(route1);
         routes.add(route1);
         routes.add(route2);
 
@@ -581,7 +581,7 @@ public class ClientGameModel extends Observable {
         route1.setDoubleRoute(true);
         route1.setSisterRoute(route2);
         route2.setDoubleRoute(true);
-        route2.setSisterRoute(route2);
+        route2.setSisterRoute(route1);
         routes.add(route1);
         routes.add(route2);
 
@@ -591,7 +591,7 @@ public class ClientGameModel extends Observable {
         route1.setDoubleRoute(true);
         route1.setSisterRoute(route2);
         route2.setDoubleRoute(true);
-        route2.setSisterRoute(route2);
+        route2.setSisterRoute(route1);
         routes.add(route1);
         routes.add(route2);
 
@@ -604,7 +604,7 @@ public class ClientGameModel extends Observable {
         route1.setDoubleRoute(true);
         route1.setSisterRoute(route2);
         route2.setDoubleRoute(true);
-        route2.setSisterRoute(route2);
+        route2.setSisterRoute(route1);
         routes.add(route1);
         routes.add(route2);
 
@@ -685,6 +685,15 @@ public class ClientGameModel extends Observable {
         }
         if(!route.isClaimable()){
             return "route already claimed";
+        }
+        if (route.isDoubleRoute()) {
+            if (!route.getSisterRoute().isClaimable()) {
+                if (playerSummaryMap.keySet().size() < 4) {
+                    return "You don't have enough players to use double routes.";
+                } else if (route.getSisterRoute().getOwnerColor().toString().equals(user.getColor().toString())) {
+                    return "You already have the other half of this route!";
+                }
+            }
         }
         if(user.getTrainsRemaining() < route.getLength()){
             return "Not enough Train Pieces! Cannot claim route!";
