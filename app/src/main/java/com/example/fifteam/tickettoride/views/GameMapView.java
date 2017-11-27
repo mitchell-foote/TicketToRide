@@ -379,8 +379,6 @@ public class GameMapView extends SupportMapFragment implements OnMapReadyCallbac
                 if (p.isClickable()) {
                     p.setFillColor(getColorInt(claimedRoute.getOwnerColor()));
                     p.setClickable(false);
-                    presenter.addToPlayerScore(claimedRoute.getPoints());
-                    presenter.subtractPlayerTrains(claimedRoute.getLength());
                 }
             }
         }
