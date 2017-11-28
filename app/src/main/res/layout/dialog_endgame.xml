@@ -1,45 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     android:padding="20dp"
     android:orientation="vertical">
 
     <TextView
+        android:id="@+id/endgame_gameOver"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAlignment="center"
         android:text="Game Over!"
         android:textAppearance="@android:style/TextAppearance.Material.Title" />
 
+    <ImageView
+        android:id="@+id/endgame_star1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/endgame_gameOver"
+        android:src="@android:drawable/btn_star_big_on" />
+
     <TextView
         android:id="@+id/endgame_1st"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/endgame_star1"
+        android:layout_alignBottom="@id/endgame_star1"
         android:text="(no player)" />
+
+    <ImageView
+        android:id="@+id/endgame_star2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/endgame_star1"
+        android:src="@android:drawable/btn_star_big_on" />
 
     <TextView
         android:id="@+id/endgame_2nd"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/endgame_star2"
+        android:layout_toEndOf="@id/endgame_star2"
         android:text="(no player)" />
+
+    <ImageView
+        android:id="@+id/endgame_star3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/endgame_star2"
+        android:src="@android:drawable/btn_star_big_on" />
 
     <TextView
         android:id="@+id/endgame_3rd"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/endgame_star3"
+        android:layout_toEndOf="@id/endgame_star3"
         android:text="(no player)" />
+
+    <ImageView
+        android:id="@+id/endgame_star4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/endgame_star3"
+        android:src="@android:drawable/btn_star_big_on" />
 
     <TextView
         android:id="@+id/endgame_4th"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/endgame_star4"
+        android:layout_toEndOf="@id/endgame_star4"
         android:text="(no player)" />
+
+    <ImageView
+        android:id="@+id/endgame_star5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/endgame_star4"
+        android:src="@android:drawable/btn_star_big_on" />
 
     <TextView
         android:id="@+id/endgame_5th"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/endgame_star5"
+        android:layout_toEndOf="@+id/endgame_star5"
         android:text="(no player)" />
 
-</LinearLayout>
+    <TextView
+        android:id="@+id/endgame_longestRoute"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:paddingTop="10dp"
+        android:text="Owner of the Longest Route: " />
+
+</RelativeLayout>
