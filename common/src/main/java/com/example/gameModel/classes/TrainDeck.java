@@ -106,4 +106,18 @@ public class TrainDeck
         }
         return false;
     }
+
+    public void replaceFaceUpCards(Set<String> newFaceUpPile, boolean isFirstFive) {
+        if (isFirstFive) {
+            for (String s : FaceUpPile) {
+                DrawPile.add(s);
+            }
+        } else {
+            for (String s : FaceUpPile) {
+                DiscardPile.add(s);
+            }
+        }
+
+        FaceUpPile = newFaceUpPile;
+    }
 }
