@@ -16,10 +16,13 @@ public class LongestTrainRouteSwitchClientCommandData implements IClientCommandD
     public String Username;
     public String LongestLength;
     public String Uuid;
+    public String className;
+    public LongestTrainRouteSwitchClientCommandData(){}
     public LongestTrainRouteSwitchClientCommandData(String username, String longestLength){
         this.Username = username;
         this.LongestLength = longestLength;
         this.Uuid = UUID.randomUUID().toString();
+        this.className = this.getClass().getName();
     }
     @Override
     public String getCommandHash()
@@ -31,5 +34,10 @@ public class LongestTrainRouteSwitchClientCommandData implements IClientCommandD
     public IGameCommand makeFullCommandObject(IClientCommandAccessor accessor)
     {
         return new LongestTrainRouteSwitchClientCommand(accessor, this);
+    }
+    @Override
+    public String getClassType()
+    {
+        return this.getClass().getName();
     }
 }

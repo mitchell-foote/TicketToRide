@@ -18,10 +18,13 @@ public class AddDestinationCardClientCommandData implements IClientCommandData
     public String Username;
     public String[] CardIds = new String[3];
     public String DateString;
+    public String className;
+    public AddDestinationCardClientCommandData(){};
     public AddDestinationCardClientCommandData(String username, String[] cardId){
         this.Username = username;
         this.CardIds = cardId;
         this.DateString = UUID.randomUUID().toString();
+        this.className = this.getClass().getName();
     }
     @Override
     public String getCommandHash()
@@ -33,5 +36,11 @@ public class AddDestinationCardClientCommandData implements IClientCommandData
     public IGameCommand makeFullCommandObject(IClientCommandAccessor accessor)
     {
         return new AddDestinationCardClientCommand(accessor, this);
+    }
+
+    @Override
+    public String getClassType()
+    {
+        return this.getClass().getName();
     }
 }

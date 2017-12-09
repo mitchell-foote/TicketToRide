@@ -16,9 +16,12 @@ public class NextTurnClientCommandData implements IClientCommandData
 {
     public String Username;
     public String DateString;
+    public String className;
+    public NextTurnClientCommandData(){}
     public NextTurnClientCommandData(String username){
         this.Username = username;
         DateString = UUID.randomUUID().toString();
+        this.className = this.getClass().getName();
     }
     @Override
     public String getCommandHash()
@@ -30,5 +33,10 @@ public class NextTurnClientCommandData implements IClientCommandData
     public IGameCommand makeFullCommandObject(IClientCommandAccessor accessor)
     {
         return new NextTurnClientCommand(accessor, this);
+    }
+    @Override
+    public String getClassType()
+    {
+        return this.getClass().getName();
     }
 }

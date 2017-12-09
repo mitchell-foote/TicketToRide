@@ -18,11 +18,14 @@ public class ClaimRouteClientCommandData implements IClientCommandData
     public String Username;
     public String DateString;
     public SharedColor Color;
+    public String className;
+    public ClaimRouteClientCommandData(){}
     public ClaimRouteClientCommandData(String routeId, String username, SharedColor color){
         this.RouteId = routeId;
         this.Username = username;
         this.DateString = UUID.randomUUID().toString();
         this.Color = color;
+        this.className = this.getClass().getName();
     }
     @Override
     public String getCommandHash()
@@ -34,5 +37,11 @@ public class ClaimRouteClientCommandData implements IClientCommandData
     public IGameCommand makeFullCommandObject(IClientCommandAccessor accessor)
     {
         return new ClaimRouteClientCommand(accessor, this);
+    }
+
+    @Override
+    public String getClassType()
+    {
+        return this.getClass().getName();
     }
 }

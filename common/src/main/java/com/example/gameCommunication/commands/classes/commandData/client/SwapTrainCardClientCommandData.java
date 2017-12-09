@@ -17,11 +17,13 @@ public class SwapTrainCardClientCommandData implements IClientCommandData
     public String Username;
     public String OldTrainCard;
     public String NewTrainCard;
+    public String className;
     public SwapTrainCardClientCommandData(String username, String oldTrainCard, String newTrainCard){
         this.DateString = UUID.randomUUID().toString();
         this.Username = username;
         this.OldTrainCard = oldTrainCard;
         this.NewTrainCard = newTrainCard;
+        this.className = this.getClass().getName();
     }
     @Override
     public String getCommandHash()
@@ -33,5 +35,10 @@ public class SwapTrainCardClientCommandData implements IClientCommandData
     public IGameCommand makeFullCommandObject(IClientCommandAccessor accessor)
     {
         return new SwapTrainCardClientCommand(accessor, this);
+    }
+    @Override
+    public String getClassType()
+    {
+        return this.getClass().getName();
     }
 }

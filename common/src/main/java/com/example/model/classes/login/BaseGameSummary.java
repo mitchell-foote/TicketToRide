@@ -16,7 +16,7 @@ public class BaseGameSummary
     private String id;
     private String ownerUsername;
     private String gameName;
-    private Map<String, SharedColor> players;
+    public Map<String, SharedColor> players;
     private Boolean started;
     private String fullGameId;
 

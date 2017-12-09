@@ -10,4 +10,5 @@ public interface ICommandData
 {
     String getCommandHash();
     IGameCommand makeFullCommandObject(IGameAccessor accessor);
+
 }

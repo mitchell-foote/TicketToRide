@@ -15,9 +15,12 @@ public class LastRoundClientCommandData implements IClientCommandData
 {
     public String Username;
     public String Uuid;
+    public String className;
+    public LastRoundClientCommandData(){}
     public LastRoundClientCommandData(String username){
         this.Username = username;
         this.Uuid = UUID.randomUUID().toString();
+        this.className = this.getClass().getName();
     }
     @Override
     public String getCommandHash()
@@ -29,5 +32,10 @@ public class LastRoundClientCommandData implements IClientCommandData
     public IGameCommand makeFullCommandObject(IClientCommandAccessor accessor)
     {
         return new LastRoundClientCommand(accessor, this);
+    }
+    @Override
+    public String getClassType()
+    {
+        return this.getClass().getName();
     }
 }

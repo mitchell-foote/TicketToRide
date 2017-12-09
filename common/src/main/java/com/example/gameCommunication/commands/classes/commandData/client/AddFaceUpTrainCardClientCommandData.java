@@ -18,11 +18,14 @@ public class AddFaceUpTrainCardClientCommandData implements IClientCommandData
     public String CardId;
     public String NewCardId;
     public String DateString;
+    public String className;
+    public AddFaceUpTrainCardClientCommandData(){}
     public AddFaceUpTrainCardClientCommandData(String username, String cardId, String newCardId){
         this.Username = username;
         this.CardId = cardId;
         this.NewCardId = newCardId;
         this.DateString = UUID.randomUUID().toString();
+        this.className = this.getClass().getName();
     }
     @Override
     public String getCommandHash()
@@ -34,5 +37,11 @@ public class AddFaceUpTrainCardClientCommandData implements IClientCommandData
     public IGameCommand makeFullCommandObject(IClientCommandAccessor accessor)
     {
         return new AddFaceUpTrainCardClientCommand(accessor, this);
+    }
+
+    @Override
+    public String getClassType()
+    {
+        return this.getClass().getName();
     }
 }

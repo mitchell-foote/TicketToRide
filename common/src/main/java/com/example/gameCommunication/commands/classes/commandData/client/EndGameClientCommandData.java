@@ -16,9 +16,12 @@ public class EndGameClientCommandData implements IClientCommandData
 {
     public PlayerScoreContainer[] FinalScores;
     public String Uuid;
+    public String className;
+    public EndGameClientCommandData(){}
     public EndGameClientCommandData(PlayerScoreContainer[] finalScores){
         this.FinalScores = finalScores;
         this.Uuid = UUID.randomUUID().toString();
+        this.className = this.getClass().getName();
     }
     @Override
     public String getCommandHash()
@@ -30,5 +33,11 @@ public class EndGameClientCommandData implements IClientCommandData
     public IGameCommand makeFullCommandObject(IClientCommandAccessor accessor)
     {
         return new EndGameClientCommand(accessor, this);
+    }
+
+    @Override
+    public String getClassType()
+    {
+        return this.getClass().getName();
     }
 }

@@ -1,5 +1,6 @@
 package com.example.gameCommunication.commands.classes.commandData.client;
 
+import com.example.gameCommunication.commands.classes.commandData.server.PostMessageCommandData;
 import com.example.gameCommunication.commands.classes.fullCommands.client.PostMessageClientCommand;
 import com.example.gameCommunication.commands.interfaces.IClientCommandData;
 import com.example.gameCommunication.commands.interfaces.IGameCommand;
@@ -17,10 +18,13 @@ public class PostMessageClientCommandData implements IClientCommandData
     public String Message;
     public String Username;
     public String DateString;
+    public String className;
+    public PostMessageClientCommandData(){};
     public PostMessageClientCommandData(String message, String username){
         this.Message = message;
         this.Username = username;
         this.DateString = UUID.randomUUID().toString();
+        this.className = this.getClass().getName();
     }
     @Override
     public String getCommandHash()
@@ -32,5 +36,10 @@ public class PostMessageClientCommandData implements IClientCommandData
     public IGameCommand makeFullCommandObject(IClientCommandAccessor accessor)
     {
         return new PostMessageClientCommand(accessor, this);
+    }
+    @Override
+    public String getClassType()
+    {
+        return this.getClass().getName();
     }
 }
