@@ -80,7 +80,7 @@ public class TrainDeck
     public void shuffleFaceUpPile() {
         System.out.println("shuffling face up pile");
         for (String s : FaceUpPile) {
-            DiscardPile.add(s);
+            DrawPile.add(s);
         }
         FaceUpPile = new HashSet<>();
         for (int i = 0; i < 5; i++) {
@@ -107,17 +107,18 @@ public class TrainDeck
         return false;
     }
 
-    public void replaceFaceUpCards(Set<String> newFaceUpPile, boolean isFirstFive) {
-        if (isFirstFive) {
-            for (String s : FaceUpPile) {
-                DrawPile.add(s);
-            }
-        } else {
-            for (String s : FaceUpPile) {
-                DiscardPile.add(s);
-            }
+    public void replaceFaceUpCards(Set<String> newFaceUpPile) {
+        for (String s : FaceUpPile) {
+            DrawPile.add(s);
         }
 
-        FaceUpPile = newFaceUpPile;
+        FaceUpPile.clear();
+        FaceUpPile.addAll(newFaceUpPile);
+    }
+
+    public void swapSingleFaceUpCard(String oldCardId, String newCardId) {
+        FaceUpPile.remove(oldCardId);
+        FaceUpPile.add(newCardId);
+        removeCardById(newCardId);
     }
 }

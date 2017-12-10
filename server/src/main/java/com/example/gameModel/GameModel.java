@@ -165,6 +165,18 @@ public class GameModel {
         return randomDesCardId;
     }
 
+    public void addSpecificDestinationCard(Player player, String cardId) {
+        PlayerInfo hand = playerInfo.get(player);
+        hand.addDestinationCard(cardId);
+        desDeck.removeCardById(cardId);
+    }
+
+    public void addSpecificTrainCard(Player player, String cardId) {
+        PlayerInfo hand = playerInfo.get(player);
+        hand.addTrainCard(cardId);
+        trainDeck.removeCardById(cardId);
+    }
+
     public String selectFaceUpTrainCard(Player player, String cardId) {
         PlayerInfo hand = playerInfo.get(player);
         String replacementCard = trainDeck.drawFaceUpCard(cardId);
@@ -248,4 +260,17 @@ public class GameModel {
         trainDeck.shuffleFaceUpPile();
     }
 
+    public String getGameId() {
+        return gameId;
+    }
+
+    public void replaceFiveFaceUpCards(Set<String> newFaceUpPile) {
+        trainDeck.replaceFaceUpCards(newFaceUpPile);
+    }
+
+    public void replayAddFaceUpCard(Player player, String oldCardId, String newCardId) {
+        PlayerInfo playerHand = playerInfo.get(player);
+        playerHand.addTrainCard(oldCardId);
+        trainDeck.swapSingleFaceUpCard(oldCardId, newCardId);
+    }
 }
