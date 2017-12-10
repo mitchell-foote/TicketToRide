@@ -1,1 +1,1 @@
-include ':app', ':server', ':common', ':jsonpersistance'
+include ':app', ':server', ':common', ':jsonpersistance', ':relationaldb'

@@ -6,6 +6,8 @@
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/common/common.iml" filepath="$PROJECT_DIR$/common/common.iml" />
       <module fileurl="file://$PROJECT_DIR$/jsonpersistance/jsonpersistance.iml" filepath="$PROJECT_DIR$/jsonpersistance/jsonpersistance.iml" />
+      <module fileurl="file://$PROJECT_DIR$/jsonpersistance/jsonpersistance.iml" filepath="$PROJECT_DIR$/jsonpersistance/jsonpersistance.iml" />
+      <module fileurl="file://$PROJECT_DIR$/relationaldb/relationaldb.iml" filepath="$PROJECT_DIR$/relationaldb/relationaldb.iml" />
       <module fileurl="file://$PROJECT_DIR$/server/server.iml" filepath="$PROJECT_DIR$/server/server.iml" />
     </modules>
   </component>
