@@ -47,8 +47,8 @@ public class ServerModel {
         fullGames = new HashMap<>();
 
         dtb = new JsonPersistanceManagement(); //hardcoded for testing
-        dtb.wipeThemOut_AllOfThem();
-        saveFrequency = 5; //hardcoded for testing
+        //dtb.wipeThemOut_AllOfThem();
+        saveFrequency = 1; //hardcoded for testing
     }
 
     public static ServerModel instance() {
