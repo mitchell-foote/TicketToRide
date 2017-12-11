@@ -45,10 +45,6 @@ public class ServerModel {
         authTable = new HashMap<>();
         usernameTable = new HashMap<>();
         fullGames = new HashMap<>();
-
-        dtb = new JsonPersistanceManagement(); //hardcoded for testing
-        //dtb.wipeThemOut_AllOfThem();
-        saveFrequency = 1; //hardcoded for testing
     }
 
     public static ServerModel instance() {
@@ -184,8 +180,16 @@ public class ServerModel {
         return dtb;
     }
 
+    public void setDtb(IPersistanceManagerObject dtb) {
+        this.dtb = dtb;
+    }
+
     public int getSaveFrequency() {
         return saveFrequency;
+    }
+
+    public void setSaveFrequency(int saveFrequency) {
+        this.saveFrequency = saveFrequency;
     }
 
     public void loadUseInfo() {
