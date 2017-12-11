@@ -157,6 +157,20 @@ public class JsonPersistanceManagement implements IPersistanceManagerObject
     }
 
     @Override
+    public String removeBaseGame(BaseGameSummary summary)
+    {
+        try{
+            model.baseGameList.remove(summary);
+        }
+        catch(Exception e)
+        {
+            return e.toString();
+        }
+
+        return null;
+    }
+
+    @Override
     public Void wipeThemOut_AllOfThem()
     {
         model = new JsonPersistanceModel();
