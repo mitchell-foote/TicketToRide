@@ -12,10 +12,6 @@ import com.example.gameCommunication.commands.classes.commandData.client.NextTur
 import com.example.gameCommunication.commands.classes.commandData.client.PostMessageClientCommandData;
 import com.example.gameCommunication.commands.classes.commandData.client.ReturnDestinationCardClientCommandData;
 import com.example.gameCommunication.commands.classes.commandData.client.SetupTrainCardsClientCommandData;
-import com.example.gameCommunication.commands.classes.fullCommands.client.AddDestinationCardClientCommand;
-import com.example.gameCommunication.commands.classes.fullCommands.client.LastRoundClientCommand;
-import com.example.gameCommunication.commands.classes.fullCommands.client.PostMessageClientCommand;
-import com.example.gameCommunication.commands.classes.fullCommands.client.SetupTrainCardsClientCommand;
 import com.example.gameCommunication.commands.enums.CommandTypesEnum;
 import com.example.gameCommunication.commands.interfaces.IClientCommandData;
 import com.example.gameModel.GameFacade;
@@ -44,6 +40,9 @@ public class GameRebuilder {
     public static GameModel reconstructGame(BaseGameSummary baseGame, List<IClientCommandData> commands) {
 
         GameModel rebuiltGame = new GameModel(baseGame.getFullGameId(), baseGame.getPlayers());
+        serverModel.addFullGame(rebuiltGame);
+
+        rebuiltGame.setRebuilding(true);
 
 
         for (int i = 0; i < commands.size(); i++) {
@@ -94,6 +93,8 @@ public class GameRebuilder {
                 setupTrainCards(rebuiltGame, nextCommand);
             }
         }
+
+        rebuiltGame.setRebuilding(false);
 
         return rebuiltGame;
     }

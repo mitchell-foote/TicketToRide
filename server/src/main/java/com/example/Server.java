@@ -8,6 +8,7 @@ import com.example.handler.InGameCommandHandler;
 import com.example.handler.LoginHandler;
 import com.example.handler.RegisterHandler;
 import com.example.handler.StartGameHandler;
+import com.example.model.ServerModel;
 import com.sun.net.httpserver.HttpServer;
 
 import java.io.IOException;
@@ -18,6 +19,9 @@ public class Server {
     private HttpServer mServer;
     private static final int MAX_WAITING_CONNECTIONS = 12;
     private void run(String portNumber){
+        ServerModel.instance().loadUseInfo();
+        ServerModel.instance().loadGames();
+
         System.out.println("Initializing HTTP Server");
         try{
             mServer = HttpServer.create(new InetSocketAddress(Integer.parseInt(portNumber)),MAX_WAITING_CONNECTIONS);

@@ -12,11 +12,15 @@ import java.util.UUID;
 import com.example.Exceptions.FailedJoinException;
 import com.example.Exceptions.FailedLeaveException;
 import com.example.Exceptions.FailedLoginException;
+import com.example.JsonPersistanceManagement;
+import com.example.gameCommunication.commands.interfaces.IClientCommandData;
 import com.example.gameModel.GameModel;
 import com.example.model.classes.login.BaseGameSummary;
 import com.example.model.classes.users.Player;
 import com.example.model.classes.users.User;
 import com.example.model.enums.SharedColor;
+import com.example.persistance.GameRebuilder;
+import com.example.persistance.pluginInterfaces.IPersistanceManagerObject;
 
 /**
  * Created by ninjup on 9/24/17.
@@ -24,7 +28,7 @@ import com.example.model.enums.SharedColor;
 
 public class ServerModel {
 
-    private static ServerModel _instance = new ServerModel();
+    private static final ServerModel _instance = new ServerModel();
 
     private Map<String, BaseGameSummary> games;
     private Set<User> users;
@@ -32,12 +36,19 @@ public class ServerModel {
     private Map<String, User> usernameTable;
     private Map<String, GameModel> fullGames;
 
+    private IPersistanceManagerObject dtb;
+    private int saveFrequency;
+
     private ServerModel() {
         games = new HashMap<>();
         users = new HashSet<>();
         authTable = new HashMap<>();
         usernameTable = new HashMap<>();
         fullGames = new HashMap<>();
+
+        dtb = new JsonPersistanceManagement(); //hardcoded for testing
+        dtb.wipeThemOut_AllOfThem();
+        saveFrequency = 5; //hardcoded for testing
     }
 
     public static ServerModel instance() {
@@ -50,6 +61,8 @@ public class ServerModel {
         if (users.add(newUser)) {
             authTable.put(authToken, newUser);
             usernameTable.put(name, newUser);
+            dtb.putUser(newUser);
+
             return authToken;
         }
         return null;
@@ -61,10 +74,11 @@ public class ServerModel {
         players.put(owner.getName(), userColor);
         BaseGameSummary newGame = new BaseGameSummary(gameId, owner.getName(), gameName, players);
         games.put(gameId, newGame);
+        dtb.putBaseGameSummary(newGame);
         return gameId;
     }
 
-    public boolean deleteUser(User user) {
+    public boolean deleteUser(User user) { //This never actually happens
         boolean successfullyRemoved = users.remove(user);
         if (successfullyRemoved) {
             authTable.remove(user.getAuthToken());
@@ -164,5 +178,37 @@ public class ServerModel {
 
     public GameModel findFullGameById(String gameId) {
         return fullGames.get(gameId);
+    }
+
+    public IPersistanceManagerObject getDtb() {
+        return dtb;
+    }
+
+    public int getSaveFrequency() {
+        return saveFrequency;
+    }
+
+    public void loadUseInfo() {
+        users.addAll(dtb.getUsers());
+
+        for (User U : users) {
+            authTable.put(U.getAuthToken(), U);
+            usernameTable.put(U.getName(), U);
+        }
+
+    }
+
+    public void loadGames() {
+        List<BaseGameSummary> baseGames = dtb.getBaseGames();
+        for (BaseGameSummary baseGame : baseGames) {
+            List<IClientCommandData> commands = dtb.getCommandList(baseGame.getFullGameId());
+            GameModel fullGame = GameRebuilder.reconstructGame(baseGame, commands);
+            //fullGames.put(fullGame.getGameId(), fullGame);
+            games.put(baseGame.getId(), baseGame);
+        }
+    }
+
+    public void addFullGame(GameModel game) {
+        fullGames.put(game.getGameId(), game);
     }
 }

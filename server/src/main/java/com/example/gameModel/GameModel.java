@@ -14,6 +14,7 @@ import com.example.model.RouteManager;
 import com.example.model.ServerModel;
 import com.example.model.classes.users.Player;
 import com.example.model.enums.SharedColor;
+import com.example.persistance.pluginInterfaces.IPersistanceManagerObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -37,6 +38,7 @@ public class GameModel {
 
     private List<IClientCommandData> commands;
     private List<CommandTypesEnum> correspondingCommTypes;
+    private List<IClientCommandData> unsavedClientCommands;
     private RouteManager routeManager;
 
     private boolean longestTrainSwitched = false;
@@ -44,6 +46,10 @@ public class GameModel {
 
     private boolean finalTurnStarted = false;
     private String playerWhoGoesLast = null;
+
+    private IPersistanceManagerObject dtb;
+    private int saveFrequency;
+    private boolean isRebuilding = false;
 
     public GameModel(String gameId, Map<String, SharedColor> players) {
         this.gameId = gameId;
@@ -61,7 +67,11 @@ public class GameModel {
         trainDeck = new TrainDeck();
         commands = new ArrayList<>();
         correspondingCommTypes = new ArrayList<>();
+        unsavedClientCommands = new ArrayList<>();
         routeManager = new RouteManager(orderedPlayers);
+
+        dtb = ServerModel.instance().getDtb();
+        saveFrequency = 1;
     }
 
     public PlayerScoreContainer[] calculateScore() {
@@ -83,6 +93,22 @@ public class GameModel {
     public void addCommand(IClientCommandData command, CommandTypesEnum type) {
         commands.add(command);
         correspondingCommTypes.add(type);
+
+        if (type == CommandTypesEnum.NextOrEndTurn) { //Every command is saved until the first endTurn. Then the server only saves by frequency.
+            saveFrequency = ServerModel.instance().getSaveFrequency();
+        }
+
+        if (isRebuilding){
+            return;
+        }
+
+        unsavedClientCommands.add(command);
+        if (unsavedClientCommands.size() >= saveFrequency) {
+            for (int i = 0; i < unsavedClientCommands.size(); i++) {
+                dtb.putCommand(unsavedClientCommands.get(i), gameId);
+            }
+            unsavedClientCommands = new ArrayList<>();
+        }
     }
 
     public List<CommandContainer> getCommandsFromHash(String lastHash) {
@@ -272,5 +298,13 @@ public class GameModel {
         PlayerInfo playerHand = playerInfo.get(player);
         playerHand.addTrainCard(oldCardId);
         trainDeck.swapSingleFaceUpCard(oldCardId, newCardId);
+    }
+
+    public boolean isRebuilding() {
+        return isRebuilding;
+    }
+
+    public void setRebuilding(boolean rebuilding) {
+        isRebuilding = rebuilding;
     }
 }
