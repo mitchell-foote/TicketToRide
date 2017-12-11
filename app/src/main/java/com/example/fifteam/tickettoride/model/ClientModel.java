@@ -114,6 +114,11 @@ public class ClientModel extends Observable {
         if(gamesList != null) {
             for (BaseGameSummary i : gamesList) {
                 gamesMap.put(i.getId(), i);
+                String currUserName = this.user.getName();
+                Map<String, SharedColor> players = i.getPlayers();
+                if(players.get(currUserName) != null){
+                    gameToJoin = i.getId();
+                }
             }
         }
         if(currentGame != null){

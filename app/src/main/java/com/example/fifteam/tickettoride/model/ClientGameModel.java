@@ -68,6 +68,8 @@ public class ClientGameModel extends Observable {
     private boolean turnChoiceDialogCurrentlyDisplayed;
     private boolean waitingForCardUpdate;
 
+    private boolean shouldIToast;
+
     private ClientGameModel(){
         this.nextTurn = null;
         this.playerSummaryMap = new HashMap<>();
@@ -88,6 +90,7 @@ public class ClientGameModel extends Observable {
         firstTurn = true;
         currentlySelectedRoute = null;
         waitingForCardUpdate = true;
+        shouldIToast = true;
     }
 
     public boolean isRunningAsync() {
@@ -756,8 +759,19 @@ public class ClientGameModel extends Observable {
 
         setChanged();
         notifyObservers();
-        new GamePollerAsyncTask().execute();
 
+        this.setShouldIToast(false);
+        new GamePollerAsyncTask().execute();
+        setChanged();
+        notifyObservers();
+    }
+
+    public boolean ShouldIToast() {
+        return shouldIToast;
+    }
+
+    public void setShouldIToast(boolean shouldIToast) {
+        this.shouldIToast = shouldIToast;
     }
 
     public void setToaster(Toaster toaster){
@@ -765,7 +779,9 @@ public class ClientGameModel extends Observable {
     }
 
     private void toast(String toToast){
-        this.toaster.displayMessage(toToast);
+        if(this.ShouldIToast()) {
+            this.toaster.displayMessage(toToast);
+        }
     }
 
     public void endGame(){

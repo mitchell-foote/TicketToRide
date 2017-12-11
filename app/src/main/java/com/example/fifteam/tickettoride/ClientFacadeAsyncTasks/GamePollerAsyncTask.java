@@ -22,8 +22,8 @@ public class GamePollerAsyncTask extends AsyncTask<Void,Void,List<CommandContain
     protected List<CommandContainer> doInBackground(Void... voids) {
         GameServerProxy proxy = new GameServerProxy();
         ClientGameModel model = ClientGameModel.getInstance();
-        while(model.isRunningAsync()){
-            SystemClock.sleep(250);
+        if(!ClientGameModel.getInstance().ShouldIToast()){
+            SystemClock.sleep(500);
 
         }
         SystemClock.sleep(500);
@@ -41,9 +41,9 @@ public class GamePollerAsyncTask extends AsyncTask<Void,Void,List<CommandContain
             ClientCommandRunner runner = new ClientCommandRunner(facade);
             runner.runCommandsFromContainer(commandContainers);
         }
-        while(ClientGameModel.getInstance().isRunningAsync()) {
-
+        if(!ClientGameModel.getInstance().ShouldIToast()){
+            ClientGameModel.getInstance().setShouldIToast(true);
         }
-            new GamePollerAsyncTask().execute();
+        new GamePollerAsyncTask().execute();
     }
 }
