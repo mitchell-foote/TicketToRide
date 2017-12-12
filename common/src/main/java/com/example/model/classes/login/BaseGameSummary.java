@@ -53,6 +53,10 @@ public class BaseGameSummary
         this.gameName = gameName;
     }
 
+    public void setFullGameId(String fullGameId) {
+        this.fullGameId = fullGameId;
+    }
+
     public Map<String, SharedColor> getPlayers() {
         return players;
     }
