@@ -25,10 +25,6 @@ public class Server {
         PersistanceLaunchPad launchPad = new PersistanceLaunchPad();
         IPersistanceManagerObject dtb = launchPad.initPlugin(plugin);
 
-        if (dtb == null) {
-            dtb = new JsonPersistanceManagement();
-        } 
-
         ServerModel.instance().setDtb(dtb);
         ServerModel.instance().setSaveFrequency(checkpointSize);
         ServerModel.instance().loadUseInfo();

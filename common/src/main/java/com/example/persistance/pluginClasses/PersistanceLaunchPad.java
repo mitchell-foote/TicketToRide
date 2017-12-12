@@ -39,7 +39,7 @@ public class PersistanceLaunchPad
             if (jarPath == null) {
                 return null;
             } else {
-                URL[] classLoaderUrls = new URL[]{new URL("file:///" + jarPath)};
+                URL[] classLoaderUrls = new URL[]{new URL("file:///server/libs" + jarPath)};
                 URLClassLoader urlClassLoader = new URLClassLoader(classLoaderUrls);
 
                 Class<?> dtbClass = urlClassLoader.loadClass(className);
@@ -48,7 +48,7 @@ public class PersistanceLaunchPad
             }
         }
         catch (Exception e){
-            System.out.println(e.getMessage());
+            System.out.println("error message: " + e.getMessage());
             return null;
         }
     }

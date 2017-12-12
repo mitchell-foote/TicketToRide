@@ -12,5 +12,6 @@ dependencies {
     compile project(':common')
     compile files('libs/jgrapht-core-1.0.1.jar')
     compile files('libs/jgraphx-2.0.0.1.jar')
-    compile project(':jsonpersistance')
+    compile files('libs/jsonpersistance.jar')
+    compile files('libs/relationaldb.jar')
 }
