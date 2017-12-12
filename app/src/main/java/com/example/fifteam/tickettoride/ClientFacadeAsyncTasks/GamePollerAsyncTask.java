@@ -43,6 +43,7 @@ public class GamePollerAsyncTask extends AsyncTask<Void,Void,List<CommandContain
         }
         if(!ClientGameModel.getInstance().ShouldIToast()){
             ClientGameModel.getInstance().setShouldIToast(true);
+            ClientGameModel.getInstance().addListOfObservers();
         }
         new GamePollerAsyncTask().execute();
     }

@@ -69,6 +69,7 @@ public class ClientGameModel extends Observable {
     private boolean waitingForCardUpdate;
 
     private boolean shouldIToast;
+    List<Observer> observerHolder;
 
     private ClientGameModel(){
         this.nextTurn = null;
@@ -91,6 +92,7 @@ public class ClientGameModel extends Observable {
         currentlySelectedRoute = null;
         waitingForCardUpdate = true;
         shouldIToast = true;
+        observerHolder = new ArrayList<>();
     }
 
     public boolean isRunningAsync() {
@@ -113,12 +115,35 @@ public class ClientGameModel extends Observable {
 
     @Override
     public void addObserver(Observer toAdd){
-        super.addObserver(toAdd);
+        if(this.ShouldIToast()) {
+            super.addObserver(toAdd);
+        }
+        else{
+            this.observerHolder.add(toAdd);
+        }
     }
 
     public void removeObserver(Observer toRemove){
-        super.deleteObserver(toRemove);
+        if(this.shouldIToast) {
+            super.deleteObserver(toRemove);
+        }
+        else{
+            this.observerHolder.remove(toRemove);
+        }
 
+    }
+
+    public void addListOfObservers(){
+        for(Observer o : this.observerHolder){
+            this.addObserver(o);
+        }
+        if(!nextTurn.equals(userSummary.getName())){
+            this.pickTurnChoice = false;
+            this.isUserTurn = false;
+        }
+        this.toast("Player: " + this.nextTurn + " is up!");
+        setChanged();
+        notifyObservers();
     }
 
     public void addPlayer(PlayerGameSummary toAdd){
