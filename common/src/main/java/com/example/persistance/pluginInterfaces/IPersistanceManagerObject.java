@@ -18,5 +18,6 @@ public interface IPersistanceManagerObject
     String putUser(User user);
     String putBaseGameSummary(BaseGameSummary summary);
     String putCommand(IClientCommandData data, String gameId);
+    String removeBaseGame(BaseGameSummary summary);
     Void wipeThemOut_AllOfThem();
 }
