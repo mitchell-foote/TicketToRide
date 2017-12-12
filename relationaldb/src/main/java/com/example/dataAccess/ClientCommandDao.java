@@ -5,7 +5,6 @@ import com.example.gameCommunication.commands.classes.commandData.client.ClientC
 import com.example.gameCommunication.commands.interfaces.IClientCommandData;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.sun.corba.se.spi.activation.IIOP_CLEAR_TEXT;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

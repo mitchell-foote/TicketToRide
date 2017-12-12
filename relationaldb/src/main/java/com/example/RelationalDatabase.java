@@ -7,7 +7,6 @@ import com.example.gameCommunication.commands.interfaces.IClientCommandData;
 import com.example.model.classes.login.BaseGameSummary;
 import com.example.model.classes.users.User;
 import com.example.persistance.pluginInterfaces.IPersistanceManagerObject;
-import com.sun.security.ntlm.Client;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
