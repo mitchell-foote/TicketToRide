@@ -9,6 +9,8 @@ import com.example.handler.LoginHandler;
 import com.example.handler.RegisterHandler;
 import com.example.handler.StartGameHandler;
 import com.example.model.ServerModel;
+import com.example.persistance.pluginClasses.PersistanceLaunchPad;
+import com.example.persistance.pluginInterfaces.IPersistanceManagerObject;
 import com.sun.net.httpserver.HttpServer;
 
 import java.io.IOException;
@@ -20,7 +22,14 @@ public class Server {
     private HttpServer mServer;
     private static final int MAX_WAITING_CONNECTIONS = 12;
     private void run(String portNumber, String plugin, int checkpointSize){
-        ServerModel.instance().setDtb(new JsonPersistanceManagement());
+        PersistanceLaunchPad launchPad = new PersistanceLaunchPad();
+        IPersistanceManagerObject dtb = launchPad.initPlugin(plugin);
+
+/*        if (dtb == null) {
+            dtb = new JsonPersistanceManagement();
+        } */
+
+        ServerModel.instance().setDtb(dtb);
         ServerModel.instance().setSaveFrequency(checkpointSize);
         ServerModel.instance().loadUseInfo();
         ServerModel.instance().loadGames();
