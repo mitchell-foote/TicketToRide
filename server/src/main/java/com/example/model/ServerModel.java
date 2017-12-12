@@ -93,6 +93,8 @@ public class ServerModel {
         if (game != null) {
             try {
                 game.addPlayer(user, color);
+                dtb.removeBaseGame(game);
+                dtb.putBaseGameSummary(game);
                 return true;
             } catch (FailedJoinException e) {
                 throw e;
@@ -108,9 +110,12 @@ public class ServerModel {
             if (!successfullyRemoved) {
                 throw new FailedLeaveException("User not in game");
             } else {
+                dtb.removeBaseGame(game);
                 if (game.isEmpty()) {
                     deleteGame(gameId);
+                    return true;
                 }
+                dtb.putBaseGameSummary(game);
                 return true;
             }
         }
@@ -205,9 +210,11 @@ public class ServerModel {
     public void loadGames() {
         List<BaseGameSummary> baseGames = dtb.getBaseGames();
         for (BaseGameSummary baseGame : baseGames) {
-            List<IClientCommandData> commands = dtb.getCommandList(baseGame.getFullGameId());
-            GameModel fullGame = GameRebuilder.reconstructGame(baseGame, commands);
-            //fullGames.put(fullGame.getGameId(), fullGame);
+            if (baseGame.isStarted()) {
+                List<IClientCommandData> commands = dtb.getCommandList(baseGame.getFullGameId());
+                GameModel fullGame = GameRebuilder.reconstructGame(baseGame, commands);
+                //fullGames.put(fullGame.getGameId(), fullGame);
+            }
             games.put(baseGame.getId(), baseGame);
         }
     }
