@@ -49,6 +49,7 @@ public class GameModel {
 
     private IPersistanceManagerObject dtb;
     private int saveFrequency;
+    private int unsavedCommands = 0;
     private boolean isRebuilding = false;
 
     public GameModel(String gameId, Map<String, SharedColor> players) {
@@ -94,20 +95,23 @@ public class GameModel {
         commands.add(command);
         correspondingCommTypes.add(type);
 
-        if (type == CommandTypesEnum.NextOrEndTurn) { //Every command is saved until the first endTurn. Then the server only saves by frequency.
-            saveFrequency = ServerModel.instance().getSaveFrequency();
-        }
-
-        if (isRebuilding){
+        if (isRebuilding) {
             return;
         }
 
         unsavedClientCommands.add(command);
-        if (unsavedClientCommands.size() >= saveFrequency) {
+
+        if (type == CommandTypesEnum.NextOrEndTurn) { //Every command is saved until the first endTurn. Then the server only saves by frequency.
+            unsavedCommands++;
+        }
+
+        if (unsavedCommands >= saveFrequency) {
             for (int i = 0; i < unsavedClientCommands.size(); i++) {
                 dtb.putCommand(unsavedClientCommands.get(i), gameId);
             }
             unsavedClientCommands = new ArrayList<>();
+            unsavedCommands = 0;
+            saveFrequency = ServerModel.instance().getSaveFrequency();
         }
     }
 
