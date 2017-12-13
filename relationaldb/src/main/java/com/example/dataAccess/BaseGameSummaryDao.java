@@ -31,12 +31,17 @@ public class BaseGameSummaryDao {
         PreparedStatement stmt = null;
         try {
 
+            int started_int = 0;
+            if (gameSummary.isStarted()) {
+                started_int = 1;
+            }
+
             String sql = "insert into BaseGameSummaries (id, owner_username, game_name, started, full_game_id, player1_name, player1_color, player2_name, player2_color, player3_name, player3_color, player4_name, player4_color, player5_name, player5_color) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             stmt = connection.prepareStatement(sql);
             stmt.setString(1, gameSummary.getId());
             stmt.setString(2, gameSummary.getOwner());
             stmt.setString(3, gameSummary.getGameName());
-            stmt.setBoolean(4, gameSummary.isStarted());
+            stmt.setInt(4, started_int);
             stmt.setString(5, gameSummary.getFullGameId());
 
             Map<String, SharedColor> playerMap = gameSummary.getPlayers();
@@ -152,7 +157,7 @@ public class BaseGameSummaryDao {
                 String id = rs.getString("id");
                 String owner_username = rs.getString("owner_username");
                 String game_name = rs.getString("game_name");
-                boolean started = rs.getBoolean("started");
+                int started = rs.getInt("started");
                 String full_game_id = rs.getString("full_game_id");
                 String player1_name = rs.getString("player1_name");
                 String player1_color = rs.getString("player1_color");
@@ -184,7 +189,11 @@ public class BaseGameSummaryDao {
                 }
 
                 BaseGameSummary s = new BaseGameSummary(id, owner_username, game_name, playerMap);
-                s.setStarted(started);
+                if (started == 1) {
+                    s.setStarted(true);
+                } else {
+                    s.setStarted(false);
+                }
                 s.setFullGameId(full_game_id);
                 summaryList.add(s);
             }
