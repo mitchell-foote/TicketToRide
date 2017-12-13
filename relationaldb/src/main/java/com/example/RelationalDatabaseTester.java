@@ -21,6 +21,8 @@ public class RelationalDatabaseTester {
         RelationalDatabase db = new RelationalDatabase();
         db.wipeThemOut_AllOfThem();
 
+        /*
+
         User user = new User("TestUser", "password", "auth_token_here");
         db.putUser(user);
         List<User> userList = db.getUsers();
@@ -60,5 +62,7 @@ public class RelationalDatabaseTester {
         IClientCommandData data = new PostMessageClientCommandData("Hello", "TestUser");
         db.putCommand(data,"1");
         List<IClientCommandData> dataList = db.getCommandList("1");
+
+        */
     }
 }
