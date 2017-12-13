@@ -25,6 +25,11 @@ public class Server {
         PersistanceLaunchPad launchPad = new PersistanceLaunchPad();
         IPersistanceManagerObject dtb = launchPad.initPlugin(plugin);
 
+        if (checkpointSize == -1) {
+            dtb.wipeThemOut_AllOfThem();
+            return;
+        }
+
         ServerModel.instance().setDtb(dtb);
         ServerModel.instance().setSaveFrequency(checkpointSize);
         ServerModel.instance().loadUseInfo();
@@ -73,9 +78,13 @@ public class Server {
 
         int checkpointSize;
         try {
-            checkpointSize = Integer.parseInt(checkpointString);
-            if (checkpointSize < 1) {
-                checkpointSize = 1;
+            if (checkpointString.equals("clear")){
+                checkpointSize = -1;
+            } else {
+                checkpointSize = Integer.parseInt(checkpointString);
+                if (checkpointSize < 1) {
+                    checkpointSize = 1;
+                }
             }
         } catch (NumberFormatException e) {
             System.out.println("Valid checkpoint size not provided. Setting to 1");
