@@ -80,7 +80,7 @@ public class ClientCommandDao {
 
             rs = stmt.executeQuery();
             while (rs.next()) {
-                String command_data_string = rs.getString("command_data_string");
+                String command_data_string = rs.getString("command_data");
                 IClientCommandData command = special_gson.fromJson(command_data_string, IClientCommandData.class);
                 commandList.add(command);
             }
