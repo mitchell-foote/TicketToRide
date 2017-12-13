@@ -171,6 +171,8 @@ public class ServerModel {
             game.startGame();
             GameModel gameModel = new GameModel(game.getFullGameId(), game.getPlayers());
             fullGames.put(game.getFullGameId(), gameModel);
+            dtb.removeBaseGame(game);
+            dtb.putBaseGameSummary(game);
             return true;
         }
         return false;
